@@ -1,4 +1,4 @@
-package ElementdeJeu;
+package Acteur;
 
 public class Professeur extends Personne {
 	

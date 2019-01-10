@@ -1,4 +1,4 @@
-package ElementdeJeu;
+package Acteur;
 
 import java.util.Random;
 
@@ -59,7 +59,7 @@ public class Eleve extends Personne
 	
 
 	
-	// Setteur et getteur des attributs de la classe
+	// Setter et getter des attributs de la classe
 	
 	public int getPunition() 
 	{

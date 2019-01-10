@@ -1,4 +1,4 @@
-package ElementdeJeu;
+package Acteur;
 
 public abstract class Personne {
 	private int id;
