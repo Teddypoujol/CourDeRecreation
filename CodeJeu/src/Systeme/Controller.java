@@ -6,7 +6,6 @@ import java.util.Random;
 
 import Acteur.Eleve;
 import Acteur.Professeur;
-import Acteur.Personne;
 
 import Systeme.*;
 // test de merde
@@ -36,11 +35,11 @@ public class Controller
 	
 	/*
 	private List<ElementdeJeu> buffer;
-	private Grid grid;
+	
 	private Window window;
 	private Map map;
 	*/
-	
+	private Grille grid;
 	/*
 	 * nombres de professeurs et d'élèves dans le jeu
 	 */
@@ -95,22 +94,20 @@ public class Controller
 		return this.profenburnout;
 	}
 
-	/*
-	public Grid getGrid() 
+	
+	public Grille getGrille() 
 	{
-		return this.grid;
+		return this.grille;
 	}
-
-	public Window getWindow() 
+	/*public Window getWindow() 
 	{
 		return window;
 	}
-
 	public Map getMap() 
 	{
 		return map;
-	}
-	*/
+	}*/
+	
 	
 	/*
 	 * permet de verifier si l'interface est en cours d'utilisation par le controller

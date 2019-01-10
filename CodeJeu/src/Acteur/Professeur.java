@@ -1,15 +1,24 @@
 package Acteur;
 
-public class Professeur extends Personne {
+import java.awt.Graphics;
+import java.io.IOException;
+
+import Systeme.ElementdeJeu;
+
+public class Professeur extends ElementdeJeu {
 	
 	private int patience;
 	private int anciennete;
+	private String nom;
+	private int visibilite;
 	
-	public Professeur(int id, String nom, int visibilite, int patience, int anciennete) 
+	public Professeur(String nom, int visibilite, int patience, int anciennete, int x, int y) 
 	{
-		super(id, nom, visibilite);	
+		super(x, y);	
 		this.patience = patience;
 		this.anciennete = anciennete;
+		this.nom=nom;
+		this.visibilite=visibilite;
 	}
 	
 	public int verifPatience() {
@@ -44,5 +53,17 @@ public class Professeur extends Personne {
 	
 	public void addAnciennete() {
 		anciennete += 1;
+	}
+
+	@Override
+	public void display() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void draw(Graphics g, int x, int y) throws IOException {
+		// TODO Auto-generated method stub
+		
 	}
 }
