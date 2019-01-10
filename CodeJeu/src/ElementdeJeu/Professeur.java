@@ -1,12 +1,13 @@
-package Personne;
+package ElementdeJeu;
 
 public class Professeur extends Personne {
 	
 	private int patience;
 	private int anciennete;
 	
-	public Professeur(int id, String nom, int x, int y, int visibilite, int patience, int anciennete) {
-		super(id, nom , x, y, visibilite);	
+	public Professeur(int id, String nom, int visibilite, int patience, int anciennete) 
+	{
+		super(id, nom, visibilite);	
 		this.patience = patience;
 		this.anciennete = anciennete;
 	}

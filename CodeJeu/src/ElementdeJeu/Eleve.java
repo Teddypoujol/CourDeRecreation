@@ -1,4 +1,4 @@
-package Personne;
+package ElementdeJeu;
 
 import java.util.Random;
 
@@ -9,17 +9,20 @@ public class Eleve extends Personne
 	
 	// Constructeurs de Eleve
 	
-	public Eleve(int puni,int port)
+	public Eleve(int id, String nom, int visibilite,int puni,int port)
 	{
+		super(id, nom, visibilite);	
 		this.punition = puni;
 		this.portee = port;
 	}
-	
+	/*
 	public Eleve()
 	{
+		super(id, nom, visibilite);	
 		this.punition = 0;
 		this.portee = 3;
 	}
+	*/
 	
 	// Méthodes d'un éléve
 	
@@ -54,11 +57,7 @@ public class Eleve extends Personne
 		this.punition = this.punition+1;
 	}
 	
-	public void setPosition(int newx, int newy)
-	{
-		this.setPos_x(newx);
-		this.setPos_y(newy);	
-	}
+
 	
 	// Setteur et getteur des attributs de la classe
 	
