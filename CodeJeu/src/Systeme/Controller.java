@@ -8,6 +8,9 @@ import Acteur.Eleve;
 import Acteur.Professeur;
 import Acteur.Personne;
 
+import Systeme.*;
+
+
 public class Controller 
 {
 	/*
@@ -168,43 +171,46 @@ public class Controller
 	/**
 	 * Faire apparaitre un éléve sur la grille
 	 * 
-	 * @param type fait apparaitre un élève normal ou spécial (bagarreur / romantique)
 	 * @param li 	indice de ligne de la Grid ou faire apparaitre l'élève.
 	 * @param co 	indice de colonne de la Grid ou faire apparaitre l'élève.
 	 */
-	public void PlacerEleve(boolean type, int li, int co) 
+	public void PlacerEleve(int li, int co) 
 	{
-		if(0 <= li && li < Constants.getMapHeight() && 0 <= co && co < Constants.getMapWidth()) 
+		if(0 <= li && li < Constant.getMapHeight() && 0 <= co && co < Constant.getMapWidth()) 
 		{
 			Random rd = new Random();
 			Acteur.Eleve eleve;
-			if()
-			{
-				eleve = new Eleve();
-				this.eleves.add((Eleve)eleve);
-			}
-			
+			eleve = new Eleve();
+			this.eleves.add((Eleve)eleve);
 			this.grid.getCells()[li][co].setContent(eleve);
 		}	
 	}
 		
 	public void PlacerProfesseur(int li, int co) 
 	{
-		if(0 <= li && li < Constants.getMapHeight() && 0 <= co && co < Constants.getMapWidth()) 
+		if(0 <= li && li < Constant.getMapHeight() && 0 <= co && co < Constant.getMapWidth()) 
 		{
-			Random rd = new Random();
+			int rand = new Random().nextInt(3);
 			Professeur prof;
-			if()
-			{
-				prof = new prof();
-				this.professeurs.add((Professeur)prof);
-			}
-				
+			prof = new prof();
+			this.professeurs.add((Professeur)prof);
 			this.grid.getCells()[li][co].setContent(prof);
 				
 		}
 	}
 	
+	public void PlacerCas
+	{
+		if(0 <= li && li < Constant.getMapHeight() && 0 <= co && co < Constant.getMapWidth()) 
+		{
+			int rand = new Random().nextInt(3);
+			Professeur prof;
+			prof = new prof();
+			this.professeurs.add((Professeur)prof);
+			this.grid.getCells()[li][co].setContent(prof);
+				
+		}
+	}
 
 	/**
 	 * Exclus l'élève de l'école. Necessite une MAJ des listes d'élèves en fonction 
@@ -221,14 +227,13 @@ public class Controller
 	}
 
 	/**
-	 * Prepare la Carrot c a sa suppression suite a sa consommation. Necessite une MAJ des tableaux 
-	 * des Carrot en fonction de deadCarrot.
+	 * Enleve le professeur qui a fait un burnout.
 	 * 
 	 * @param c la Carrot qui a ete consommee.
 	 */
 	public void Burnout(Professeur prof) 
 	{
-		this.deadCarrot.add(c);
+		this.profenburnout.add(prof);
 	}
 
 
