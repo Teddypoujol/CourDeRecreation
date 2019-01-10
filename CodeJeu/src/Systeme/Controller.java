@@ -2,10 +2,10 @@ package Systeme;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 
-import Acteur.Eleve;
-import Acteur.Professeur;
+import Acteur.*;
 
 import Systeme.*;
 
@@ -39,7 +39,7 @@ public class Controller
 	private Window window;
 	private Map map;
 	*/
-	private Grille grid;
+	private Grille grille;
 	/*
 	 * nombres de professeurs et d'élèves dans le jeu
 	 */
@@ -165,6 +165,16 @@ public class Controller
 	}
 	
 	
+	public ArrayList<String> listeNomEleve = new ArrayList<String>(Arrays.asList(
+			"Teddy","Clara", "Loic","Jerome","GoGo","Imane","Mayol","Mathilde","Remi","Manon","Thomas","Mathieu",
+			"Romain","Alexis","Pantoufle","Micka","Jule","Popito","Bernard","Julie","Juan","Pankake","Arthur","Marius",
+			"Aurelien"));
+	
+	public ArrayList<String> listeNomProf = new ArrayList<String>(Arrays.asList(
+			"Mr Quafafou","Mr Prosperi", "Mr Mavromatis","Mme Papini","Mme Bac","Mr Samuel","Mr Bonnecaze","Mr Banton"));
+	
+	
+	
 	/**
 	 * Faire apparaitre un éléve sur la grille
 	 * 
@@ -175,38 +185,43 @@ public class Controller
 	{
 		if(0 <= li && li < Constant.getMapHeight() && 0 <= co && co < Constant.getMapWidth()) 
 		{
-			Random rd = new Random();
-			Acteur.Eleve eleve;
-			eleve = new Eleve();
+			int porteerand = new Random().nextInt(2) + 1;
+			Eleve eleve;
+			eleve = new Eleve(listeNomEleve.get(0),porteerand, li, co);
+			listeNomEleve.remove(0);
 			this.eleves.add((Eleve)eleve);
-			this.grid.getCells()[li][co].setContent(eleve);
+			this.grille.getCells()[li][co].setContent(eleve);
 		}	
 	}
 		
 	public void PlacerProfesseur(int li, int co) 
 	{
+		
 		if(0 <= li && li < Constant.getMapHeight() && 0 <= co && co < Constant.getMapWidth()) 
 		{
-			int rand = new Random().nextInt(3);
+			int ancienneterand = new Random().nextInt(10);
 			Professeur prof;
-			prof = new prof();
+			prof = new Professeur(listeNomProf.get(0), ancienneterand, li, co); 
 			this.professeurs.add((Professeur)prof);
-			this.grid.getCells()[li][co].setContent(prof);
+			this.grille.getCells()[li][co].setContent(prof);
 				
 		}
+		
 	}
 	
-	public void PlacerCas
+	public void PlacerEleveTurbulent(int li, int co) 
 	{
+		
 		if(0 <= li && li < Constant.getMapHeight() && 0 <= co && co < Constant.getMapWidth()) 
 		{
-			int rand = new Random().nextInt(3);
-			Professeur prof;
-			prof = new prof();
-			this.professeurs.add((Professeur)prof);
-			this.grid.getCells()[li][co].setContent(prof);
+			int porteerand = new Random().nextInt(2) + 1;
+			EleveTurbulent eleve;
+			eleve = new EleveTurbulent();
+			this.eleves.add((EleveTurbulent)eleve);
+			this.grille.getCells()[li][co].setContent(eleve);
 				
 		}
+		
 	}
 
 	/**
@@ -218,9 +233,9 @@ public class Controller
 	public void exclure(Eleve eleve)
 	{
 		this.elevesexclus.add(eleve);
-		int li = eleve.getPosLi();
-		int co = eleve.getPosCo();
-		this.grid.getCells()[li][co].setContent(new terrain(li, co));
+		int li = eleve.getPosX();
+		int co = eleve.getPosY();
+		this.grille.getCells()[li][co].setContent(new Terrain(li, co));
 	}
 
 	/**
