@@ -64,8 +64,8 @@ public class Eleve extends ElementdeJeu
 	{
 		int x = this.getPosX();	
 		int y = this.getPosY();
-		int dir;
-	
+		int i = new Random().nextInt(3);
+		int dir = i;
 		
 		Cell c = Controller.getInstance().getGrille().getCells()[x][y];
 		boolean ok = false;
@@ -73,7 +73,7 @@ public class Eleve extends ElementdeJeu
 		do {
 			x = this.getPosX();
 			y = this.getPosY();
-			dir = new Random().nextInt(3);
+			
 			
 			//HAUT
 			if((dir == 0) && x > 0) {
@@ -106,7 +106,8 @@ public class Eleve extends ElementdeJeu
 				ok = true;
 				c = test;
 			}
-		}while (!ok || );
+			dir = (dir + 1)%4;
+		}while (!ok || dir != i);
 		return c;
 	}
 	
