@@ -165,11 +165,13 @@ public class Controller
 	}
 	
 	
-	public ArrayList<String> listenom = new ArrayList<String>(Arrays.asList(
+	public ArrayList<String> listeNomEleve = new ArrayList<String>(Arrays.asList(
 			"Teddy","Clara", "Loic","Jerome","GoGo","Imane","Mayol","Mathilde","Remi","Manon","Thomas","Mathieu",
 			"Romain","Alexis","Pantoufle","Micka","Jule","Popito","Bernard","Julie","Juan","Pankake","Arthur","Marius",
 			"Aurelien"));
 	
+	public ArrayList<String> listeNomProf = new ArrayList<String>(Arrays.asList(
+			"Mr Quafafou","Mr Prosperi", "Mr Mavromatis","Mme Papini","Mme Bac","Mr Samuel","Mr Bonnecaze","Mr Banton"));
 	
 	
 	
@@ -183,9 +185,10 @@ public class Controller
 	{
 		if(0 <= li && li < Constant.getMapHeight() && 0 <= co && co < Constant.getMapWidth()) 
 		{
-			int porteerand = new Random().nextInt(3);
+			int porteerand = new Random().nextInt(2) + 1;
 			Eleve eleve;
-			eleve = new Eleve(listenom.get(1),porteerand, li, co);
+			eleve = new Eleve(listeNomEleve.get(0),porteerand, li, co);
+			listeNomEleve.remove(0);
 			this.eleves.add((Eleve)eleve);
 			this.grille.getCells()[li][co].setContent(eleve);
 		}	
@@ -193,32 +196,32 @@ public class Controller
 		
 	public void PlacerProfesseur(int li, int co) 
 	{
-		/*
+		
 		if(0 <= li && li < Constant.getMapHeight() && 0 <= co && co < Constant.getMapWidth()) 
 		{
-			int rand = new Random().nextInt(3);
+			int ancienneterand = new Random().nextInt(10);
 			Professeur prof;
-			prof = new Professeur(String nom, int patience, int anciennete, int x, int y) 
+			prof = new Professeur(listeNomProf.get(0), ancienneterand, li, co); 
 			this.professeurs.add((Professeur)prof);
 			this.grille.getCells()[li][co].setContent(prof);
 				
 		}
-		*/
+		
 	}
 	
 	public void PlacerEleveTurbulent(int li, int co) 
 	{
-		/*
+		
 		if(0 <= li && li < Constant.getMapHeight() && 0 <= co && co < Constant.getMapWidth()) 
 		{
-			int rand = new Random().nextInt(3);
+			int porteerand = new Random().nextInt(2) + 1;
 			EleveTurbulent eleve;
 			eleve = new EleveTurbulent();
-			this.professeurs.add((EleveTurbulent)eleve);
+			this.eleves.add((EleveTurbulent)eleve);
 			this.grille.getCells()[li][co].setContent(eleve);
 				
 		}
-		*/
+		
 	}
 
 	/**
