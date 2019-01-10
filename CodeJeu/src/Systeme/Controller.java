@@ -4,9 +4,9 @@ import java.awt.List;
 import java.util.ArrayList;
 import java.util.Random;
 
-import ElementdeJeu.Eleve;
-import ElementdeJeu.Professeur;
-import ElementdeJeu.Personne;
+import Acteur.Eleve;
+import Acteur.Personne;
+import Acteur.Professeur;
 
 public class Controller 
 {
