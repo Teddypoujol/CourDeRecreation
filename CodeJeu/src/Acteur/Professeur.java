@@ -12,13 +12,13 @@ public class Professeur extends ElementdeJeu {
 	private String nom;
 	private int visibilite;
 	
-	public Professeur(String nom, int visibilite, int patience, int anciennete, int x, int y) 
+	public Professeur(String nom, int anciennete, int x, int y) 
 	{
 		super(x, y);	
-		this.patience = patience;
+		this.patience = 100;
 		this.anciennete = anciennete;
 		this.nom=nom;
-		this.visibilite=visibilite;
+		this.visibilite=5;
 	}
 	
 	public int verifPatience() {

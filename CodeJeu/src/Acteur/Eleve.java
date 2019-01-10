@@ -7,20 +7,20 @@ import Systeme.*;
 
 public class Eleve extends ElementdeJeu
 {
-	private int punition;
-	private int portee;
-	private String nom;
-	private int visibilite;
+	protected int punition;
+	protected int portee;
+	protected String nom;
+	protected int visibilite;
 	
 	// Constructeurs de Eleve
 	
-	public Eleve(String nom, int visibilite,int port, int x, int y)
+	public Eleve(String nom,int port, int x, int y)
 	{
 		super(x,y);
 		this.punition = 0;
 		this.portee = port;
 		this.nom=nom;
-		this.visibilite=visibilite;
+		this.visibilite=3;
 	}
 	/*
 	public Eleve()
@@ -64,24 +64,51 @@ public class Eleve extends ElementdeJeu
 	{
 		int x = this.getPosX();	
 		int y = this.getPosY();
-		int dir;
+		int i = new Random().nextInt(3);
+		int dir = i;
 		
-		Cell c = Controller.getInstance().getGrille().getCells[x][y];
+		Cell c = Controller.getInstance().getGrille().getCells()[x][y];
 		boolean ok = false;
 		
 		do {
 			x = this.getPosX();
 			y = this.getPosY();
 			
-			dir = new Random().nextInt(3);
 			
-			if(dir == 0 && x > 0) {
-				x--;
+			//HAUT
+			if((dir == 0) && x > 0) {
+				while(x>=x-portee || x>0) {
+					x--;
+				}
 			}
-			else if(dir == 1 && )
+			//BAS
+			else if((dir == 1) && x < Constant.getMapHeight() - 1) {
+				while(x<=x+portee || x< Constant.getMapHeight()) {
+					x++;	
+				}
+
+			}
+			//GAUCHE
+			else if(dir==2 && y > 0) {
+				while(y>=y-portee || y > 0) {
+					y--;
+				}
+			}
+			//DROITE
+			else if((dir == 3) && y < Constant.getMapWidth() - 1 ) {
+				while(y<=y+portee || y < Constant.getMapWidth()) {
+					y++;
+				}
+			}	
 			
-			
-		}
+			Cell test = Controller.getInstance().getGrille().getCells()[x][y];
+			if(test.isEmpty()) {
+				ok = true;
+				c = test;
+			}
+			dir = (dir + 1)%4;
+		}while (!ok || dir != i);
+		return c;
 	}
 	
 	
