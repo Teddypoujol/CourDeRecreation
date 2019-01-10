@@ -1,40 +1,65 @@
 package Systeme;
 
-import java.awt.List;
+import java.util.List;
 import java.util.ArrayList;
 import java.util.Random;
 
-import ElementdeJeu.Eleve;
-import ElementdeJeu.Professeur;
-import ElementdeJeu.Personne;
+import Acteur.Eleve;
+import Acteur.Professeur;
+import Acteur.Personne;
 
 public class Controller 
 {
+	/*
+	 * Les listes de éléments du jeu et des éléments à supprimer
+	 */
+	
 	private static Controller INSTANCE;
+	/*
+	 * Liste des élèves
+	 */
 	private List<Eleve> eleves;
+	
+	/*
+	 * Liste des professeurs
+	 */
 	private List<Professeur> professeurs;
-	private List<Eleve> vire;
-	private List<Professeur> burnout;
+	
+	/*
+	 * Liste des professeurs et des élèves qui ne doivent plus être en jeu
+	 */
+	private List<Eleve> elevesexclus;
+	private List<Professeur> profenburnout;
+	
+	/*
 	private List<ElementdeJeu> buffer;
 	private Grid grid;
 	private Window window;
 	private Map map;
-	private int nb_field_rabbits;
-
+	*/
+	
+	/*
+	 * nombres de professeurs et d'élèves dans le jeu
+	 */
 	
 	private int nb_Professeurs;
 	private int nb_Eleves;
 
-	private boolean ihm = false;
+	/*
+	 * Ces variabes booléennes permettent de connaitre l'état du jeu. 
+	 */
+	
+	private boolean inter = false;
 	private boolean gameInited;
 	private boolean gameStarted;
-
 	private boolean gameover;
+	
 	private Random random = new Random();
 	
 	private Controller() 
 	{
 	}
+	
 	/*
 	 * Singleton
 	 */
@@ -46,41 +71,168 @@ public class Controller
 		return INSTANCE;
 	}
 
-	public List<Eleve> getEleves() {
+	/*
+	 * Getteurs des Listes des éléments du jeu
+	 */
+	public List<Eleve> getEleves() 
+	{
 		return this.eleves;
 	}
 
-	public List<BabyRabbit> getBabyRabbits() {
-		return this.babyRabbits;
+	public List<Professeur> getProfesseurs() 
+	{
+		return this.professeurs;
 	}
 
-	public List<RegularCarrot> getCarrots() {
-		return this.carrots;
+	public List<Eleve> getElevesExclu() {
+		return this.elevesexclus;
 	}
 
-	public List<PoisonCarrot> getPoisons() {
-		return this.poisons;
+	public List<Professeur> getProfenburnout() {
+		return this.profenburnout;
 	}
 
-	public Grid getGrid() {
+	/*
+	public Grid getGrid() 
+	{
 		return this.grid;
 	}
 
-	public Window getWindow() {
+	public Window getWindow() 
+	{
 		return window;
 	}
 
-	public Map getMap() {
+	public Map getMap() 
+	{
 		return map;
 	}
-
-	public boolean isIhm() {
-		return ihm;
+	*/
+	
+	/*
+	 * permet de verifier si l'interface est en cours d'utilisation par le controller
+	 */
+	public boolean isIhm() 
+	{
+		return inter;
 	}
 
-	public void setIhm(boolean ihm) {
-		this.ihm = ihm;
+	public void setIhm(boolean ihm)
+	{
+		this.inter = ihm;
 	}
+	
+	/*
+	 * Setteurs qui permettent de choisir le nombre de professeurs et d'élèves en jeu
+	 */
+	public void setNbProf(int nombredeprof) 
+	{
+		this.nb_Professeurs = nombredeprof ;
+	}
+
+	public void setNbEleves(int nombreEleve) 
+	{
+		this.nb_Eleves = nombreEleve ;
+	}
+	
+	
+	/*
+	 * Ces méthodes permettent de connaitre l'état du jeu. 
+	 */
+
+	public boolean gameIsInit() {
+		return gameInited;
+	}
+
+	public void setGameInited(boolean gameStarted) {
+		this.gameInited = gameStarted;
+	}
+
+	public boolean isGameStarted() {
+		return gameStarted;
+	}
+
+	public void setGameStarted(boolean gameStarted) {
+		this.gameStarted = gameStarted;
+	}
+
+	public boolean gameOver() {
+		return this.gameover;
+	}
+	
+	public void setGameover(boolean gameover) {
+		this.gameover = gameover;
+	}
+	
+	
+	/**
+	 * Faire apparaitre un éléve sur la grille
+	 * 
+	 * @param type fait apparaitre un élève normal ou spécial (bagarreur / romantique)
+	 * @param li 	indice de ligne de la Grid ou faire apparaitre l'élève.
+	 * @param co 	indice de colonne de la Grid ou faire apparaitre l'élève.
+	 */
+	public void PlacerEleve(boolean type, int li, int co) 
+	{
+		if(0 <= li && li < Constants.getMapHeight() && 0 <= co && co < Constants.getMapWidth()) 
+		{
+			Random rd = new Random();
+			Acteur.Eleve eleve;
+			if()
+			{
+				eleve = new Eleve();
+				this.eleves.add((Eleve)eleve);
+			}
+			
+			this.grid.getCells()[li][co].setContent(eleve);
+		}	
+	}
+		
+	public void PlacerProfesseur(int li, int co) 
+	{
+		if(0 <= li && li < Constants.getMapHeight() && 0 <= co && co < Constants.getMapWidth()) 
+		{
+			Random rd = new Random();
+			Professeur prof;
+			if()
+			{
+				prof = new prof();
+				this.professeurs.add((Professeur)prof);
+			}
+				
+			this.grid.getCells()[li][co].setContent(prof);
+				
+		}
+	}
+	
+
+	/**
+	 * Exclus l'élève de l'école. Necessite une MAJ des listes d'élèves en fonction 
+	 * des éléves exlus.
+	 * 
+	 * @param eleve l'éleve à exclure.
+	 */
+	public void exclure(Eleve eleve)
+	{
+		this.elevesexclus.add(eleve);
+		int li = eleve.getPosLi();
+		int co = eleve.getPosCo();
+		this.grid.getCells()[li][co].setContent(new terrain(li, co));
+	}
+
+	/**
+	 * Prepare la Carrot c a sa suppression suite a sa consommation. Necessite une MAJ des tableaux 
+	 * des Carrot en fonction de deadCarrot.
+	 * 
+	 * @param c la Carrot qui a ete consommee.
+	 */
+	public void Burnout(Professeur prof) 
+	{
+		this.deadCarrot.add(c);
+	}
+
 
 	
+
+
 }
