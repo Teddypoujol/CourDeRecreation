@@ -250,9 +250,12 @@ public class Controller
 		
 		if(0 <= li && li < Constant.getMapHeight() && 0 <= co && co < Constant.getMapWidth()) 
 		{
+			Random bagarreur = new Random();
+		    
+		    
 			int porteerand = new Random().nextInt(2) + 1;
 			EleveTurbulent eleve;
-			eleve = new EleveTurbulent();
+			eleve = new EleveTurbulent(listeNomEleve.get(0),porteerand, li, co,bagarreur.nextBoolean());
 			this.eleves.add((EleveTurbulent)eleve);
 			this.grille.getCells()[li][co].setContent(eleve);
 				
@@ -471,4 +474,5 @@ public class Controller
 	
 
 
+}
 }
