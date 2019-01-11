@@ -30,7 +30,7 @@ public class EleveTurbulent extends Eleve {
 			do { 
 				x--; 
 				c = Controller.getInstance().getGrille().getCells()[x][y];
-			}while(c.isEmpty() && (x>=x-visibilite || x>0));
+			}while((c.isEmpty() || c.getContent().getClass().getName().equals("Professeur")) && (x>=x-visibilite || x>0));
 			if(!c.isEmpty()) {
 				dir = 0;
 				ok = true;
@@ -40,7 +40,7 @@ public class EleveTurbulent extends Eleve {
 			do { 
 				x++; 
 				c = Controller.getInstance().getGrille().getCells()[x][y];
-			}while(c.isEmpty() && (x<=x+visibilite || x < Constant.getMapHeight() - 1));
+			}while((c.isEmpty() || c.getContent().getClass().getName().equals("Professeur")) && (x<=x+visibilite || x < Constant.getMapHeight() - 1));
 			if(!c.isEmpty()) {
 				dir = 1;
 				ok = true;
@@ -49,7 +49,7 @@ public class EleveTurbulent extends Eleve {
 			do { 
 				y--; 
 				c = Controller.getInstance().getGrille().getCells()[x][y];
-			}while(c.isEmpty() && (y>=y-visibilite || y>0));
+			}while((c.isEmpty() || c.getContent().getClass().getName().equals("Professeur")) && (y>=y-visibilite || y>0));
 			if(!c.isEmpty()) {
 				dir = 2;
 				ok = true;
@@ -58,7 +58,7 @@ public class EleveTurbulent extends Eleve {
 			do { 
 				y++; 
 				c = Controller.getInstance().getGrille().getCells()[x][y];
-			}while(c.isEmpty() && (y<=y+visibilite || y < Constant.getMapWidth()-1));
+			}while((c.isEmpty() || c.getContent().getClass().getName().equals("Professeur")) && (y<=y+visibilite || y < Constant.getMapWidth()-1));
 			if(!c.isEmpty()) {
 				dir = 0;
 				ok = true;
