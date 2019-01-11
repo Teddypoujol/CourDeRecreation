@@ -12,8 +12,9 @@ import java.util.Arrays;
 import java.util.Random;
 
 import Acteur.*;
-
 import Systeme.*;
+import Interface.Map;
+import Interface.Fenetre;
 
 
 public class Controller 
@@ -43,7 +44,7 @@ public class Controller
 	
 	private List<ElementdeJeu> buffer;
 	
-	private Window window;
+	private Fenetre fenetre;
 	private Map map;
 	
 	private Random random = new Random();
@@ -119,14 +120,14 @@ public class Controller
 		return this.grille;
 	}
 	
-	/*public Window getWindow() 
+	public Fenetre getFenetre() 
 	{
-		return window;
+		return fenetre;
 	}
 	public Map getMap() 
 	{
 		return map;
-	}*/
+	}
 	
 	
 	/*
@@ -403,9 +404,9 @@ public class Controller
 
 			do 
 			{
-				if(((nb = this.inputNumber("professeurs")) > nbMaxEleve)) 
+				if(((nb = this.inputNumber("professeurs")) > nbMaxProf)) 
 				{
-					System.out.println("Le nombre max d'élèves est limité à 40 dans la cour");
+					System.out.println("Le nombre max de professeurs est de 10");
 				}
 			} while(nb > nbMaxEleve);
 			
@@ -475,10 +476,11 @@ public class Controller
 			}
 
 			Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-			
-			this.window = new Window(screenSize.width, screenSize.height);
+			int w = screenSize.width;
+			int h = screenSize.height;
+			this.fenetre = new Fenetre(w,h);
 			this.map = new Map();
-			this.window.add(this.map);
+			this.fenetre.add(this.map);
 			
 			
 			
@@ -564,6 +566,7 @@ public class Controller
 		
 	/**
 	 * Passe un tour de jeu et actualise la Grille en consequence.
+	
 	 */
 	
 	public void tourSuivant() throws InterruptedException 
@@ -583,6 +586,7 @@ public class Controller
 			int y = tmp.getPosY();
 			this.grille.getCells()[x][y].setContent(new Terrain(x, y));
 			Cell direction = tmp.deplacement();
+			
 			
 			if(!tmp.verifPunition()) 
 			{
@@ -627,7 +631,11 @@ public class Controller
 				this.map.repaint();
 			}
 		}
-
+		if(this.inter) 
+		{
+			this.fenetre.repaint();
+			Thread.sleep(500);
+		}
 			
 			
 		
