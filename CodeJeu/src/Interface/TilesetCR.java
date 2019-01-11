@@ -6,8 +6,8 @@ import javax.imageio.ImageIO;
 
 import Systeme.Constant;
 
-public class TilesetRW implements Tileset{
-	private static TilesetRW INSTANCE;
+public class TilesetCR implements Tileset{
+	private static TilesetCR INSTANCE;
 	private static Image tilesetImg = null;
 	private static int li = 2; // nombre de lignes de tiles
 	private static int co = 2; // nombre de colonnes de tiles
@@ -15,11 +15,11 @@ public class TilesetRW implements Tileset{
 	private int tileH = 250; // tile height
 	private static Tile[][] tileset;
 
-	private TilesetRW() {}
+	private TilesetCR() {}
 	
-	public static TilesetRW getInstance() throws IOException {
+	public static TilesetCR getInstance() throws IOException {
 		if(INSTANCE == null) {
-			INSTANCE = new TilesetRW();
+			INSTANCE = new TilesetCR();
 			tilesetImg = ImageIO.read(INSTANCE.getClass().getResource(Constant.getPath1()));
 			tileset = new Tile[li][co];
 			for(int i = 0; i < li; i++) {

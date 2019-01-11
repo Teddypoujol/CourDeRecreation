@@ -44,7 +44,7 @@ public class Map extends JPanel{
 		try {
 			for(int i = 0; i < this.ctrl.getGrille().getLi(); i++) {
 				for(int j = 0; j < this.ctrl.getGrille().getCo(); j++) {
-					TilesetRW.getInstance().getBlank().drawTile(g2d, j, i);
+					TilesetCR.getInstance().getBlank().drawTile(g2d, j, i);
 
 				}
 			}
