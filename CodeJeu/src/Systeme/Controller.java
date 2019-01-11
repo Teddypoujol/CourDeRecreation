@@ -40,12 +40,12 @@ public class Controller
 	private List<Eleve> elevesexclus;
 	private List<Professeur> profenburnout;
 	
-	/*
+	
 	private List<ElementdeJeu> buffer;
 	
 	private Window window;
 	private Map map;
-	*/
+	
 	private Random random = new Random();
 	private Grille grille;
 	
@@ -291,7 +291,7 @@ public class Controller
 	 * @param prof le prof en burnout
 	 */
 	
-	public void Burnout(Professeur prof) 
+	public void burnout(Professeur prof) 
 	{
 		this.profenburnout.add(prof);
 		int li = prof.getPosX();
@@ -475,11 +475,11 @@ public class Controller
 			}
 
 			Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-			/*
+			
 			this.window = new Window(screenSize.width, screenSize.height);
 			this.map = new Map();
 			this.window.add(this.map);
-			*/
+			
 			
 			
 		}
@@ -556,7 +556,7 @@ public class Controller
 				p.majPatience(action);
 				if(p.verifPatience())
 				{
-					
+					burnout(p);
 				}
 			}
 		}
@@ -574,7 +574,7 @@ public class Controller
 		elevestmp.addAll(this.eleves);
 		elevestmp.addAll(this.elevesT);
 		
-		if(!elevestmp.isEmpty()) 
+		if(!elevestmp.isEmpty() && !professeurs.isEmpty()) 
 		{
 			
 			Eleve tmp = elevestmp.get(indiceListeEleves);
@@ -617,6 +617,14 @@ public class Controller
 			{
 				exclure(tmp);
 				
+			}
+		}
+		else 
+		{
+			this.gameover = true;
+			if(this.inter)
+			{
+				this.map.repaint();
 			}
 		}
 
