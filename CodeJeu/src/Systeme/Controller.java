@@ -26,6 +26,7 @@ public class Controller
 	/*
 	 * Liste des élèves
 	 */
+	private int indiceListeEleves = 0;
 	private List<Eleve> eleves;
 	private List<EleveTurbulent> elevesT;
 	/*
@@ -195,7 +196,7 @@ public class Controller
 			"Aurelien"));
 	
 	public ArrayList<String> listeNomProf = new ArrayList<String>(Arrays.asList(
-			"Mr Quafafou","Mr Prosperi", "Mr Mavromatis","Mme Papini","Mme Bac","Mr Samuel","Mr Bonnecaze","Mr Banton"));
+			"Mr Quafafou","Mr Prosperi", "Mr Mavromatis","Mme Papini","Mme Bac","Mr Samuel","Mr Bonnecaze","Mr Banton","Mr Gengler","Mr Mugmug"));
 	
 	
 	
@@ -281,6 +282,7 @@ public class Controller
 		int li = eleve.getPosX();
 		int co = eleve.getPosY();
 		this.grille.getCells()[li][co].setContent(new Terrain(li, co));
+		eleves.remove(eleve);
 	}
 
 	/**
@@ -295,6 +297,7 @@ public class Controller
 		int li = prof.getPosX();
 		int co = prof.getPosY();
 		this.grille.getCells()[li][co].setContent(new Terrain(li, co));
+		professeurs.remove(prof);
 	}
 
 	
@@ -481,6 +484,83 @@ public class Controller
 			
 		}
 	}
+	
+	/**
+	 * Recherche Professeur autour d'un élève
+	 */
+	
+	public ArrayList<Professeur> rechercheProf(Eleve e)
+	{
+		ArrayList<Professeur> prof = new ArrayList<>();
+		int x = e.getPosX();
+		int y = e.getPosY();
+		
+	
+		Cell c;
+		
+		int visibilite = 5;
+		
+		do { 
+			x--; 
+			c = Controller.getInstance().getGrille().getCells()[x][y];
+		}while(!c.getContent().getClass().getName().equals("Professeur") && (x>=x-visibilite || x>0));
+		if(c.getContent().getClass().getName().equals("Professeur")) 
+		{
+			prof.add((Professeur)c.getContent());
+			
+		}
+
+		//parcour bas
+		do { 
+			x++; 
+			c = Controller.getInstance().getGrille().getCells()[x][y];
+		}while(!c.getContent().getClass().getName().equals("Professeur") && (x<=x+visibilite || x < Constant.getMapHeight() - 1));
+		if(c.getContent().getClass().getName().equals("Professeur")) 
+		{
+			prof.add((Professeur)c.getContent());
+		}
+		//parcour gauche
+		do { 
+			y--; 
+			c = Controller.getInstance().getGrille().getCells()[x][y];
+		}while(!c.getContent().getClass().getName().equals("Professeur") && (y>=y-visibilite || y>0));
+		if(c.getContent().getClass().getName().equals("Professeur")) 
+		{
+			prof.add((Professeur)c.getContent());
+		}
+		//parcour droite
+		do { 
+			y++; 
+			c = Controller.getInstance().getGrille().getCells()[x][y];
+		}while(!c.getContent().getClass().getName().equals("Professeur") && (y<=y+visibilite || y < Constant.getMapWidth()-1));
+		if(c.getContent().getClass().getName().equals("Professeur")) 
+		{
+			prof.add((Professeur)c.getContent());
+		}
+		return prof;
+	}
+	
+	
+	/**
+	 * Traitement de l'action choisie
+	 */
+	
+	public void traitementAction(Eleve e,int action) {
+		ArrayList<Professeur> prof = rechercheProf(e);
+				
+		if(!prof.isEmpty())
+		{
+			if(action == 0) e.majPunition();
+			for(Professeur p : prof) 
+			{
+				p.majPatience(action);
+				if(p.verifPatience())
+				{
+					
+				}
+			}
+		}
+	}
 		
 	/**
 	 * Passe un tour de jeu et actualise la Grille en consequence.
@@ -488,33 +568,64 @@ public class Controller
 	
 	public void tourSuivant() throws InterruptedException 
 	{
-		// Tableau temporaire pour traitement commun adultes et bebes
+		
 		ArrayList<Eleve> elevestmp = new ArrayList<>();
+		
 		elevestmp.addAll(this.eleves);
 		elevestmp.addAll(this.elevesT);
 		
-
-		
-		
-		if(elevestmp.size() > 0) {
-			/* * * deplacement d'un élève * * */
-			for(Eleve e : elevestmp) {
-				int x = e.getPosX();
-				int y = e.getPosY();
-				this.grille.getCells()[x][y].setContent(new Terrain(x, y));
-				/*
-				e.setMoving(true);
-				Cell direction = e.deplacement();
-			*/
-
+		if(!elevestmp.isEmpty()) 
+		{
+			
+			Eleve tmp = elevestmp.get(indiceListeEleves);
+			indiceListeEleves = (indiceListeEleves + 1)%elevestmp.size();
+			int x = tmp.getPosX();
+			int y = tmp.getPosY();
+			this.grille.getCells()[x][y].setContent(new Terrain(x, y));
+			Cell direction = tmp.deplacement();
+			
+			if(!tmp.verifPunition()) 
+			{
+				ElementdeJeu content = direction.getContent();
+				direction.setContent(tmp);
+				ArrayList<ElementdeJeu> elevesA = new ArrayList<>();
+				//haut
+				if(this.grille.getCells()[x--][y].getContent().getClass().getName().equals("Eleve")) {
+					elevesA.add(this.grille.getCells()[x--][y].getContent());
+				}
+				//bas
+				if(this.grille.getCells()[x++][y].getContent().getClass().getName().equals("Eleve")) {
+					elevesA.add(this.grille.getCells()[x--][y].getContent());
+				}
+				//gauche		
+				if(this.grille.getCells()[x][y--].getContent().getClass().getName().equals("Eleve")) {
+					elevesA.add(this.grille.getCells()[x--][y].getContent());
+				}
+				//droite
+				if(this.grille.getCells()[x][y++].getContent().getClass().getName().equals("Eleve")) {
+					elevesA.add(this.grille.getCells()[x--][y].getContent());
+				}
+				
+				if(!elevesA.isEmpty()) 
+				{
+					int action =tmp.choisirAction();
+					traitementAction(tmp,action);
+				}
+					
 			}
+			else
+			{
+				exclure(tmp);
+				
+			}
+		}
 
 			
 			
-		}
+		
 	} 
-	
 }
+
 
 	
 	
