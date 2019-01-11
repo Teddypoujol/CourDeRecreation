@@ -12,7 +12,7 @@ import java.util.Arrays;
 import java.util.Random;
 
 import Acteur.*;
-
+import Interface.*;
 import Systeme.*;
 
 
@@ -119,14 +119,14 @@ public class Controller
 		return this.grille;
 	}
 	
-	/*public Window getWindow() 
+	public Window getWindow() 
 	{
 		return window;
 	}
 	public Map getMap() 
 	{
 		return map;
-	}*/
+	}
 	
 	
 	/*
@@ -403,9 +403,9 @@ public class Controller
 
 			do 
 			{
-				if(((nb = this.inputNumber("professeurs")) > nbMaxEleve)) 
+				if(((nb = this.inputNumber("professeurs")) > nbMaxProf)) 
 				{
-					System.out.println("Le nombre max d'élèves est limité à 40 dans la cour");
+					System.out.println("Le nombre max de professeurs est de 10");
 				}
 			} while(nb > nbMaxEleve);
 			
@@ -475,8 +475,9 @@ public class Controller
 			}
 
 			Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-			
-			this.window = new Window(screenSize.width, screenSize.height);
+			int w = screenSize.width;
+			int h = screenSize.height;
+			this.window = new Window(w,h);
 			this.map = new Map();
 			this.window.add(this.map);
 			
