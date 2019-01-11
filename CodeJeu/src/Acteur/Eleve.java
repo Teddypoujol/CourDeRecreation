@@ -49,8 +49,9 @@ public class Eleve extends ElementdeJeu
 	
 	public int choisirAction()
 	{
-		int rand = new Random().nextInt(3);
-		return rand;
+		//bagarre = 0, bisous = 1, jouer = 2
+		int action = new Random().nextInt(2);
+		return action;
 	}
 	
 	public void majPunition()

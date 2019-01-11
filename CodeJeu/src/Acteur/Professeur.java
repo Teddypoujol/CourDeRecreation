@@ -21,11 +21,9 @@ public class Professeur extends ElementdeJeu {
 		this.visibilite=5;
 	}
 	
-	public int verifPatience() {
-		int etatProf = 0;
-		if(patience <= 10)etatProf = 1;
-		if(patience == 0) etatProf = 2;
-		
+	public boolean verifPatience() {
+		boolean etatProf = false;
+		if(patience <= 0)etatProf = true;
 		return etatProf;
 	}
 	

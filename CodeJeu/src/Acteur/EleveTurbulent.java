@@ -9,13 +9,23 @@ import Systeme.Controller;
 public class EleveTurbulent extends Eleve {
 	
 	private List<Eleve> listeEleve;
+	private boolean estBagarreur;
 
-	public EleveTurbulent(String nom, int port, int x, int y, boolean estBagarreur) {
+	public EleveTurbulent(String nom, int port, int x, int y, boolean b) {
 		super(nom, port, x, y);
-		// TODO Auto-generated constructor stub
+		estBagarreur = b;
 	}
 	
-	public Cell Deplacement() {
+	public int choisirAction() {
+		//bagarre = 0, bisous = 1, jouer = 2
+		int action;
+		if(!estBagarreur) {
+			action = 1;
+		}else action = 0;
+		return action;
+	}
+	
+	public Cell deplacement() {
 
 		int x = this.getPosX();	
 		int y = this.getPosY();
