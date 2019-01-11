@@ -1,6 +1,9 @@
 package Systeme;
 
 import java.util.List;
+import java.awt.Dimension;
+import java.awt.Toolkit;
+import java.awt.Window;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -51,6 +54,7 @@ public class Controller
 	
 	private int nb_Professeurs;
 	private int nb_Eleves;
+	private int nb_ElevesTurbulents;
 	
 	private static int nbMaxEleve = 40;
 	private static int nbMaxProf = 10;
@@ -365,20 +369,20 @@ public class Controller
 		int posRandomy;
 		int nb;
 		boolean placed;
-		int spaceLeft = Constant.getMapWidth() * Constant.getMapHeight();
+		//int spaceLeft = Constant.getMapWidth() * Constant.getMapHeight();
 		
 		if(!inter) 
 		{
 			do 
 			{
-				if(((nb = this.inputNumber("eleves")) > spaceLeft) || ((nb = this.inputNumber("eleves")) > nbMaxEleve)) 
+				if(((nb = this.inputNumber("eleves")) > nbMaxEleve)) 
 				{
 					System.out.println("Le nombre max d'élèves est limité à 40 dans la cour");
 				}
-			} while(nb > spaceLeft || nb > nbMaxEleve);
+			} while(nb > nbMaxEleve);
 			
 		
-			spaceLeft -= nb;
+			//spaceLeft -= nb;
 			
 			for(int i = 0; i < nb; i++) 
 			{
@@ -396,14 +400,14 @@ public class Controller
 
 			do 
 			{
-				if(((nb = this.inputNumber("professeurs")) > spaceLeft) || ((nb = this.inputNumber("professeurs")) > nbMaxEleve)) 
+				if(((nb = this.inputNumber("professeurs")) > nbMaxEleve)) 
 				{
 					System.out.println("Le nombre max d'élèves est limité à 40 dans la cour");
 				}
-			} while(nb > spaceLeft || nb > nbMaxEleve);
+			} while(nb > nbMaxEleve);
 			
 			
-			spaceLeft -= nb;
+			//spaceLeft -= nb;
 			
 			for(int i = 0; i < nb; i++) 
 			{
@@ -411,7 +415,8 @@ public class Controller
 				do {
 					posRandomx = this.random.nextInt(this.grille.getLi());
 					posRandomy = this.random.nextInt(this.grille.getCo());
-					if(this.grille.getCells()[posRandomx][posRandomy].isEmpty()) {
+					if(this.grille.getCells()[posRandomx][posRandomy].isEmpty())
+					{
 						this.placerProfesseur(posRandomx, posRandomy);
 						placed = true;
 					}
@@ -420,52 +425,60 @@ public class Controller
 
 	
 			this.grille.display();
-		/*	
+		
 		} 
 		else 
 		{
-			for(int i = 0; i < nb_field_rabbits; i++) {
+			for(int i = 0; i < nb_Eleves; i++) 
+			{
 				placed = false;
 				do {
-					rli = this.random.nextInt(this.grid.getLi());
-					rco = this.random.nextInt(this.grid.getCo());
-					if(this.grid.getCells()[rli][rco].isEmpty()) {
-						this.rabbitSpawn(true, rli, rco);
+					posRandomx = this.random.nextInt(this.grille.getLi());
+					posRandomy= this.random.nextInt(this.grille.getCo());
+					if(this.grille.getCells()[posRandomx][posRandomy].isEmpty()) 
+					{
+						this.placerEleve(posRandomx,posRandomy);
 						placed = true;
 					}
 				} while(!placed);
 			}
 
-			for(int i = 0; i < nb_field_reg_carrots; i++) {
+			for(int i = 0; i < nb_Professeurs; i++) 
+			{
 				placed = false;
 				do {
-					rli = this.random.nextInt(this.grid.getLi());
-					rco = this.random.nextInt(this.grid.getCo());
-					if(this.grid.getCells()[rli][rco].isEmpty()) {
-						this.carrotGrowth(true, rli, rco);
+					posRandomx = this.random.nextInt(this.grille.getLi());
+					posRandomy = this.random.nextInt(this.grille.getCo());
+					if(this.grille.getCells()[posRandomx][posRandomy].isEmpty()) 
+					{
+						this.placerProfesseur(posRandomx,posRandomy);
 						placed = true;
 					}
 				} while(!placed);
 			}
 
-			for(int i = 0; i < nb_field_pois_carrots; i++) {
+			for(int i = 0; i < nb_ElevesTurbulents; i++) 
+			{
 				placed = false;
 				do {
-					rli = this.random.nextInt(this.grid.getLi());
-					rco = this.random.nextInt(this.grid.getCo());
-					if (this.grid.getCells()[rli][rco].isEmpty()) {
-						this.carrotGrowth(false, rli, rco);
+					posRandomx = this.random.nextInt(this.grille.getLi());
+					posRandomy = this.random.nextInt(this.grille.getCo());
+					if (this.grille.getCells()[posRandomx][posRandomy].isEmpty()) 
+					{
+						this.placerEleveTurbulent(posRandomx,posRandomy);
 						placed = true;
 					}
 				} while(!placed);
 			}
 
 			Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+			/*
 			this.window = new Window(screenSize.width, screenSize.height);
 			this.map = new Map();
 			this.window.add(this.map);
+			*/
 		}
-		*/
+		
 	}
 
 	
@@ -474,5 +487,4 @@ public class Controller
 	
 
 
-}
 }
