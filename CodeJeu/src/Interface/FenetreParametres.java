@@ -24,14 +24,14 @@ import javax.swing.JTextField;
 import Systeme.*;
 
 
-public class WindowParameters extends JFrame {
+public class FenetreParametres extends JFrame {
 	private static final long serialVersionUID = 1L;
 
 
-	public WindowParameters() {
+	public FenetreParametres() {
 		Controller.getInstance().setGameInited(false);
 		setBounds(100,100, 750, 500);
-		setTitle("La cour de récré");
+		setTitle("La cour de récréation");
 		Panel panneau= new Panel();
 		panneau.setBackground(Color.GRAY);
 		panneau.setPreferredSize(new Dimension(750, 80));
@@ -42,7 +42,7 @@ public class WindowParameters extends JFrame {
 		pann_param.setBorder(BorderFactory.createLineBorder(Color.RED));
 		pann_param.setPreferredSize(new Dimension(100,100));
 		add(pann_param, BorderLayout.CENTER);
-
+/*
 		Panel_img_sud pann_sud = new Panel_img_sud();
 		pann_sud.setPreferredSize(new Dimension(750, 150));
 		pann_sud.setBackground(Color.ORANGE);
@@ -55,6 +55,7 @@ public class WindowParameters extends JFrame {
 		this.toFront();
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setVisible(true);
+*/
 	}
 
 	private class Panel extends JPanel {
@@ -206,7 +207,7 @@ public class WindowParameters extends JFrame {
 						Controller.getInstance().init(true);
 						Controller.getInstance().setGameInited(true);
 						Controller.getInstance().setGameStarted(false);
-						JFrame win = (JFrame) Controller.getInstance().getWindow();
+						JFrame win = (JFrame) Controller.getInstance().getFenetre();
 						win.setBounds(0, 0, 
 								Constant.getMapWidth() * 32 + 20, 
 								Constant.getMapHeight() * 32 + 45);
@@ -215,7 +216,7 @@ public class WindowParameters extends JFrame {
 						e.printStackTrace();
 					}		
 				} else {
-					new Window_popup();
+					new Fenetre(20,20);
 				}
 			}	
 		}

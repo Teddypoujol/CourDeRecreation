@@ -6,10 +6,10 @@ import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
 import Systeme.Controller;
 
-public class Window extends JFrame{
+public class Fenetre extends JFrame{
 	private static final long serialVersionUID = 1L;
 
-	public Window(int w, int h)
+	public Fenetre(int w, int h)
 	{
 		this.setTitle("Cour de récréation !");
 		this.setSize(w, h);
