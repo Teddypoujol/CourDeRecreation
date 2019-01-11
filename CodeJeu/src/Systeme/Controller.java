@@ -27,7 +27,7 @@ public class Controller
 	 * Liste des élèves
 	 */
 	private List<Eleve> eleves;
-	
+	private List<EleveTurbulent> elevesT;
 	/*
 	 * Liste des professeurs
 	 */
@@ -477,14 +477,49 @@ public class Controller
 			this.map = new Map();
 			this.window.add(this.map);
 			*/
+			
+			
 		}
-		
 	}
-
+		
+	/**
+	 * Passe un tour de jeu et actualise la Grille en consequence.
+	 */
 	
+	public void tourSuivant() throws InterruptedException 
+	{
+		// Tableau temporaire pour traitement commun adultes et bebes
+		ArrayList<Eleve> elevestmp = new ArrayList<>();
+		elevestmp.addAll(this.eleves);
+		elevestmp.addAll(this.elevesT);
+		
+
+		
+		
+		if(elevestmp.size() > 0) {
+			/* * * deplacement d'un élève * * */
+			for(Eleve e : elevestmp) {
+				int x = e.getPosX();
+				int y = e.getPosY();
+				this.grille.getCells()[x][y].setContent(new Terrain(x, y));
+				/*
+				e.setMoving(true);
+				Cell direction = e.deplacement();
+			*/
+
+			}
+
+			
+			
+		}
+	} 
 	
-
-	
-
-
 }
+
+	
+	
+
+	
+
+
+
