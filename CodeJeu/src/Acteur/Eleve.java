@@ -7,10 +7,20 @@ import Systeme.*;
 
 public class Eleve extends ElementdeJeu
 {
+	public static enum Direction {
+		UP, 
+		DOWN, 
+		LEFT, 
+		RIGHT
+	}
+	private static int nb = 0;
+	private final Direction[] directions = Direction.values();
+
 	protected int punition;
 	protected int portee;
 	protected String nom;
 	protected int visibilite;
+	protected Direction vers;
 	
 	// Constructeurs de Eleve
 	
@@ -21,6 +31,7 @@ public class Eleve extends ElementdeJeu
 		this.portee = port;
 		this.nom=nom;
 		this.visibilite=3;
+		this.vers = Direction.DOWN;
 	}
 	/*
 	public Eleve()
@@ -74,29 +85,29 @@ public class Eleve extends ElementdeJeu
 		do {
 			x = this.getPosX();
 			y = this.getPosY();
-			
+			Direction direction = directions[dir];
 			
 			//HAUT
-			if((dir == 0) && x > 0) {
+			if((direction.equals(Direction.UP)) && x > 0) {
 				while(x>=x-portee || x>0) {
 					x--;
 				}
 			}
 			//BAS
-			else if((dir == 1) && x < Constant.getMapHeight() - 1) {
+			else if((direction.equals(Direction.DOWN)) && x < Constant.getMapHeight() - 1) {
 				while(x<=x+portee || x< Constant.getMapHeight()) {
 					x++;	
 				}
 
 			}
 			//GAUCHE
-			else if(dir==2 && y > 0) {
+			else if(direction.equals(Direction.LEFT) && y > 0) {
 				while(y>=y-portee || y > 0) {
 					y--;
 				}
 			}
 			//DROITE
-			else if((dir == 3) && y < Constant.getMapWidth() - 1 ) {
+			else if((direction.equals(Direction.RIGHT)) && y < Constant.getMapWidth() - 1 ) {
 				while(y<=y+portee || y < Constant.getMapWidth()) {
 					y++;
 				}
@@ -107,7 +118,7 @@ public class Eleve extends ElementdeJeu
 				ok = true;
 				c = test;
 			}
-			dir = (dir + 1)%4;
+			dir = (dir + 1)%directions.length;
 		}while (!ok || dir != i);
 		return c;
 	}
