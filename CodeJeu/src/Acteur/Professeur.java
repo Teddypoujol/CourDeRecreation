@@ -36,9 +36,9 @@ public class Professeur extends ElementdeJeu {
 
 	public void majPatience(int action) {
 		switch (action) {
-	        case 1:  patience = patience - 3; //bagarre
+	        case 0:  patience = patience - 3; //bagarre
 	                 break;
-	        case 2:  patience = patience + 1; //bisous
+	        case 1:  if(patience<100)patience = patience + 1; //bisous
 	                 break;
 	        case 3:  patience = patience - 10; //embete professeur
 	                 break;
@@ -47,6 +47,8 @@ public class Professeur extends ElementdeJeu {
 	        default:
 	                 break;
 		}
+		
+		System.out.println(this.nom+ " : patience mise à jour, patience = " + patience);
 	}
 	
 	public void addAnciennete() {

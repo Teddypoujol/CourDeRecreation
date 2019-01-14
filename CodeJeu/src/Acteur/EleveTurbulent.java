@@ -2,6 +2,7 @@ package Acteur;
 
 import java.util.List;
 
+import Acteur.Eleve.Direction;
 import Systeme.Cell;
 import Systeme.Constant;
 import Systeme.Controller;
@@ -29,7 +30,8 @@ public class EleveTurbulent extends Eleve {
 
 		int x = this.getPosX();	
 		int y = this.getPosY();
-		int dir=-1;
+		int xtmp, ytmp;
+		Direction dir= null;
 		int i =0;
 		Cell c;
 		boolean ok = false;
@@ -42,66 +44,91 @@ public class EleveTurbulent extends Eleve {
 				c = Controller.getInstance().getGrille().getCells()[x][y];
 			}while((c.isEmpty() || c.getContent().getClass().getName().equals("Professeur")) && (x>=x-visibilite || x>0));
 			if(!c.isEmpty()) {
-				dir = 0;
+				dir = Direction.UP;
 				ok = true;
 			}else i++;
-
+			
+			
 			//parcour bas
+			x = this.getPosX();
 			do { 
 				x++; 
 				c = Controller.getInstance().getGrille().getCells()[x][y];
 			}while((c.isEmpty() || c.getContent().getClass().getName().equals("Professeur")) && (x<=x+visibilite || x < Constant.getMapHeight() - 1));
 			if(!c.isEmpty()) {
-				dir = 1;
+				dir = Direction.DOWN;
 				ok = true;
 			}else i++;
+			
 			//parcour gauche
+			y = this.getPosY();
 			do { 
 				y--; 
 				c = Controller.getInstance().getGrille().getCells()[x][y];
 			}while((c.isEmpty() || c.getContent().getClass().getName().equals("Professeur")) && (y>=y-visibilite || y>0));
 			if(!c.isEmpty()) {
-				dir = 2;
+				dir = Direction.LEFT;
 				ok = true;
 			}else i++;
 			//parcour droite
+			y = this.getPosY();
 			do { 
 				y++; 
 				c = Controller.getInstance().getGrille().getCells()[x][y];
 			}while((c.isEmpty() || c.getContent().getClass().getName().equals("Professeur")) && (y<=y+visibilite || y < Constant.getMapWidth()-1));
 			if(!c.isEmpty()) {
-				dir = 0;
+				dir = Direction.RIGHT;
 				ok = true;
 			}else i++;
 		}while(ok!=true || i>=4);
 		
 		//déplacement en direction de l'élève trouvé
-		if(dir!=-1) {
+		if(dir!=null) {
+		
+			x = this.getPosX();
+			y = this.getPosY();
+			xtmp = x;
+			ytmp = y;
+			this.vers = dir;
+			
 			//HAUT
-			if((dir == 0) && x > 0) {
-				while(x>=x-portee || x>0) {
-					x--;
+			if(dir.equals(Direction.UP) && x-portee >= 0) {
+				while(xtmp>x-portee && xtmp>0) {
+					xtmp--;
 				}
 			}
 			//BAS
-			else if((dir == 1) && x < Constant.getMapHeight() - 1) {
-				while(x<=x+portee || x< Constant.getMapHeight()) {
-					x++;	
+			else if(dir.equals(Direction.DOWN) && x+portee < Constant.getMapHeight()) {
+				xtmp = x;
+				ytmp = y;
+				while(xtmp<x+portee & xtmp< Constant.getMapHeight()) {
+					xtmp++;	
 				}
-
+				
 			}
 			//GAUCHE
-			else if(dir==2 && y > 0) {
-				while(y>=y-portee || y > 0) {
-					y--;
+			else if(dir.equals(Direction.LEFT) && y-portee >= 0) {
+				xtmp = x;
+				ytmp = y;
+				while(ytmp>y-portee & ytmp > 0) {
+					ytmp--;
 				}
 			}
 			//DROITE
-			else if((dir == 3) && y < Constant.getMapWidth() - 1 ) {
-				while(y<=y+portee || y < Constant.getMapWidth()) {
-					y++;
+			else if((dir.equals(Direction.RIGHT)) && y+portee < Constant.getMapWidth() ) {
+				xtmp = x;
+				ytmp = y;
+				while(ytmp<y+portee && y < Constant.getMapWidth()) {
+					ytmp++;
 				}
 			}	
+			
+			Cell test = Controller.getInstance().getGrille().getCells()[xtmp][ytmp];
+			if(test.isEmpty()) {
+				c = test;
+				this.setPosX(x);
+				this.setPosY(y);
+			}
 		}else {
 			super.deplacement();
 		}

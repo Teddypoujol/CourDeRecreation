@@ -14,7 +14,7 @@ public class Eleve extends ElementdeJeu
 		RIGHT
 	}
 	private static int nb = 0;
-	private final Direction[] directions = Direction.values();
+	protected final Direction[] directions = Direction.values();
 
 	protected int punition;
 	protected int portee;
@@ -62,12 +62,21 @@ public class Eleve extends ElementdeJeu
 	{
 		//bagarre = 0, bisous = 1, jouer = 2
 		int action = new Random().nextInt(2);
+		switch (action){
+			case 0 :System.out.println("déclenche bagarre");
+					break;
+			case 1 :System.out.println("fais bisous");
+					break;
+			case 2 :System.out.println("joue");
+					break;
+		}
 		return action;
 	}
 	
 	public void majPunition()
-	{
+	{		
 		this.punition = this.punition+1;
+		System.out.println("se fait punir, punition = " + this.punition);
 	}
 	
 	
@@ -76,50 +85,67 @@ public class Eleve extends ElementdeJeu
 	{
 		int x = this.getPosX();	
 		int y = this.getPosY();
-		int i = new Random().nextInt(3);
+		int i = new Random().nextInt(directions.length);
 		int dir = i;
+		int xtmp, ytmp;
 		
 		Cell c = Controller.getInstance().getGrille().getCells()[x][y];
 		boolean ok = false;
 		
+		System.out.println(this.nom);
+		System.out.println("emplacement : " + x + "  " + y);
 		do {
 			x = this.getPosX();
-			y = this.getPosY();
+			y = this.getPosY();	
+			xtmp = x;
+			ytmp = y;
 			Direction direction = directions[dir];
-			
+			this.vers = direction;
+
 			//HAUT
-			if((direction.equals(Direction.UP)) && x > 0) {
-				while(x>=x-portee || x>0) {
-					x--;
+			if((direction.equals(Direction.UP)) && x-portee >= 0) {
+				while(xtmp>x-portee && xtmp>0) {
+					xtmp--;
 				}
 			}
 			//BAS
-			else if((direction.equals(Direction.DOWN)) && x < Constant.getMapHeight() - 1) {
-				while(x<=x+portee || x< Constant.getMapHeight()) {
-					x++;	
+			else if((direction.equals(Direction.DOWN)) && x+portee < Constant.getMapHeight()) {
+				xtmp = x;
+				ytmp = y;
+				while(xtmp<x+portee && xtmp< Constant.getMapHeight()) {
+					xtmp++;	
 				}
-
 			}
 			//GAUCHE
-			else if(direction.equals(Direction.LEFT) && y > 0) {
-				while(y>=y-portee || y > 0) {
-					y--;
+			else if(direction.equals(Direction.LEFT) && y-portee >= 0) {
+				xtmp = x;
+				ytmp = y;
+				while(ytmp>y-portee && ytmp > 0) {
+					ytmp--;
 				}
 			}
 			//DROITE
-			else if((direction.equals(Direction.RIGHT)) && y < Constant.getMapWidth() - 1 ) {
-				while(y<=y+portee || y < Constant.getMapWidth()) {
-					y++;
+			else if((direction.equals(Direction.RIGHT)) && y+portee < Constant.getMapWidth() ) {
+				xtmp = x;
+				ytmp = y;
+				while(ytmp<y+portee && ytmp < Constant.getMapWidth()) {
+					ytmp++;
 				}
 			}	
 			
-			Cell test = Controller.getInstance().getGrille().getCells()[x][y];
+			Cell test = Controller.getInstance().getGrille().getCells()[xtmp][ytmp];
 			if(test.isEmpty()) {
-				ok = true;
 				c = test;
+				ok = true;				
 			}
 			dir = (dir + 1)%directions.length;
 		}while (!ok || dir != i);
+		if(ok) {
+			System.out.println(this.vers.toString());
+			System.out.println("nouvel emplacement : " + xtmp + "  " + ytmp);
+			this.setPosX(xtmp);
+			this.setPosY(ytmp);
+		}
 		return c;
 	}
 	

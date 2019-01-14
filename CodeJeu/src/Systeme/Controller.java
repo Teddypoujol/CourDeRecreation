@@ -237,6 +237,7 @@ public class Controller
 			int ancienneterand = new Random().nextInt(10);
 			Professeur prof;
 			prof = new Professeur(listeNomProf.get(0), ancienneterand, li, co); 
+			listeNomProf.remove(0);
 			this.professeurs.add((Professeur)prof);
 			this.grille.getCells()[li][co].setContent(prof);
 				
@@ -496,46 +497,54 @@ public class Controller
 		ArrayList<Professeur> prof = new ArrayList<>();
 		int x = e.getPosX();
 		int y = e.getPosY();
-		
-	
-		Cell c;
+		int xtmp = x;
+		int ytmp = y;
+		Cell c = Controller.getInstance().getGrille().getCells()[x][y];	
 		
 		int visibilite = 5;
 		
-		do { 
-			x--; 
-			c = Controller.getInstance().getGrille().getCells()[x][y];
-		}while(!c.getContent().getClass().getName().equals("Professeur") && (x>=x-visibilite || x>0));
-		if(c.getContent().getClass().getName().equals("Professeur")) 
-		{
-			prof.add((Professeur)c.getContent());
-			
+		//parcour haut
+		while(!c.getContent().getClass().getName().equals("Acteur.Professeur") && xtmp>x-visibilite && xtmp>0) {
+			xtmp--; 
+			c = Controller.getInstance().getGrille().getCells()[xtmp][y];
 		}
-
+		if(c.getContent().getClass().getName().equals("Acteur.Professeur")) 
+		{
+			prof.add((Professeur)c.getContent());		
+		}
 		//parcour bas
-		do { 
-			x++; 
-			c = Controller.getInstance().getGrille().getCells()[x][y];
-		}while(!c.getContent().getClass().getName().equals("Professeur") && (x<=x+visibilite || x < Constant.getMapHeight() - 1));
-		if(c.getContent().getClass().getName().equals("Professeur")) 
+		xtmp = x;
+		ytmp = y;
+		c = Controller.getInstance().getGrille().getCells()[x][y];	
+		while(!c.getContent().getClass().getName().equals("Acteur.Professeur") && xtmp<x+visibilite && xtmp < Constant.getMapHeight()-1) {
+			xtmp++; 
+			c = Controller.getInstance().getGrille().getCells()[xtmp][y];
+		}
+		if(c.getContent().getClass().getName().equals("Acteur.Professeur")) 
 		{
 			prof.add((Professeur)c.getContent());
 		}
 		//parcour gauche
-		do { 
-			y--; 
-			c = Controller.getInstance().getGrille().getCells()[x][y];
-		}while(!c.getContent().getClass().getName().equals("Professeur") && (y>=y-visibilite || y>0));
-		if(c.getContent().getClass().getName().equals("Professeur")) 
+		xtmp = x;
+		ytmp = y;
+		c = Controller.getInstance().getGrille().getCells()[x][y];	
+		while(!c.getContent().getClass().getName().equals("Acteur.Professeur") && ytmp>y-visibilite && ytmp>0) {
+			ytmp--; 
+			c = Controller.getInstance().getGrille().getCells()[x][ytmp];
+		}
+		if(c.getContent().getClass().getName().equals("Acteur.Professeur")) 
 		{
 			prof.add((Professeur)c.getContent());
 		}
 		//parcour droite
-		do { 
-			y++; 
-			c = Controller.getInstance().getGrille().getCells()[x][y];
-		}while(!c.getContent().getClass().getName().equals("Professeur") && (y<=y+visibilite || y < Constant.getMapWidth()-1));
-		if(c.getContent().getClass().getName().equals("Professeur")) 
+		xtmp = x;
+		ytmp = y;
+		c = Controller.getInstance().getGrille().getCells()[x][y];	
+		while(!c.getContent().getClass().getName().equals("Acteur.Professeur") && ytmp<y+visibilite && ytmp < Constant.getMapWidth()-1) {
+			ytmp++; 
+			c = Controller.getInstance().getGrille().getCells()[x][ytmp];
+		}
+		if(c.getContent().getClass().getName().equals("Acteur.Professeur")) 
 		{
 			prof.add((Professeur)c.getContent());
 		}
@@ -549,7 +558,7 @@ public class Controller
 	
 	public void traitementAction(Eleve e,int action) {
 		ArrayList<Professeur> prof = rechercheProf(e);
-				
+			
 		if(!prof.isEmpty())
 		{
 			if(action == 0) e.majPunition();
@@ -575,7 +584,7 @@ public class Controller
 		ArrayList<Eleve> elevestmp = new ArrayList<>();
 		
 		elevestmp.addAll(this.eleves);
-		elevestmp.addAll(this.elevesT);
+		//elevestmp.addAll(this.elevesT);
 		
 		if(!elevestmp.isEmpty() && !professeurs.isEmpty()) 
 		{
@@ -593,21 +602,23 @@ public class Controller
 				ElementdeJeu content = direction.getContent();
 				direction.setContent(tmp);
 				ArrayList<ElementdeJeu> elevesA = new ArrayList<>();
+				
 				//haut
-				if(this.grille.getCells()[x--][y].getContent().getClass().getName().equals("Eleve")) {
-					elevesA.add(this.grille.getCells()[x--][y].getContent());
+				
+				if(x>0 && this.grille.getCells()[x-1][y].getContent().getClass().getName().equals("Acteur.Eleve")) {
+					elevesA.add(this.grille.getCells()[x-1][y].getContent());				
 				}
 				//bas
-				if(this.grille.getCells()[x++][y].getContent().getClass().getName().equals("Eleve")) {
-					elevesA.add(this.grille.getCells()[x--][y].getContent());
+				if(x<Constant.getMapHeight()-1 && this.grille.getCells()[x+1][y].getContent().getClass().getName().equals("Acteur.Eleve")) {
+					elevesA.add(this.grille.getCells()[x+1][y].getContent());					
 				}
-				//gauche		
-				if(this.grille.getCells()[x][y--].getContent().getClass().getName().equals("Eleve")) {
-					elevesA.add(this.grille.getCells()[x--][y].getContent());
+				//gauche
+				if(y>0 && this.grille.getCells()[x][y-1].getContent().getClass().getName().equals("Acteur.Eleve")) {
+					elevesA.add(this.grille.getCells()[x][y-1].getContent());
 				}
 				//droite
-				if(this.grille.getCells()[x][y++].getContent().getClass().getName().equals("Eleve")) {
-					elevesA.add(this.grille.getCells()[x--][y].getContent());
+				if(y<Constant.getMapWidth()-1 && this.grille.getCells()[x][y+1].getContent().getClass().getName().equals("Acteur.Eleve")) {
+					elevesA.add(this.grille.getCells()[x][y+1].getContent());					
 				}
 				
 				if(!elevesA.isEmpty()) 
@@ -620,7 +631,6 @@ public class Controller
 			else
 			{
 				exclure(tmp);
-				
 			}
 		}
 		else 
