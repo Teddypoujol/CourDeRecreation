@@ -39,13 +39,13 @@ public class FenetreParametres extends JFrame {
 
 		Panel_Parameters pann_param = new Panel_Parameters();
 		pann_param.setBackground(Color.GRAY);
-		pann_param.setBorder(BorderFactory.createLineBorder(Color.RED));
+		//pann_param.setBorder(BorderFactory.createLineBorder(Color.RED));
 		pann_param.setPreferredSize(new Dimension(100,100));
 		add(pann_param, BorderLayout.CENTER);
-/*
+
 		Panel_img_sud pann_sud = new Panel_img_sud();
 		pann_sud.setPreferredSize(new Dimension(750, 150));
-		pann_sud.setBackground(Color.ORANGE);
+		pann_sud.setBackground(Color.GRAY);
 		add(pann_sud, BorderLayout.SOUTH);
 
 		Panel_img_ouest pann_ouest = new Panel_img_ouest();
@@ -55,7 +55,7 @@ public class FenetreParametres extends JFrame {
 		this.toFront();
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setVisible(true);
-*/
+
 	}
 
 	private class Panel extends JPanel {
@@ -64,7 +64,7 @@ public class FenetreParametres extends JFrame {
 			super.paintComponent(g);
 			Graphics2D g2 = (Graphics2D)g;
 			g2.setColor(Color.BLACK);
-			Font f = new Font("Courier", Font.BOLD, 20);
+			Font f = new Font("Courier", Font.BOLD, 14);
 			g2.setFont(f);
 			g2.drawString("Amusez vous !!", 150, 20);
 			FontMetrics fm = g.getFontMetrics();
@@ -73,18 +73,16 @@ public class FenetreParametres extends JFrame {
 			g2.setColor(Color.red);
 			f = new Font("Courier", Font.BOLD, 15);
 			g2.setFont(f);
-			g2.drawString("La cour est limitée à " + 
-					Constant.getMapWidth() * Constant.getMapHeight() + 
-					" personnes", 150, 40+hauteur);
+			
 		}
 	}
-/*
+
 	private class Panel_img_sud extends JPanel {
 		private static final long serialVersionUID = 1L;
 		public void paintComponent(Graphics g) {
 			super.paintComponent(g);
 			Graphics2D g2 = (Graphics2D)g;
-		//	String fichier = Constant.getPathRabbitGif();
+			String fichier = Constant.getPathEnfant();
 			try {
 				BufferedImage im = ImageIO.read(getClass().getResource(fichier));
 				g2.drawImage(im, 150, 10, 400, 140, null);
@@ -99,7 +97,7 @@ public class FenetreParametres extends JFrame {
 		public void paintComponent(Graphics g) {
 			super.paintComponent(g);
 			Graphics2D g2 = (Graphics2D)g;
-		//String fichier = Constant.getPathHoleGif();
+			String fichier = Constant.getPathEnfant2();
 			try {
 				BufferedImage im = ImageIO.read(getClass().getResource(fichier));
 				g2.drawImage(im, 10, 10, 220, 220, null);
@@ -112,7 +110,7 @@ public class FenetreParametres extends JFrame {
 	private class Window_popup extends JFrame {
 		private static final long serialVersionUID = 1L;
 		public Window_popup() {
-			this.setTitle("ERROR");
+			this.setTitle("ERREUR");
 			this.setBounds(500, 250, 500, 280);
 			Panel_popup pan_pop = new Panel_popup();
 			pan_pop.setBackground(new Color(255,0,0,200));
@@ -129,8 +127,8 @@ public class FenetreParametres extends JFrame {
 				g2.setColor(Color.yellow);
 				Font f = new Font("Courier", Font.BOLD, 20);
 				g2.setFont(f);
-				g2.drawString("ERROR, PLEASE CORRECT YOUR INPUT FIELDS", 10, 30);
-			//	String fichier = Constant.getPathErrorGif();
+				g2.drawString("ERREUR", 10, 30);
+				String fichier = Constant.getPathErrorGif();
 				try {
 					BufferedImage im = ImageIO.read(getClass().getResource(fichier));
 					g2.drawImage(im, 120, 40, 180, 200, null);
@@ -140,7 +138,7 @@ public class FenetreParametres extends JFrame {
 			}
 		}
 	}
-*/
+
 	private class Panel_Parameters extends JPanel {
 		private static final long serialVersionUID = 1L;
 
@@ -152,7 +150,7 @@ public class FenetreParametres extends JFrame {
 		private JLabel prof_label;
 		private JLabel eleveturbu_label;
 
-		private JButton start_button;
+		private JButton lancer;
 
 		public Panel_Parameters() {
 			GridLayout gl = new GridLayout(4,1);
@@ -175,11 +173,11 @@ public class FenetreParametres extends JFrame {
 			add(eleveturbu_label);
 			add(nb_elevesturbu);
 
-			start_button = new JButton("START");
+			lancer = new JButton("Lancer la partie");
 
-			add(start_button, BorderLayout.SOUTH);
+			add(lancer, BorderLayout.SOUTH);
 			StartAction startAct = new StartAction();
-			start_button.addActionListener(startAct);
+			lancer.addActionListener(startAct);
 		}
 
 		private class StartAction implements ActionListener {
@@ -201,9 +199,9 @@ public class FenetreParametres extends JFrame {
 						elevest_param  != -1 && 
 						sumActors <= Constant.getMapWidth() * Constant.getMapHeight()) {
 					try {
-						Controller.getInstance().setNbProf(eleves_param);
-						Controller.getInstance().setNbEleves(profs_param);
-						
+						Controller.getInstance().setNbProf(profs_param);
+						Controller.getInstance().setNbEleves(eleves_param);
+						Controller.getInstance().setNbElevesT(elevest_param);
 						Controller.getInstance().init(true);
 						Controller.getInstance().setGameInited(true);
 						Controller.getInstance().setGameStarted(false);

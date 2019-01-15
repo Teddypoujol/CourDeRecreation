@@ -17,7 +17,8 @@ public class Terrain extends ElementdeJeu {
 }
 
 	@Override
-	public void draw(Graphics g, int x, int y) throws IOException {
+	public void draw(Graphics g, int x, int y) throws IOException 
+	{
 		// TODO Auto-generated method stub
 		
 	}

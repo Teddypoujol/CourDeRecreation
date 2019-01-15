@@ -161,7 +161,10 @@ public class Controller
 		this.nb_Eleves = nombreEleve ;
 	}
 	
-	
+	public void setNbElevesT(int nombreEleve) 
+	{
+		this.nb_ElevesTurbulents = nombreEleve ;
+	}
 	/*
 	 * Ces méthodes permettent de connaitre l'état du jeu. 
 	 */
@@ -205,7 +208,7 @@ public class Controller
 			"Mr Quafafou","Mr Prosperi", "Mr Mavromatis","Mme Papini","Mme Bac","Mr Samuel","Mr Bonnecaze","Mr Banton","Mr Gengler","Mr Mugmug"));
 	
 	public ArrayList<String> listeNomEleveT = new ArrayList<String>(Arrays.asList(
-			"Adam","Maxime", "turbu3","turbu4","turbu5","turbu6"));
+			"TURBULENT","Maxime", "turbu3","turbu4","turbu5","turbu6"));
 	
 	/**
 	 * Faire apparaitre un éléve sur la grille
@@ -224,6 +227,8 @@ public class Controller
 			listeNomEleve.remove(0);
 			this.eleves.add((Eleve)eleve);
 			this.grille.getCells()[li][co].setContent(eleve);
+			
+			
 		}	
 	}
 	
@@ -665,7 +670,24 @@ public class Controller
 			{
 				exclure(tmp);
 			}
+			/*
+			if(this.inter) 
+			{
+				this.fenetre.repaint();
+				Thread.sleep(500);
+			}
+			*/
+			//this.buffer.clear();
+
+			if(this.inter) {
+				this.map.repaint();
+			} else 
+			{
+				this.grille.display();	
+			}
+			
 		}
+	
 		else 
 		{
 			this.gameover = true;
@@ -674,13 +696,11 @@ public class Controller
 				this.map.repaint();
 			}
 		}
-		if(this.inter) 
-		{
-			this.fenetre.repaint();
-			Thread.sleep(500);
-		}
+		
 			
 			
+		
+	
 		
 	} 
 }

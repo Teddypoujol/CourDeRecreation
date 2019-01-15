@@ -3,6 +3,8 @@ package Acteur;
 import java.awt.Graphics;
 import java.io.IOException;
 import java.util.Random;
+
+import Interface.CharsetCR;
 import Systeme.*;
 
 public class Eleve extends ElementdeJeu
@@ -22,6 +24,7 @@ public class Eleve extends ElementdeJeu
 	protected int visibilite;
 	protected Direction vers;
 	
+	protected boolean mouvement = false;
 	// Constructeurs de Eleve
 	
 	public Eleve(String nom,int port, int x, int y)
@@ -33,14 +36,7 @@ public class Eleve extends ElementdeJeu
 		this.visibilite=3;
 		this.vers = Direction.DOWN;
 	}
-	/*
-	public Eleve()
-	{
-		super(id, nom, visibilite);	
-		this.punition = 0;
-		this.portee = 3;
-	}
-	*/
+	
 	
 	// Méthodes d'un éléve
 	
@@ -186,11 +182,30 @@ public class Eleve extends ElementdeJeu
 		
 	}
 
-	@Override
-	public void draw(Graphics g, int x, int y) throws IOException {
-		// TODO Auto-generated method stub
-		
+	
+	
+	public boolean sedeplace() {
+		return mouvement;
 	}
 	
-	
-}
+	@Override
+	public void draw(Graphics g, int x, int y) throws IOException {
+		if(!sedeplace()) {
+			CharsetCR.getInstance().getFilleDebout().drawTile(g, x, y);
+		}
+		else {
+				if(this.vers == Direction.DOWN) {
+					CharsetCR.getInstance().getFilleBas().drawTile(g, x, y);
+				} else if(this.vers == Direction.UP) {
+					CharsetCR.getInstance().getFilleHaut().drawTile(g, x, y);
+				} else if(this.vers == Direction.LEFT) {
+					CharsetCR.getInstance().getFilleGauche().drawTile(g, x, y);
+				} else {
+					CharsetCR.getInstance().getFilleDroite().drawTile(g, x, y);
+				}
+			} 
+		
+			
+		}
+	}
+

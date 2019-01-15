@@ -7,7 +7,7 @@ public class Constant
 {
 	private static int mapWidth = 20;
 	private static int mapHeight = 20;
-	private static String path1 = "/ressources/fille_normale.jpg";
+	
 	
 	public static int getMapWidth() 
 	{
@@ -19,10 +19,49 @@ public class Constant
 		return mapHeight;
 	}
 	
-	public static String getPath1() {
-		return path1;
+
+
+	
+	private static String pathEnfant = "/ressources/enfant.jpg";
+	private static String pathEnfant2 = "/ressources/enfant.jpg";
+	
+
+	public static String getPathEnfant() {
+		return pathEnfant;
+	}
+
+	public static String getPathEnfant2() {
+		return pathEnfant2;
 	}
 	
+	private static String pathErrorGif = "/ressources/fille1.png";
+	
+	public static String getPathErrorGif() {
+		return pathErrorGif;
+	}
+	
+	
+	private static String pathFille1 = "/ressources/fille1.png";
+	private static String pathFille2 = "/ressources/fille2.png";
+	private static String pathFille3 = "/ressources/fille3.png";
+	private static String pathCour= "/ressources/cour.jpg";	
+
+	public static String getPathFille1() {
+		return pathFille1;
+	}
+	
+	public static String getPathFille2() {
+		return pathFille2;
+	}
+	
+	public static String getPathFille3() {
+		return pathFille3;
+	}
+	
+	public static String getPathCour() {
+		return pathCour;
+	}
+
 	
 	private Constant() 
 	{

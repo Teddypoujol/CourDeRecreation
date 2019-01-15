@@ -13,10 +13,9 @@ import java.io.IOException;
 import javax.swing.JPanel;
 
 import Acteur.*;
-import Systeme.Controller;
+import Systeme.*;
 
-
-public class Map extends JPanel{
+public class Map extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private Controller ctrl = Controller.getInstance();
 
@@ -35,7 +34,7 @@ public class Map extends JPanel{
 			}
 		});
 	}
-	
+
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
@@ -44,18 +43,22 @@ public class Map extends JPanel{
 		try {
 			for(int i = 0; i < this.ctrl.getGrille().getLi(); i++) {
 				for(int j = 0; j < this.ctrl.getGrille().getCo(); j++) {
-					TilesetCR.getInstance().getBlank().drawTile(g2d, j, i);
+					TilesetCR.getInstance().getCour().drawTile(g2d, j, i);
 
 				}
 			}
 
-			for(Eleve e : this.ctrl.getEleves()) {
+			for(Professeur p : this.ctrl.getProfesseurs()) 
+			{
+				p.draw(g2d, p.getPosX(), p.getPosY());
+			}
+			
+			for(Eleve e : this.ctrl.getEleves()) 
+			{
 				e.draw(g2d, e.getPosX(), e.getPosY());
 			}
 
-			for(Professeur p : this.ctrl.getProfesseurs()) {
-				p.draw(g2d, p.getPosX(), p.getPosY());
-			}
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -64,7 +67,7 @@ public class Map extends JPanel{
 			g2d.setColor(Color.white);
 			Font f = new Font("Courier", Font.BOLD, 50);
 			g2d.setFont(f);
-			g2d.drawString("PRESS ENTER TO START", 20, 300);
+			g2d.drawString("Appuyer sur entrer", 20, 300);
 			g2d.drawRect(10, 250, 620, 60);
 			GradientPaint pausedGrad = new GradientPaint(0, 0, new Color(0, 0, 224, 50), 
 					this.getWidth(), this.getHeight(), new Color(0, 0, 224, 50));
@@ -88,6 +91,5 @@ public class Map extends JPanel{
 			ctrl.setGameInited(false);
 			ctrl.setGameInited(false);
 		}
-}	
-
+	}
 }

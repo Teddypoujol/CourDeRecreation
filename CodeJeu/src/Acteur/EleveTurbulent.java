@@ -22,7 +22,9 @@ public class EleveTurbulent extends Eleve {
 		int action;
 		if(!estBagarreur) {
 			action = 1;
+			System.out.println("déclenche une bagarre");
 		}else action = 0;
+		
 		return action;
 	}
 	
@@ -32,55 +34,75 @@ public class EleveTurbulent extends Eleve {
 		int y = this.getPosY();
 		int xtmp, ytmp;
 		Direction dir= null;
-		int i =0;
 		Cell c;
 		boolean ok = false;
-		
+		System.out.println(this.nom);
+		System.out.println("emplacement : " + x + "  " + y);
 		//recherche élève
 		do {
 			//parcour haut
-			do { 
-				x--; 
-				c = Controller.getInstance().getGrille().getCells()[x][y];
-			}while((c.isEmpty() || c.getContent().getClass().getName().equals("Professeur")) && (x>=x-visibilite || x>0));
-			if(!c.isEmpty()) {
+			c = Controller.getInstance().getGrille().getCells()[x][y];
+			xtmp = x;
+			ytmp = y;
+			while(!c.getContent().getClass().getName().equals("Acteur.Eleve") && (xtmp>x-visibilite && xtmp>0)) {
+				xtmp--; 
+				c = Controller.getInstance().getGrille().getCells()[xtmp][y];
+			}	
+			if(c.getContent().getClass().getName().equals("Acteur.Eleve")) {					
 				dir = Direction.UP;
+				System.out.println("élève trouvé" + dir);
+				System.out.println(xtmp + "  " + ytmp);
 				ok = true;
-			}else i++;
+			}
 			
 			
 			//parcour bas
-			x = this.getPosX();
-			do { 
-				x++; 
-				c = Controller.getInstance().getGrille().getCells()[x][y];
-			}while((c.isEmpty() || c.getContent().getClass().getName().equals("Professeur")) && (x<=x+visibilite || x < Constant.getMapHeight() - 1));
-			if(!c.isEmpty()) {
+			c = Controller.getInstance().getGrille().getCells()[x][y];
+			xtmp = x;
+			ytmp = y;
+			while(!c.getContent().getClass().getName().equals("Acteur.Eleve") && (xtmp<x+visibilite && xtmp < Constant.getMapHeight() - 1)) {
+				xtmp++; 
+				c = Controller.getInstance().getGrille().getCells()[xtmp][y];
+			}
+			if(c.getContent().getClass().getName().equals("Acteur.Eleve")) {
 				dir = Direction.DOWN;
+				System.out.println("élève trouvé" + dir);
+				System.out.println(xtmp + "  " + ytmp);
 				ok = true;
-			}else i++;
+			}
 			
 			//parcour gauche
-			y = this.getPosY();
-			do { 
-				y--; 
-				c = Controller.getInstance().getGrille().getCells()[x][y];
-			}while((c.isEmpty() || c.getContent().getClass().getName().equals("Professeur")) && (y>=y-visibilite || y>0));
-			if(!c.isEmpty()) {
+			c = Controller.getInstance().getGrille().getCells()[x][y];
+			xtmp = x;
+			ytmp = y;
+			while(!c.getContent().getClass().getName().equals("Acteur.Eleve") && (ytmp>y-visibilite && ytmp>0)) {
+				ytmp--; 
+				c = Controller.getInstance().getGrille().getCells()[x][ytmp];
+			}
+			if(c.getContent().getClass().getName().equals("Acteur.Eleve")) {
 				dir = Direction.LEFT;
+				System.out.println("élève trouvé" + dir);
+				System.out.println(xtmp + "  " + ytmp);
 				ok = true;
-			}else i++;
+			}
+			
 			//parcour droite
-			y = this.getPosY();
-			do { 
-				y++; 
-				c = Controller.getInstance().getGrille().getCells()[x][y];
-			}while((c.isEmpty() || c.getContent().getClass().getName().equals("Professeur")) && (y<=y+visibilite || y < Constant.getMapWidth()-1));
-			if(!c.isEmpty()) {
+			c = Controller.getInstance().getGrille().getCells()[x][y];
+			xtmp = x;
+			ytmp = y;
+			while(!c.getContent().getClass().getName().equals("Acteur.Eleve") && (ytmp<y+visibilite && ytmp < Constant.getMapWidth()-1)) {
+				ytmp++; 
+				c = Controller.getInstance().getGrille().getCells()[x][ytmp];
+			}
+			if(c.getContent().getClass().getName().equals("Acteur.Eleve")) {
 				dir = Direction.RIGHT;
+				System.out.println("élève trouvé" + dir);
+				System.out.println(xtmp + "  " + ytmp);
 				ok = true;
-			}else i++;
-		}while(ok!=true || i>=4);
+			}
+			
+			ok=true;
+		}while(ok!=true);
 		
 		//déplacement en direction de l'élève trouvé
 		if(dir!=null) {

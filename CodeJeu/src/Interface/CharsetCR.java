@@ -7,13 +7,13 @@ import javax.imageio.ImageIO;
 
 import Systeme.Constant;
 
-public class CharsetCR implements Tileset{
+public class CharsetCR implements Tileset {
 	private static CharsetCR INSTANCE;
 	private static Image tilesetImg = null;
-	private static int li = 4; // nombre de lignes de tiles
-	private static int co = 8; // nombre de colonnes de tiles
-	private static int tileW = 200; // tile width
-	private static int tileH = 250; // tile height
+	private static int li = 3; // nombre de lignes de tiles
+	private static int co = 3; // nombre de colonnes de tiles
+	private static int tileW = 65; // tile width
+	private static int tileH = 65; // tile height
 	private static Tile[][] tileset;
 
 	private CharsetCR() {}
@@ -21,7 +21,7 @@ public class CharsetCR implements Tileset{
 	public static CharsetCR getInstance() throws IOException {
 		if(INSTANCE == null) {
 			INSTANCE = new CharsetCR();
-			tilesetImg = ImageIO.read(INSTANCE.getClass().getResource(Constant.getPath1()));
+			tilesetImg = ImageIO.read(INSTANCE.getClass().getResource(Constant.getPathFille1()));
 
 			tileset = new Tile[li][co];
 			for(int i = 0; i < li; i++) {
@@ -38,20 +38,28 @@ public class CharsetCR implements Tileset{
 	}
 
 	public Tile getFilleBagarre() {
-		return tileset[0][4];
+		return tileset[0][1];
 	}
 
-	public Tile getFilleCour1() {
+	public Tile getFilleDroite() {
+		return tileset[0][2];
+	}
+
+	public Tile getFilleHaut() {
 		return tileset[1][0];
 	}
 
-	public Tile getFilleCour2() {
-		return tileset[1][2];
+	public Tile getFilleBas() {
+		return tileset[1][1];
 	}
 
-	public Tile getFilleCour3() {
-		return tileset[1][5];
+	
+
+	public Tile getFilleGauche() {
+		return tileset[2][1];
 	}
+
+
 
 	@Override
 	public Image getImage() {
@@ -68,5 +76,3 @@ public class CharsetCR implements Tileset{
 		return tileH;
 	}
 }
-
-

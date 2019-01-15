@@ -24,6 +24,7 @@ public class Graphique extends Launcher {
 
 	@Override
 	public void launch() throws InterruptedException, IOException {
+		
 		FenetreParametres winParam = new FenetreParametres();
 
 		winParam.addWindowListener(new WindowAdapter() {
