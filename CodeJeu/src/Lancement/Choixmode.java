@@ -19,7 +19,7 @@ public class Choixmode extends JFrame {
 
 	public Choixmode() {
 		super();
-		this.setTitle("Choose your mode");
+		this.setTitle("Choisir le mode");
 		this.setBounds(500, 250, 500, 280);
 		PanelTitle title = new PanelTitle();
 		title.setPreferredSize(new Dimension(500, 50));
@@ -42,7 +42,7 @@ public class Choixmode extends JFrame {
 			g2.setColor(Color.BLACK);
 			Font f = new Font("Courier", Font.BOLD, 20);
 			g2.setFont(f);
-			g2.drawString("Choose your mode", 150, 30);
+			g2.drawString("Choissisez le mode", 150, 30);
 		}
 	}
 
@@ -51,9 +51,10 @@ public class Choixmode extends JFrame {
 		JButton console_button;
 		JButton ihm_button;
 
-		public PanelChooseMode() {
+		public PanelChooseMode() 
+		{
 			console_button = new JButton("CONSOLE");
-			ihm_button = new JButton("GRAPHICAL MODE");
+			ihm_button = new JButton("GRAPHIQUE");
 			add(console_button, BorderLayout.SOUTH);
 			add(ihm_button, BorderLayout.SOUTH);
 			console_button.addActionListener(new ActionListener() {

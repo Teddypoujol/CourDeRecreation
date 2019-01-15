@@ -103,6 +103,11 @@ public class Controller
 	{
 		return this.professeurs;
 	}
+	
+	public List<EleveTurbulent> getElevesT() 
+	{
+		return this.elevesT;
+	}
 
 	public List<Eleve> getElevesExclu()
 	{
@@ -199,7 +204,8 @@ public class Controller
 	public ArrayList<String> listeNomProf = new ArrayList<String>(Arrays.asList(
 			"Mr Quafafou","Mr Prosperi", "Mr Mavromatis","Mme Papini","Mme Bac","Mr Samuel","Mr Bonnecaze","Mr Banton","Mr Gengler","Mr Mugmug"));
 	
-	
+	public ArrayList<String> listeNomEleveT = new ArrayList<String>(Arrays.asList(
+			"Adam","Maxime", "turbu3","turbu4","turbu5","turbu6"));
 	
 	/**
 	 * Faire apparaitre un éléve sur la grille
@@ -262,8 +268,9 @@ public class Controller
 		    
 			int porteerand = new Random().nextInt(2) + 1;
 			EleveTurbulent eleve;
-			eleve = new EleveTurbulent(listeNomEleve.get(0),porteerand, li, co,bagarreur.nextBoolean());
-			this.eleves.add((EleveTurbulent)eleve);
+			eleve = new EleveTurbulent(listeNomEleveT.get(0),porteerand, li, co,bagarreur.nextBoolean());
+			listeNomEleveT.remove(0);
+			this.elevesT.add((EleveTurbulent)eleve);
 			this.grille.getCells()[li][co].setContent(eleve);
 				
 		}
@@ -286,6 +293,7 @@ public class Controller
 		this.grille.getCells()[li][co].setContent(new Terrain(li, co));
 		eleves.remove(eleve);
 	}
+	
 
 	/**
 	 * Enleve le professeur qui a fait un burnout.
@@ -363,6 +371,7 @@ public class Controller
 		this.grille = new Grille(Constant.getMapWidth(), Constant.getMapHeight());
 		
 		this.eleves = new ArrayList<>();
+		this.elevesT = new ArrayList<>();
 		this.professeurs = new ArrayList<>();
 		this.profenburnout = new ArrayList<>();
 		this.elevesexclus = new ArrayList<>();
@@ -386,8 +395,7 @@ public class Controller
 				}
 			} while(nb > nbMaxEleve);
 			
-		
-			//spaceLeft -= nb;
+	
 			
 			for(int i = 0; i < nb; i++) 
 			{
@@ -411,8 +419,7 @@ public class Controller
 				}
 			} while(nb > nbMaxEleve);
 			
-			
-			//spaceLeft -= nb;
+		
 			
 			for(int i = 0; i < nb; i++) 
 			{
@@ -428,7 +435,33 @@ public class Controller
 				} while(!placed);
 			}
 
-	
+			
+			
+			do 
+			{
+				if(((nb = this.inputNumber("elevesT")) > 10)) 
+				{
+					System.out.println("Le nombre max d'élèves turbulent est limité à 10 dans la cour");
+				}
+			} while(nb > 10);
+			
+			
+			for(int i = 0; i < nb; i++) 
+			{
+				placed = false;
+				do {
+					posRandomx = this.random.nextInt(this.grille.getLi());
+					posRandomy = this.random.nextInt(this.grille.getCo());
+					if(this.grille.getCells()[posRandomx][posRandomy].isEmpty()) 
+					{
+						this.placerEleveTurbulent(posRandomx, posRandomy);
+						placed = true;
+					}
+				} while(!placed);
+			}
+			
+			
+			
 			this.grille.display();
 		
 		} 
@@ -584,7 +617,7 @@ public class Controller
 		ArrayList<Eleve> elevestmp = new ArrayList<>();
 		
 		elevestmp.addAll(this.eleves);
-		//elevestmp.addAll(this.elevesT);
+		elevestmp.addAll(this.elevesT);
 		
 		if(!elevestmp.isEmpty() && !professeurs.isEmpty()) 
 		{

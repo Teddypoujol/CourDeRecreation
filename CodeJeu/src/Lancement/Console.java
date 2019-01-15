@@ -10,7 +10,7 @@ public class Console extends Launcher {
 		Controller.getInstance().init(false);
 
 		// Temps de configuration de la fenetre console
-		System.out.println("Press <Enter> to start.");
+		System.out.println("Appuyez sur entrer");
 		this.bufferReader.readLine();
 
 		while(!Controller.getInstance().gameOver()) {
@@ -26,7 +26,7 @@ public class Console extends Launcher {
 
 		this.startGame();
 		do {
-			System.out.println("<o> to play again, <q> to exit.");
+			System.out.println("<o> jouer a nouveau, <q> quitter.");
 			choice = bufferReader.readLine();
 			if((choice.toUpperCase()).equals("O")) {
 				this.startGame();
@@ -36,7 +36,7 @@ public class Console extends Launcher {
 				System.out.println("Unknown.");
 			}
 		} while(restart);
-		System.out.println("Bye!");
+		System.out.println("Aurevoir");
 		System.exit(0);
 	}
 }
