@@ -66,7 +66,7 @@ public class FenetreParametres extends JFrame {
 			g2.setColor(Color.BLACK);
 			Font f = new Font("Courier", Font.BOLD, 14);
 			g2.setFont(f);
-			g2.drawString("Amusez vous !!", 150, 20);
+	
 			FontMetrics fm = g.getFontMetrics();
 			int hauteur = fm.getHeight();
 			g2.drawString("Entrez le nombre d'élèves (max 40) et d'élèves turbulents et de professeurs", 20, 20+hauteur);
@@ -207,8 +207,8 @@ public class FenetreParametres extends JFrame {
 						Controller.getInstance().setGameStarted(false);
 						JFrame win = (JFrame) Controller.getInstance().getFenetre();
 						win.setBounds(0, 0, 
-								Constant.getMapWidth() * 32 + 20, 
-								Constant.getMapHeight() * 32 + 45);
+						Constant.getMapWidth() * 60, 
+						Constant.getMapHeight() * 60+35);
 						win.setResizable(false);
 					} catch (IOException e) {
 						e.printStackTrace();

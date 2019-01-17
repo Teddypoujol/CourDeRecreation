@@ -87,7 +87,7 @@ public class Eleve extends ElementdeJeu
 		
 		Cell c = Controller.getInstance().getGrille().getCells()[x][y];
 		boolean ok = false;
-		
+		//Direction direction = directions[dir];
 		System.out.println(this.nom);
 		System.out.println("emplacement : " + x + "  " + y);
 		do {
@@ -141,6 +141,8 @@ public class Eleve extends ElementdeJeu
 			System.out.println("nouvel emplacement : " + xtmp + "  " + ytmp);
 			this.setPosX(xtmp);
 			this.setPosY(ytmp);
+			mouvement=true;
+			//this.vers = direction;
 		}
 		return c;
 	}

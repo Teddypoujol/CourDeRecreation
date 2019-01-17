@@ -43,7 +43,7 @@ public class Map extends JPanel {
 		try {
 			for(int i = 0; i < this.ctrl.getGrille().getLi(); i++) {
 				for(int j = 0; j < this.ctrl.getGrille().getCo(); j++) {
-					TilesetCR.getInstance().getCour().drawTile(g2d, j, i);
+					TilesetCR.getInstance().getCour().drawTile(g2d, i, j);
 
 				}
 			}
@@ -70,7 +70,7 @@ public class Map extends JPanel {
 			g2d.drawString("Appuyer sur entrer", 20, 300);
 			g2d.drawRect(10, 250, 620, 60);
 			GradientPaint pausedGrad = new GradientPaint(0, 0, new Color(0, 0, 224, 50), 
-					this.getWidth(), this.getHeight(), new Color(0, 0, 224, 50));
+					this.getHeight(),this.getWidth() , new Color(0, 0, 224, 50));
 			g2d.setPaint(pausedGrad);
 			g2d.fill(new Rectangle2D.Double(0, 0, this.getWidth(), this.getHeight()));
 		}
@@ -87,7 +87,7 @@ public class Map extends JPanel {
 			g2d.setColor(Color.blue);
 			Font f2 = new Font("Courier", Font.BOLD, 20);
 			g2d.setFont(f2);
-			g2d.drawString("To play again, exit the window and enter new inputs !", 6, 330);
+			
 			ctrl.setGameInited(false);
 			ctrl.setGameInited(false);
 		}

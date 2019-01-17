@@ -9,12 +9,15 @@ import Systeme.Constant;
 
 public class TilesetCR implements Tileset {
 	private static TilesetCR INSTANCE;
+
 	private static Image tilesetImg = null;
+
 	private static int li = 3; // nombre de lignes de tiles
 	private static int co = 3; // nombre de colonnes de tiles
-	private int tileW = 65; // tile width
-	private int tileH = 65; // tile height
+	private int tileW = 60; // tile width
+	private int tileH = 60; // tile height
 	private static Tile[][] tileset;
+
 
 	private TilesetCR() {}
 
@@ -31,11 +34,15 @@ public class TilesetCR implements Tileset {
 		}
 		return INSTANCE;
 	}
+	
+
+	
+	
 
 	public Tile getCour() {
 		return tileset[0][0];
 	}
-
+	
 	
 
 	@Override

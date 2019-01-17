@@ -6,7 +6,7 @@ import java.util.Arrays;
 public class Constant 
 {
 	private static int mapWidth = 20;
-	private static int mapHeight = 20;
+	private static int mapHeight = 10;
 	
 	
 	public static int getMapWidth() 
@@ -44,8 +44,9 @@ public class Constant
 	private static String pathFille1 = "/ressources/fille1.png";
 	private static String pathFille2 = "/ressources/fille2.png";
 	private static String pathFille3 = "/ressources/fille3.png";
-	private static String pathCour= "/ressources/cour.jpg";	
-
+	private static String pathCour= "/ressources/cour.png";	
+	private static String pathProf= "/ressources/prof.png";	
+	
 	public static String getPathFille1() {
 		return pathFille1;
 	}
@@ -60,6 +61,10 @@ public class Constant
 	
 	public static String getPathCour() {
 		return pathCour;
+	}
+	
+	public static String getPathProf() {
+		return pathProf;
 	}
 
 	

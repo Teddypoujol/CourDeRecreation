@@ -373,7 +373,7 @@ public class Controller
 	{
 		this.inter = ihm;
 		this.gameover = false;
-		this.grille = new Grille(Constant.getMapWidth(), Constant.getMapHeight());
+		this.grille = new Grille(Constant.getMapHeight(),Constant.getMapWidth() );
 		
 		this.eleves = new ArrayList<>();
 		this.elevesT = new ArrayList<>();
@@ -381,14 +381,13 @@ public class Controller
 		this.profenburnout = new ArrayList<>();
 		this.elevesexclus = new ArrayList<>();
 		
-		//this.underground = new ArrayList<>();
-		//this.buffer = new ArrayList<>();
 
 		int posRandomx;
 		int posRandomy;
 		int nb;
 		boolean placed;
-		//int spaceLeft = Constant.getMapWidth() * Constant.getMapHeight();
+		
+		//placerEleve(0,1);
 		
 		if(!inter) 
 		{
@@ -515,8 +514,10 @@ public class Controller
 			}
 
 			Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-			int w = screenSize.width;
-			int h = screenSize.height;
+			//int w = screenSize.width;
+			//int h = screenSize.height;
+			int w = 60 * 20 + 16;
+			int h = 60*20 + 25;
 			this.fenetre = new Fenetre(w,h);
 			this.map = new Map();
 			this.fenetre.add(this.map);

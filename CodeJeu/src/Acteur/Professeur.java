@@ -1,8 +1,16 @@
 package Acteur;
 
 import java.awt.Graphics;
+import java.awt.Image;
+import java.io.File;
 import java.io.IOException;
 
+import javax.imageio.ImageIO;
+
+import Interface.CharsetCR;
+import Interface.TilesetCR;
+import Systeme.Constant;
+import Systeme.Controller;
 import Systeme.ElementdeJeu;
 
 public class Professeur extends ElementdeJeu {
@@ -62,8 +70,10 @@ public class Professeur extends ElementdeJeu {
 	}
 
 	@Override
-	public void draw(Graphics g, int x, int y) throws IOException {
-		// TODO Auto-generated method stub
+	public void draw(Graphics g, int x, int y) throws IOException 
+	{
+		Image profimg = ImageIO.read(getClass().getResource(Constant.getPathProf()));
+		g.drawImage(profimg,y*60,x*60,(y+1)*60,(x+1)*60,0,0,60,60,Controller.getInstance().getMap());
 		
 	}
 }
