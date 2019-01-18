@@ -130,12 +130,14 @@ public class Eleve extends ElementdeJeu
 			}	
 			
 			Cell test = Controller.getInstance().getGrille().getCells()[xtmp][ytmp];
+			System.out.println(test.isEmpty());
 			if(test.isEmpty()) {
+				
 				c = test;
 				ok = true;				
 			}
 			dir = (dir + 1)%directions.length;
-		}while (!ok || dir != i);
+		}while (!ok && dir != i);
 		if(ok) {
 			System.out.println(this.vers.toString());
 			System.out.println("nouvel emplacement : " + xtmp + "  " + ytmp);

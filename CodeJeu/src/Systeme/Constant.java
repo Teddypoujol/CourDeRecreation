@@ -44,6 +44,7 @@ public class Constant
 	private static String pathFille1 = "/ressources/fille1.png";
 	private static String pathFille2 = "/ressources/fille2.png";
 	private static String pathFille3 = "/ressources/fille3.png";
+	private static String pathGarcon = "/ressources/garcon.png";
 	private static String pathCour= "/ressources/cour.png";	
 	private static String pathProf= "/ressources/prof.png";	
 	
@@ -57,6 +58,10 @@ public class Constant
 	
 	public static String getPathFille3() {
 		return pathFille3;
+	}
+	
+	public static String getPathGarcon() {
+		return pathGarcon;
 	}
 	
 	public static String getPathCour() {

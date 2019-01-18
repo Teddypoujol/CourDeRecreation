@@ -46,7 +46,7 @@ public class Tile {
 		tx , ty, tx + this.ts.getTileH(), ty + this.ts.getTileW(), 
 		Controller.getInstance().getMap());
 	}
-	public void drawTile(Graphics g, int x, int y, Direction direction) {
+/*	public void drawTile(Graphics g, int x, int y, Direction direction) {
 		int tx = this.numPosX * this.height;
 		int ty = this.numPosY * this.width;
 		int offsetX;
@@ -74,6 +74,6 @@ public class Tile {
 		(y + 1) * this.ts.getTileW() + offsetY, 
 		tx , ty, tx + this.ts.getTileH(), ty + this.ts.getTileW(), 
 		Controller.getInstance().getMap());
-}
+}*/
 
 }

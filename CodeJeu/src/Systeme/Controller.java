@@ -627,61 +627,63 @@ public class Controller
 		
 		if(!elevestmp.isEmpty() && !professeurs.isEmpty()) 
 		{
-			
-			Eleve tmp = elevestmp.get(indiceListeEleves);
-			indiceListeEleves = (indiceListeEleves + 1)%elevestmp.size();
-			int x = tmp.getPosX();
-			int y = tmp.getPosY();
-			this.grille.getCells()[x][y].setContent(new Terrain(x, y));
-			Cell direction = tmp.deplacement();
-			
-			
-			if(!tmp.verifPunition()) 
-			{
-				ElementdeJeu content = direction.getContent();
-				direction.setContent(tmp);
-				ArrayList<ElementdeJeu> elevesA = new ArrayList<>();
+			for(Eleve e : elevestmp) {
+				Eleve tmp = elevestmp.get(indiceListeEleves);
+				indiceListeEleves = (indiceListeEleves + 1)%elevestmp.size();
+				int x = tmp.getPosX();
+				int y = tmp.getPosY();
+				this.grille.getCells()[x][y].setContent(new Terrain(x, y));
+				Cell direction = tmp.deplacement();
 				
-				//haut
 				
-				if(x>0 && this.grille.getCells()[x-1][y].getContent().getClass().getName().equals("Acteur.Eleve")) {
-					elevesA.add(this.grille.getCells()[x-1][y].getContent());				
-				}
-				//bas
-				if(x<Constant.getMapHeight()-1 && this.grille.getCells()[x+1][y].getContent().getClass().getName().equals("Acteur.Eleve")) {
-					elevesA.add(this.grille.getCells()[x+1][y].getContent());					
-				}
-				//gauche
-				if(y>0 && this.grille.getCells()[x][y-1].getContent().getClass().getName().equals("Acteur.Eleve")) {
-					elevesA.add(this.grille.getCells()[x][y-1].getContent());
-				}
-				//droite
-				if(y<Constant.getMapWidth()-1 && this.grille.getCells()[x][y+1].getContent().getClass().getName().equals("Acteur.Eleve")) {
-					elevesA.add(this.grille.getCells()[x][y+1].getContent());					
-				}
-				
-				if(!elevesA.isEmpty()) 
+				if(!tmp.verifPunition()) 
 				{
-					int action =tmp.choisirAction();
-					traitementAction(tmp,action);
-				}
+					ElementdeJeu content = direction.getContent();
+					direction.setContent(tmp);
+					ArrayList<ElementdeJeu> elevesA = new ArrayList<>();
 					
+					//haut
+					
+					if(x>0 && this.grille.getCells()[x-1][y].getContent().getClass().getName().equals("Acteur.Eleve")) {
+						elevesA.add(this.grille.getCells()[x-1][y].getContent());				
+					}
+					//bas
+					if(x<Constant.getMapHeight()-1 && this.grille.getCells()[x+1][y].getContent().getClass().getName().equals("Acteur.Eleve")) {
+						elevesA.add(this.grille.getCells()[x+1][y].getContent());					
+					}
+					//gauche
+					if(y>0 && this.grille.getCells()[x][y-1].getContent().getClass().getName().equals("Acteur.Eleve")) {
+						elevesA.add(this.grille.getCells()[x][y-1].getContent());
+					}
+					//droite
+					if(y<Constant.getMapWidth()-1 && this.grille.getCells()[x][y+1].getContent().getClass().getName().equals("Acteur.Eleve")) {
+						elevesA.add(this.grille.getCells()[x][y+1].getContent());					
+					}
+					
+					if(!elevesA.isEmpty()) 
+					{
+						int action =tmp.choisirAction();
+						traitementAction(tmp,action);
+					}
+					
+				}
+				else
+				{
+					exclure(tmp);
+				}
+				
+				/*if(this.inter) 
+				{
+					this.fenetre.repaint();
+					Thread.sleep(500);
+				}
+				*/
+				
 			}
-			else
-			{
-				exclure(tmp);
-			}
-			/*
-			if(this.inter) 
-			{
-				this.fenetre.repaint();
-				Thread.sleep(500);
-			}
-			*/
-			//this.buffer.clear();
-
 			if(this.inter) {
 				this.map.repaint();
+				Thread.sleep(100);
+				
 			} else 
 			{
 				this.grille.display();	

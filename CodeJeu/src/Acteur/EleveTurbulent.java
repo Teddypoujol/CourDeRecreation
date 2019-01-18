@@ -1,6 +1,11 @@
 package Acteur;
 
+import java.awt.Graphics;
+import java.awt.Image;
+import java.io.IOException;
 import java.util.List;
+
+import javax.imageio.ImageIO;
 
 import Acteur.Eleve.Direction;
 import Systeme.Cell;
@@ -48,7 +53,7 @@ public class EleveTurbulent extends Eleve {
 				xtmp--; 
 				c = Controller.getInstance().getGrille().getCells()[xtmp][y];
 			}	
-			if(c.getContent().getClass().getName().equals("Acteur.Eleve")) {					
+			if(c.getContent() instanceof Eleve ) {					
 				dir = Direction.UP;
 				System.out.println("élève trouvé" + dir);
 				System.out.println(xtmp + "  " + ytmp);
@@ -97,7 +102,6 @@ public class EleveTurbulent extends Eleve {
 			if(c.getContent().getClass().getName().equals("Acteur.Eleve")) {
 				dir = Direction.RIGHT;
 				System.out.println("élève trouvé" + dir);
-				System.out.println(xtmp + "  " + ytmp);
 				ok = true;
 			}
 			
@@ -148,12 +152,22 @@ public class EleveTurbulent extends Eleve {
 			Cell test = Controller.getInstance().getGrille().getCells()[xtmp][ytmp];
 			if(test.isEmpty()) {
 				c = test;
-				this.setPosX(x);
-				this.setPosY(y);
+				this.setPosX(xtmp);
+				this.setPosY(ytmp);
+			}else {
+				c = Controller.getInstance().getGrille().getCells()[x][y];
 			}
 		}else {
-			super.deplacement();
+			c = super.deplacement();
 		}
 		return c;
+	}
+	
+	@Override
+	public void draw(Graphics g, int x, int y) throws IOException 
+	{
+		Image garsimg = ImageIO.read(getClass().getResource(Constant.getPathGarcon()));
+		g.drawImage(garsimg,y*60,x*60,(y+1)*60,(x+1)*60,0,0,60,60,Controller.getInstance().getMap());
+		
 	}
 }

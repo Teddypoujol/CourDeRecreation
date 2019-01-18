@@ -44,7 +44,7 @@ public class Map extends JPanel {
 			for(int i = 0; i < this.ctrl.getGrille().getLi(); i++) {
 				for(int j = 0; j < this.ctrl.getGrille().getCo(); j++) {
 					TilesetCR.getInstance().getCour().drawTile(g2d, i, j);
-
+					//System.out.println(i + "  " + j +"  "+ this.ctrl.getGrille().getCells()[i][j].isEmpty());
 				}
 			}
 
@@ -57,7 +57,11 @@ public class Map extends JPanel {
 			{
 				e.draw(g2d, e.getPosX(), e.getPosY());
 			}
-
+			
+			for(EleveTurbulent et : this.ctrl.getElevesT()) 
+			{
+				et.draw(g2d, et.getPosX(), et.getPosY());
+			}
 			
 		} catch (IOException e) {
 			e.printStackTrace();
