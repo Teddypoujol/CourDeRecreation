@@ -1,5 +1,6 @@
 package Interface;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GradientPaint;
@@ -9,8 +10,11 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.geom.Rectangle2D;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintStream;
 
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 
 import Acteur.*;
 import Systeme.*;
@@ -33,6 +37,9 @@ public class Map extends JPanel {
 				}
 			}
 		});
+
+		
+		    
 	}
 
 	@Override
@@ -71,8 +78,8 @@ public class Map extends JPanel {
 			g2d.setColor(Color.white);
 			Font f = new Font("Courier", Font.BOLD, 50);
 			g2d.setFont(f);
-			g2d.drawString("Appuyer sur entrer", 20, 300);
-			g2d.drawRect(10, 250, 620, 60);
+			g2d.drawString("Appuyer sur entrer", 300, 300);
+			g2d.drawRect(10, 250, 1150, 60);
 			GradientPaint pausedGrad = new GradientPaint(0, 0, new Color(0, 0, 224, 50), 
 					this.getHeight(),this.getWidth() , new Color(0, 0, 224, 50));
 			g2d.setPaint(pausedGrad);
@@ -80,14 +87,14 @@ public class Map extends JPanel {
 		}
 
 		if(ctrl.gameOver()) {
-			Rectangle2D rect = new Rectangle2D.Double(0, 250,640,90);
+			Rectangle2D rect = new Rectangle2D.Double(0, 250,1200,90);
 			g2d.setColor(new Color(255,255,255,150));
 			g2d.fill(rect);
 			g2d.draw(rect);
 			g2d.setColor(Color.black);
 			Font f = new Font("Courier", Font.BOLD, 50);
 			g2d.setFont(f);
-			g2d.drawString("GAME OVER", 160, 300);
+			g2d.drawString("GAME OVER", 500, 300);
 			g2d.setColor(Color.blue);
 			Font f2 = new Font("Courier", Font.BOLD, 20);
 			g2d.setFont(f2);

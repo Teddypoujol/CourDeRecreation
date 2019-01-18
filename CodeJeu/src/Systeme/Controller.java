@@ -1,9 +1,8 @@
 package Systeme;
 
 import java.util.List;
-import java.awt.Dimension;
-import java.awt.Toolkit;
-import java.awt.Window;
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -12,9 +11,8 @@ import java.util.Arrays;
 import java.util.Random;
 
 import Acteur.*;
-import Systeme.*;
-import Interface.Map;
-import Interface.Fenetre;
+import Interface.*;
+
 
 
 public class Controller 
@@ -41,11 +39,12 @@ public class Controller
 	private List<Eleve> elevesexclus;
 	private List<Professeur> profenburnout;
 	
-	
-	private List<ElementdeJeu> buffer;
-	
 	private Fenetre fenetre;
+	private Fenetre fenetre2;
+
 	private Map map;
+	private ConsolePanneau con;
+	
 	
 	private Random random = new Random();
 	private Grille grille;
@@ -466,7 +465,7 @@ public class Controller
 			
 			
 			
-			this.grille.display();
+			
 		
 		} 
 		else 
@@ -513,14 +512,22 @@ public class Controller
 				} while(!placed);
 			}
 
-			Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-			//int w = screenSize.width;
-			//int h = screenSize.height;
-			int w = 60 * 20 + 16;
-			int h = 60*20 + 25;
+			
+			int w = 60*20;
+			int h = 60*10+28;
 			this.fenetre = new Fenetre(w,h);
+			//this.fenetre2 = new Fenetre(200,200);
+			this.fenetre.setLayout(new BorderLayout());
 			this.map = new Map();
-			this.fenetre.add(this.map);
+			//this.con = new ConsolePanneau();
+			/*
+			GridLayout gl = new GridLayout(4,1);
+			this.setLayout(gl);
+			gl.setHgap(40);
+			gl.setVgap(50);
+			*/
+			
+			this.fenetre.add(this.map,BorderLayout.CENTER);
 			
 			
 			
@@ -627,7 +634,7 @@ public class Controller
 		
 		if(!elevestmp.isEmpty() && !professeurs.isEmpty()) 
 		{
-			for(Eleve e : elevestmp) {
+			for(@SuppressWarnings("unused") Eleve e : elevestmp) {
 				Eleve tmp = elevestmp.get(indiceListeEleves);
 				indiceListeEleves = (indiceListeEleves + 1)%elevestmp.size();
 				int x = tmp.getPosX();
@@ -638,7 +645,7 @@ public class Controller
 				
 				if(!tmp.verifPunition()) 
 				{
-					ElementdeJeu content = direction.getContent();
+					//ElementdeJeu content = direction.getContent();
 					direction.setContent(tmp);
 					ArrayList<ElementdeJeu> elevesA = new ArrayList<>();
 					
@@ -664,6 +671,11 @@ public class Controller
 					{
 						int action =tmp.choisirAction();
 						traitementAction(tmp,action);
+						
+					}
+					else
+					{
+						traitementAction(tmp,4);
 					}
 					
 				}
@@ -672,23 +684,14 @@ public class Controller
 					exclure(tmp);
 				}
 				
-				/*if(this.inter) 
-				{
-					this.fenetre.repaint();
-					Thread.sleep(500);
-				}
-				*/
+				
 				
 			}
 			if(this.inter) {
 				this.map.repaint();
 				Thread.sleep(100);
 				
-			} else 
-			{
-				this.grille.display();	
-			}
-			
+			} 
 		}
 	
 		else 

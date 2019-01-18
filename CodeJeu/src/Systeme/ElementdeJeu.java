@@ -1,6 +1,6 @@
 package Systeme;
 
-public abstract class ElementdeJeu implements Displayable, Drawable{
+public abstract class ElementdeJeu implements Drawable{
 	private int pos_x;
 	private int pos_y;
 	

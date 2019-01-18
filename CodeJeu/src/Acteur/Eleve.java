@@ -43,7 +43,7 @@ public class Eleve extends ElementdeJeu
 	public boolean verifPunition()
 	{
 		boolean virer;
-		if(this.punition == 10)
+		if(this.punition == 3)
 		{
 			virer = true;
 		}
@@ -180,11 +180,6 @@ public class Eleve extends ElementdeJeu
 		return nom;
 	}
 
-	@Override
-	public void display() {
-		// TODO Auto-generated method stub
-		
-	}
 
 	
 	

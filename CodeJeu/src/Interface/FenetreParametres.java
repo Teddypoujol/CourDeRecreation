@@ -43,16 +43,7 @@ public class FenetreParametres extends JFrame {
 		pann_param.setPreferredSize(new Dimension(100,100));
 		add(pann_param, BorderLayout.CENTER);
 
-		Panel_img_sud pann_sud = new Panel_img_sud();
-		pann_sud.setPreferredSize(new Dimension(750, 150));
-		pann_sud.setBackground(Color.GRAY);
-		add(pann_sud, BorderLayout.SOUTH);
-
-		Panel_img_ouest pann_ouest = new Panel_img_ouest();
-		pann_ouest.setPreferredSize(new Dimension(260, 450));
-		pann_ouest.setBackground(Color.GRAY);
-		add(pann_ouest, BorderLayout.WEST);
-		this.toFront();
+		
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setVisible(true);
 
@@ -77,35 +68,7 @@ public class FenetreParametres extends JFrame {
 		}
 	}
 
-	private class Panel_img_sud extends JPanel {
-		private static final long serialVersionUID = 1L;
-		public void paintComponent(Graphics g) {
-			super.paintComponent(g);
-			Graphics2D g2 = (Graphics2D)g;
-			String fichier = Constant.getPathEnfant();
-			try {
-				BufferedImage im = ImageIO.read(getClass().getResource(fichier));
-				g2.drawImage(im, 150, 10, 400, 140, null);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-	}
-
-	private class Panel_img_ouest extends JPanel {
-		private static final long serialVersionUID = 1L;
-		public void paintComponent(Graphics g) {
-			super.paintComponent(g);
-			Graphics2D g2 = (Graphics2D)g;
-			String fichier = Constant.getPathEnfant2();
-			try {
-				BufferedImage im = ImageIO.read(getClass().getResource(fichier));
-				g2.drawImage(im, 10, 10, 220, 220, null);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-	}
+	
 
 	private class Window_popup extends JFrame {
 		private static final long serialVersionUID = 1L;
@@ -205,11 +168,7 @@ public class FenetreParametres extends JFrame {
 						Controller.getInstance().init(true);
 						Controller.getInstance().setGameInited(true);
 						Controller.getInstance().setGameStarted(false);
-						JFrame win = (JFrame) Controller.getInstance().getFenetre();
-						win.setBounds(0, 0, 
-						Constant.getMapWidth() * 60, 
-						Constant.getMapHeight() * 60+35);
-						win.setResizable(false);
+						
 					} catch (IOException e) {
 						e.printStackTrace();
 					}		

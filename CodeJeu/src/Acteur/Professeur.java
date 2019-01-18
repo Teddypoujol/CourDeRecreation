@@ -44,13 +44,14 @@ public class Professeur extends ElementdeJeu {
 
 	public void majPatience(int action) {
 		switch (action) {
-	        case 0:  patience = patience - 3; //bagarre
+	        case 0:  patience = patience - 10; //bagarre
 	                 break;
 	        case 1:  if(patience<100)patience = patience + 1; //bisous
 	                 break;
 	        case 3:  patience = patience - 10; //embete professeur
 	                 break;
 	        case 4:  patience = patience - 1; //pleure
+	   
 	                 break;
 	        default:
 	                 break;
@@ -63,11 +64,7 @@ public class Professeur extends ElementdeJeu {
 		anciennete += 1;
 	}
 
-	@Override
-	public void display() {
-		// TODO Auto-generated method stub
-		
-	}
+	
 
 	@Override
 	public void draw(Graphics g, int x, int y) throws IOException 

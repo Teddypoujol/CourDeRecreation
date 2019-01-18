@@ -2,7 +2,7 @@ package Systeme;
 
 import Acteur.Terrain;
 
-public class Grille implements Displayable 
+public class Grille 
 {
 	private int li;
 	private int co;
@@ -33,16 +33,5 @@ public class Grille implements Displayable
 		return cells;
 	}
 
-	@Override
-	public void display() {
-		for(int i = 0; i < this.li; i++) {
-			for(int j = 0; j < this.co; j++) {
-				System.out.print(" ");
-				this.cells[i][j].getContent().display();
-				System.out.print(" ");
-			}
-			System.out.println();
-		}
-		System.out.println();
-	}
+
 }

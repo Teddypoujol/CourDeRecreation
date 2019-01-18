@@ -11,10 +11,7 @@ public class Terrain extends ElementdeJeu {
 		super(x, y);
 	}
 
-	@Override
-	public void display() {
-		System.out.print('.');
-}
+	
 
 	@Override
 	public void draw(Graphics g, int x, int y) throws IOException 
