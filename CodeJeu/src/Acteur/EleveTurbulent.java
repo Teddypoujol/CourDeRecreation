@@ -12,26 +12,89 @@ import Systeme.Cell;
 import Systeme.Constant;
 import Systeme.Controller;
 
+/**
+ * Eleve turbulent extends de Eleve
+ * 
+ * @author Poujol Teddy
+ * @author Bellin Clara
+ * @see Eleve
+ * @version 2.0
+ */
+
+
 public class EleveTurbulent extends Eleve {
 	
-	private List<Eleve> listeEleve;
+
+	//private List<Eleve> listeEleve;
+	
+	/**
+
+     *  Booleen retournant true si c'est un eleève bagarreur ou false si c'est un eleève romantique
+
+     * 
+
+     * @see EleveTurbulent#choisirAction()
+     * @see EleveTurbulent#EleveTurbulent(String nom, int port, int x, int y, boolean )
+
+     */
+
 	private boolean estBagarreur;
 
+	/**
+
+     *  Constructeur de EleveTurbulent
+
+     * @param nom  Le nom de l'elève turbulent
+     * @param port La portee de l'elève
+     * @param x Coordonnee
+     * @param y Coordonnee
+     * @param b boolean qui verifie si c'est un bagarreur
+
+     * @see EleveTurbulent#choisirAction()
+
+     */
+	
 	public EleveTurbulent(String nom, int port, int x, int y, boolean b) {
 		super(nom, port, x, y);
 		estBagarreur = b;
 	}
+	
+	/**
+
+     *  Methode qui permet de choisir l'action de l'elève, soit bagarre soit bisous
+
+
+     * @see EleveTurbulent#estBagarreur
+	 * @return action
+     */
+	
 	
 	public int choisirAction() {
 		//bagarre = 0, bisous = 1, jouer = 2
 		int action;
 		if(!estBagarreur) {
 			action = 1;
-			System.out.println("déclenche une bagarre");
+			System.out.println("declenche une bagarre");
 		}else action = 0;
 		
 		return action;
 	}
+	
+	
+	/**
+	 * Methode permettant de deplacer un elève turbulent au prochain tour de jeu 
+	 * selon la direction choisie
+	 * 
+	 
+	 * @see Eleve#nom
+	 * @see Eleve#vers
+	 * @see Eleve#portee
+	 * @see Eleve#mouvement
+	 * @see Eleve#getPosX()
+	 * @see Eleve#getPosX()
+	 * @see Eleve#Eleve(String nom,int port, int x, int y)
+	 * @return Cell La nouvelle cellule
+	 */
 	
 	public Cell deplacement() {
 
@@ -43,7 +106,7 @@ public class EleveTurbulent extends Eleve {
 		boolean ok = false;
 		System.out.println(this.nom);
 		System.out.println("emplacement : " + x + "  " + y);
-		//recherche élève
+		//recherche elève
 		do {
 			//parcour haut
 			c = Controller.getInstance().getGrille().getCells()[x][y];
@@ -55,7 +118,7 @@ public class EleveTurbulent extends Eleve {
 			}	
 			if(c.getContent() instanceof Eleve ) {					
 				dir = Direction.UP;
-				System.out.println("élève trouvé" + dir);
+				System.out.println("elève trouve" + dir);
 				System.out.println(xtmp + "  " + ytmp);
 				ok = true;
 			}
@@ -71,7 +134,7 @@ public class EleveTurbulent extends Eleve {
 			}
 			if(c.getContent().getClass().getName().equals("Acteur.Eleve")) {
 				dir = Direction.DOWN;
-				System.out.println("élève trouvé" + dir);
+				System.out.println("elève trouve" + dir);
 				System.out.println(xtmp + "  " + ytmp);
 				ok = true;
 			}
@@ -86,7 +149,7 @@ public class EleveTurbulent extends Eleve {
 			}
 			if(c.getContent().getClass().getName().equals("Acteur.Eleve")) {
 				dir = Direction.LEFT;
-				System.out.println("élève trouvé" + dir);
+				System.out.println("elève trouve" + dir);
 				System.out.println(xtmp + "  " + ytmp);
 				ok = true;
 			}
@@ -101,14 +164,14 @@ public class EleveTurbulent extends Eleve {
 			}
 			if(c.getContent().getClass().getName().equals("Acteur.Eleve")) {
 				dir = Direction.RIGHT;
-				System.out.println("élève trouvé" + dir);
+				System.out.println("elève trouve" + dir);
 				ok = true;
 			}
 			
 			ok=true;
 		}while(ok!=true);
 		
-		//déplacement en direction de l'élève trouvé
+		//deplacement en direction de l'elève trouve
 		if(dir!=null) {
 		
 			x = this.getPosX();
@@ -162,6 +225,16 @@ public class EleveTurbulent extends Eleve {
 		}
 		return c;
 	}
+	
+
+	/**
+	 * Methode qui permet de dessiner de tile correcpondant a lelève
+	 * @param g le graphics de java swing qui permet d'afficher
+	 * @param x L'abscisse du dessin
+	 * @param y L'ordonnee du dessin
+	 * @see Eleve#vers
+	
+	 */
 	
 	@Override
 	public void draw(Graphics g, int x, int y) throws IOException 

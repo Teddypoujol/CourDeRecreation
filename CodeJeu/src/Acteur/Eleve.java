@@ -7,26 +7,115 @@ import java.util.Random;
 import Interface.CharsetCR;
 import Systeme.*;
 
+
+/**
+ * Eleve est la classe representant un elève dans la cour de recreation
+ * 
+ * @author Poujol Teddy
+ * @author Bellin Clara
+ * @version 2.0
+ */
+
+
 public class Eleve extends ElementdeJeu
 {
+	
+	 /**
+
+     * Liste des directions possibles de l'elève
+
+     * 
+
+     * @see Direction#deplacement()
+     * @see Direction#draw(Graphics g, int x, int y)
+
+
+     */
 	public static enum Direction {
 		UP, 
 		DOWN, 
 		LEFT, 
 		RIGHT
 	}
+	
+	/**
+
+     * nb voulue entre par l'utilisateur
+
+     * 
+
+     * @see nb#deplacement()
+
+
+     */
+	
 	private static int nb = 0;
 	protected final Direction[] directions = Direction.values();
 
+	/**
+
+     *  punition Correspondant au nombre de punition de l'elève
+
+     * 
+
+     * @see Eleve#verifPunition()
+
+	  *@see Eleve#majPunition()
+	  * @see Eleve#getPunition()
+	  * *@see Eleve#setPunition()
+     */
 	protected int punition;
+	
+	/**
+
+     * portee Correspondant a la portee de l'elève
+
+     * 
+
+     * @see Eleve#setPortee()
+
+	  *@see Eleve#getPortee()
+     */
 	protected int portee;
+	
+	/**
+
+     * nom Correspondant au nom de l'elève
+
+     * 
+
+     * @see Eleve#getNom()
+
+     */
+	
 	protected String nom;
+	
+	
+	/**
+
+     * visibilite  Donne la visibilite de l'elève
+
+     * 
+
+     * @see Eleve#getVisibilite()
+
+     */
 	protected int visibilite;
 	protected Direction vers;
 	
 	protected boolean mouvement = false;
 	// Constructeurs de Eleve
 	
+	
+	/**
+	 * Constructeur de la classe Eleve
+	 * 
+	 * @param nom  Le nom d'un elève
+	 * @param port La portee de lelève 
+	 * @param x Place sur l'axe des abscisses de la grille
+	 * @param y Place sur l'axe des ordonnees de la grille
+	 */
+
 	public Eleve(String nom,int port, int x, int y)
 	{
 		super(x,y);
@@ -38,7 +127,15 @@ public class Eleve extends ElementdeJeu
 	}
 	
 	
-	// Méthodes d'un éléve
+	// Methodes d'un eleve
+	
+
+	/**
+	 * Methode qui verifie si l'elève doit être vire ou non selon son nombre de punition
+	 * 
+	 * @see Eleve#punition
+	 * @return virer
+	 */
 	
 	public boolean verifPunition()
 	{
@@ -54,12 +151,17 @@ public class Eleve extends ElementdeJeu
 		return virer;
 	}
 	
+	/**
+	 * VerifPunition Methode qui verifie si l'elève doit être vire ou non selon son nombre de punition
+	 * 
+	 * @return action Un entier action qui donne l'action que va effectuer l'elève
+	 */
 	public int choisirAction()
 	{
 		//bagarre = 0, bisous = 1, jouer = 2
 		int action = new Random().nextInt(2);
 		switch (action){
-			case 0 :System.out.println("déclenche bagarre");
+			case 0 :System.out.println("declenche bagarre");
 					break;
 			case 1 :System.out.println("fais bisous");
 					break;
@@ -69,12 +171,31 @@ public class Eleve extends ElementdeJeu
 		return action;
 	}
 	
+	
+	
+	/**
+	 * Methode qui met a jour le nombre de punition d'un elève 
+	 * @see Eleve#punition
+	 */
+	
 	public void majPunition()
 	{		
 		this.punition = this.punition+1;
 		System.out.println("se fait punir, punition = " + this.punition);
 	}
 	
+	
+	/**
+	 * Methode permettant de deplacer un elève au prochain tour de jeu 
+	 * selon la direction choisie
+	 * 
+	 * @see Eleve#nom
+	 * @see Eleve#vers
+	 * @see Eleve#portee
+	 * @see Eleve#mouvement
+	 * @return Cell La nouvelle cellule
+	 */
+
 	
 	//deplacement en fonction de la visibilite
 	public Cell deplacement() 
@@ -151,41 +272,90 @@ public class Eleve extends ElementdeJeu
 	
 	
 	// Setter et getter des attributs de la classe
-	
+	/**
+	 * Methode qui recupère punition
+	 * @see Eleve#punition
+	 * 
+	 * @return {@link Eleve#punition}punition
+	 */
+
 	public int getPunition() 
 	{
 		return punition;
 	}
 	
-	public void setPunition(int punition) 
+	/**
+	 * Methode qui modifie la variable punition
+	 * @param puni  la punition voule
+	 * @see Eleve#punition
+	 */
+	
+	public void setPunition(int puni) 
 	{
-		this.punition = punition;
+		this.punition = puni;
 	}
 	
+	/**
+	 * Methode qui recupère la portee de l'elève
+	 * @return Eleve#portee
+	
+	 */
+
 	public int getPortee() 
 	{
 		return portee;
 	}
 	
-	public void setPortee(int portee) 
+	/**
+	 * Methode qui modifie la portee de l'elève
+	 * @param port la portee voule
+	 * @see Eleve#portee
+	
+	 */
+	
+	public void setPortee(int port) 
 	{
-		this.portee = portee;
+		this.portee = port;
 	}
+	
+	/**
+	 * Methode qui recupère la visibilite
+	 * @return visibilite
+	
+	 */
 	
 	public int getVisibilite() {
 		return visibilite;
 	}
 
+	/**
+	 * Methode qui recupère le nom d'un elève
+	 * @return nom
+	
+	 */
 	public String getNom() {
 		return nom;
 	}
 
 
-	
+	/**
+	 * Methode qui permet de savoir si l'elève est en cours de deplacement
+	 * @see Eleve#mouvement
+	 * @return mouvement
+	 */
 	
 	public boolean sedeplace() {
 		return mouvement;
 	}
+	
+	/**
+	 * Methode qui permet de dessiner de tile correcpondant a lelève
+	 * @param g le graphics de java swing qui permet d'afficher
+	 * @param x L'abscisse du dessin
+	 * @param y L'ordonnee du dessin
+	 * @see Eleve#vers
+	
+	 */
 	
 	@Override
 	public void draw(Graphics g, int x, int y) throws IOException {

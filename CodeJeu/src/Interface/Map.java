@@ -18,11 +18,23 @@ import javax.swing.JTextArea;
 
 import Acteur.*;
 import Systeme.*;
-
+/**
+ * classe de Map dessine la cour de cecreation
+ * 
+ * @author Poujol Teddy
+ * @author Bellin Clara
+ * @see Tileset
+ * @version 2.0
+ */
 public class Map extends JPanel {
 	private static final long serialVersionUID = 1L;
+	
 	private Controller ctrl = Controller.getInstance();
-
+	
+	/**
+	 * Constructeur de Map, lance le jeu si on appuie sur entree ou f5
+	 * 
+	 */
 	public Map() {
 		super();
 		this.setFocusable(true);
@@ -42,6 +54,11 @@ public class Map extends JPanel {
 		    
 	}
 
+	/**
+	 *@param g Le graphique 
+	 * Permet de conserver le graphique et de le dessiner dans un panneau
+	 * ce paintComponent dessine un tile selon l'element de jeu sur chaque case ou dessine un terrain.
+	 */
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);

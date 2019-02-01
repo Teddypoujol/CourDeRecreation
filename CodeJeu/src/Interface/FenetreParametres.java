@@ -21,17 +21,28 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+
 import Systeme.*;
 
-
+/**
+ * Fenetre parametree permettant de definir la fenetre avec les parametres de l'ihm
+ * 
+ * @author Poujol Teddy
+ * @author Bellin Clara
+ * @see Elementdejeu
+ * @version 2.0
+ */
 public class FenetreParametres extends JFrame {
 	private static final long serialVersionUID = 1L;
-
+	
+	/**
+	 * Constructeur de fenetre ihm permettant de lancer l'ihm
+	 */
 
 	public FenetreParametres() {
 		Controller.getInstance().setGameInited(false);
 		setBounds(100,100, 750, 500);
-		setTitle("La cour de récréation");
+		setTitle("La cour de recreation");
 		Panel panneau= new Panel();
 		panneau.setBackground(Color.GRAY);
 		panneau.setPreferredSize(new Dimension(750, 80));
@@ -60,7 +71,7 @@ public class FenetreParametres extends JFrame {
 	
 			FontMetrics fm = g.getFontMetrics();
 			int hauteur = fm.getHeight();
-			g2.drawString("Entrez le nombre d'élèves (max 40) et d'élèves turbulents et de professeurs", 20, 20+hauteur);
+			g2.drawString("Entrez le nombre d'elèves (max 40) et d'elèves turbulents et de professeurs", 20, 20+hauteur);
 			g2.setColor(Color.red);
 			f = new Font("Courier", Font.BOLD, 15);
 			g2.setFont(f);
@@ -121,9 +132,9 @@ public class FenetreParametres extends JFrame {
 			gl.setHgap(40);
 			gl.setVgap(50);
 
-			eleve_label = new JLabel("Nombre d'élèves :");
+			eleve_label = new JLabel("Nombre d'elèves :");
 			prof_label = new JLabel("Nombre de professeurs :");
-			eleveturbu_label = new JLabel("Nombre d'élèves turbulents : ");
+			eleveturbu_label = new JLabel("Nombre d'elèves turbulents : ");
 
 			nb_eleves = new JTextField(3);
 			nb_profs= new JTextField(3);

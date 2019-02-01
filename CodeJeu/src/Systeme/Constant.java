@@ -3,6 +3,16 @@ package Systeme;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import Interface.Tileset;
+/**
+ * Classe contenant toute les constantes importantes du projet, les chemins 
+ * vers les ressources et la taille de la map
+ * 
+ * @author Poujol Teddy
+ * @author Bellin Clara
+ * @see Tileset
+ * @version 2.0
+ */
 public class Constant 
 {
 	private static int mapWidth = 20;

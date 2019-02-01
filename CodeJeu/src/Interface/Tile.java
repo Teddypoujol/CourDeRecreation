@@ -4,7 +4,14 @@ import java.awt.Graphics;
 
 import Acteur.Eleve.Direction;
 import Systeme.Controller;
-
+/**
+ * Tile est une partie d'une image (tileset ou charset)
+ * 
+ * @author Poujol Teddy
+ * @author Bellin Clara
+ * @see Elementdejeu
+ * @version 2.0
+ */
 public class Tile {
 	
 	/**

@@ -21,7 +21,7 @@ public class ConsolePanneau extends JPanel
 	{
 		
 		super();
-		 textArea = new JTextArea(24, 80);
+		textArea = new JTextArea(24, 80);
 		textArea.setBackground(Color.BLACK);
 		textArea.setForeground(Color.LIGHT_GRAY);
 		
@@ -31,14 +31,6 @@ public class ConsolePanneau extends JPanel
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2d = (Graphics2D)g;
-		/*
-		 * System.setOut(new PrintStream(new OutputStream() {
-			@Override
-			public void write(int b) throws IOException {
-			textArea.append(String.valueOf((char) b));
-			 }
-			 }));
-			 */
 		g.drawRect(200, 200, 200, 500);
 		
 	}

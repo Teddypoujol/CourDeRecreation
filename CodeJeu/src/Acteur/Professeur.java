@@ -13,12 +13,32 @@ import Systeme.Constant;
 import Systeme.Controller;
 import Systeme.ElementdeJeu;
 
+/**
+ * Professeur, classe permettant de representer un professeur dans la cour de recreation
+ * c'est un element de jeu
+ * 
+ * @author Poujol Teddy
+ * @author Bellin Clara
+ * @see Elementdejeu
+ * @version 2.0
+ */
+
 public class Professeur extends ElementdeJeu {
 	
 	private int patience;
 	private int anciennete;
 	private String nom;
 	private int visibilite;
+	
+	
+	/**
+	 * Constructeur de la classe professeur, permet de creer un professeur
+	 * @param nom  Le nom du professeur
+	 * @param anciennete l'anciennete du professeur
+	 * @param x Place sur l'axe des abscisses de la grille
+	 * @param y Place sur l'axe des ordonnees de la grille
+	 */
+	
 	
 	public Professeur(String nom, int anciennete, int x, int y) 
 	{
@@ -29,11 +49,30 @@ public class Professeur extends ElementdeJeu {
 		this.visibilite=5;
 	}
 	
+	
+
+	/**
+	 * VerifPatience Methode qui verifie l'etat du professeur au niveau de sa patience, si il n'a plus aucune patience 
+	 * le professeur part en burnout (patience = 0)
+	 * 
+	 * @see Professeur#patience
+	 * @return etatProf
+	 */
+	
+	
 	public boolean verifPatience() {
 		boolean etatProf = false;
 		if(patience <= 0)etatProf = true;
 		return etatProf;
 	}
+	
+	
+	/**
+	 * VerifAnciennete Methode qui verifie si le professeur peut encore enseigner malgres son age avance
+	 * 
+	 * @see Professeur#anciennete
+	 * @return ancienneteProf
+	 */
 	
 	public boolean verifAnciennete() {
 		boolean ancienneteProf = false;		
@@ -41,6 +80,11 @@ public class Professeur extends ElementdeJeu {
 		return ancienneteProf;
 	}
 	
+	/**
+	 * majPatience met a jour la patience du professeur selon l'action d'un elève autour de lui.
+	 * @param action 
+	 * @see Professeur#patience
+	 */
 
 	public void majPatience(int action) {
 		switch (action) {
@@ -57,14 +101,25 @@ public class Professeur extends ElementdeJeu {
 	                 break;
 		}
 		
-		System.out.println(this.nom+ " : patience mise à jour, patience = " + patience);
+		System.out.println(this.nom+ " : patience mise a jour, patience = " + patience);
 	}
+	
+	/**
+	 * addAnciennete a chaque tour de jeu de professeur gagne 1 an d'anciennete
+	 
+	 * @see Professeur#anciennete
+	 */
 	
 	public void addAnciennete() {
 		anciennete += 1;
 	}
 
-	
+	/**
+	 * Methode qui permet de dessiner de tile correcpondant au professeur
+	 * @param g le graphics de java swing qui permet d'afficher
+	 * @param x L'abscisse du dessin
+	 * @param y L'ordonnee du dessin
+	 */
 
 	@Override
 	public void draw(Graphics g, int x, int y) throws IOException 
