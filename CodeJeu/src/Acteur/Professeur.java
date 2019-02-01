@@ -1,5 +1,6 @@
 package Acteur;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.io.File;
@@ -30,6 +31,11 @@ public class Professeur extends ElementdeJeu {
 	private String nom;
 	private int visibilite;
 	
+	
+	public int getPatience()
+	{
+		return patience;
+	}
 	
 	/**
 	 * Constructeur de la classe professeur, permet de creer un professeur
@@ -126,6 +132,9 @@ public class Professeur extends ElementdeJeu {
 	{
 		Image profimg = ImageIO.read(getClass().getResource(Constant.getPathProf()));
 		g.drawImage(profimg,y*60,x*60,(y+1)*60,(x+1)*60,0,0,60,60,Controller.getInstance().getMap());
+		g.setColor(Color.GREEN);
+		String punition = Integer.toString(getPatience());
+		g.drawString(punition,y * 60 +25,x * 60);
 		
 	}
 }

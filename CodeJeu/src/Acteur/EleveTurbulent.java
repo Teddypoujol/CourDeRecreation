@@ -8,6 +8,7 @@ import java.util.List;
 import javax.imageio.ImageIO;
 
 import Acteur.Eleve.Direction;
+import Interface.CharsetCR;
 import Systeme.Cell;
 import Systeme.Constant;
 import Systeme.Controller;
@@ -54,8 +55,8 @@ public class EleveTurbulent extends Eleve {
 
      */
 	
-	public EleveTurbulent(String nom, int port, int x, int y, boolean b) {
-		super(nom, port, x, y);
+	public EleveTurbulent(boolean sex,String nom, int port, int x, int y, boolean b) {
+		super(sex,nom, port, x, y);
 		estBagarreur = b;
 	}
 	
@@ -218,7 +219,7 @@ public class EleveTurbulent extends Eleve {
 				this.setPosX(xtmp);
 				this.setPosY(ytmp);
 			}else {
-				c = Controller.getInstance().getGrille().getCells()[x][y];
+				c = super.deplacement();
 			}
 		}else {
 			c = super.deplacement();
@@ -239,8 +240,92 @@ public class EleveTurbulent extends Eleve {
 	@Override
 	public void draw(Graphics g, int x, int y) throws IOException 
 	{
-		Image garsimg = ImageIO.read(getClass().getResource(Constant.getPathGarcon()));
-		g.drawImage(garsimg,y*60,x*60,(y+1)*60,(x+1)*60,0,0,60,60,Controller.getInstance().getMap());
 		
+		if(sex==true) {
+			if(actionEnCours!=-1) {
+				if(estBagarreur) {
+					CharsetCR.getInstance().getGarconBagarBagarre().drawTile(g, x, y,this); 
+				}else {
+					CharsetCR.getInstance().getGarconRomBisous().drawTile(g, x, y,this); 
+				}
+			}
+			else {
+				if(estBagarreur) {
+					if(!sedeplace()) {
+						CharsetCR.getInstance().getGarconBagarDebout().drawTile(g, x, y,this);
+					}
+					else {
+							if(this.vers == Direction.DOWN) {
+								CharsetCR.getInstance().getGarconBagarBas().drawTile(g, x, y,this);
+							} else if(this.vers == Direction.UP) {
+								CharsetCR.getInstance().getGarconBagarHaut().drawTile(g, x, y,this);
+							} else if(this.vers == Direction.LEFT) {
+								CharsetCR.getInstance().getGarconBagarGauche().drawTile(g, x, y,this);
+							} else {
+								CharsetCR.getInstance().getGarconBagarDroite().drawTile(g, x, y,this);
+							}
+						}	
+				}
+				else {
+					if(!sedeplace()) {
+						CharsetCR.getInstance().getGarconRomDebout().drawTile(g, x, y,this);
+					}
+					else {
+							if(this.vers == Direction.DOWN) {
+								CharsetCR.getInstance().getGarconRomBas().drawTile(g, x, y,this);
+							} else if(this.vers == Direction.UP) {
+								CharsetCR.getInstance().getGarconRomHaut().drawTile(g, x, y,this);
+							} else if(this.vers == Direction.LEFT) {
+								CharsetCR.getInstance().getGarconRomGauche().drawTile(g, x, y,this);
+							} else {
+								CharsetCR.getInstance().getGarconRomDroite().drawTile(g, x, y,this);
+							}
+						}	
+				}
+			}
+		}
+		else {
+			if(actionEnCours!=-1) {
+				if(estBagarreur) {
+					CharsetCR.getInstance().getFilleBagarBagarre().drawTile(g, x, y,this); 
+				}else {
+					CharsetCR.getInstance().getFilleRomBisous().drawTile(g, x, y,this); 
+				}
+			}
+			else {
+				if(estBagarreur) {
+					if(!sedeplace()) {
+						CharsetCR.getInstance().getFilleBagarDebout().drawTile(g, x, y,this);
+					}
+					else {
+							if(this.vers == Direction.DOWN) {
+								CharsetCR.getInstance().getFilleBagarBas().drawTile(g, x, y,this);
+							} else if(this.vers == Direction.UP) {
+								CharsetCR.getInstance().getFilleBagarHaut().drawTile(g, x, y,this);
+							} else if(this.vers == Direction.LEFT) {
+								CharsetCR.getInstance().getFilleBagarGauche().drawTile(g, x, y,this);
+							} else {
+								CharsetCR.getInstance().getFilleBagarDroite().drawTile(g, x, y,this);
+							}
+						}	
+				}
+				else {
+					if(!sedeplace()) {
+						CharsetCR.getInstance().getFilleRomDebout().drawTile(g, x, y,this);
+					}
+					else {
+							if(this.vers == Direction.DOWN) {
+								CharsetCR.getInstance().getFilleRomBas().drawTile(g, x, y,this);
+							} else if(this.vers == Direction.UP) {
+								CharsetCR.getInstance().getFilleRomHaut().drawTile(g, x, y,this);
+							} else if(this.vers == Direction.LEFT) {
+								CharsetCR.getInstance().getFilleRomGauche().drawTile(g, x, y,this);
+							} else {
+								CharsetCR.getInstance().getFilleRomDroite().drawTile(g, x, y,this);
+							}
+						}	
+				}
+			}	
+		}	
 	}
 }

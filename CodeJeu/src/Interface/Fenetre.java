@@ -18,9 +18,10 @@ import Systeme.Controller;
  * @version 2.0
  */
 
+
 public class Fenetre extends JFrame{
 	private static final long serialVersionUID = 1L;
-
+	
 	/**
 	 * Constructeur de Fenetre
 	* @param w la largeur de la fenetre
@@ -40,7 +41,7 @@ public class Fenetre extends JFrame{
 				
 			}
 		});
-		//add(ConsolePanneau());
+		
 		
 
 		

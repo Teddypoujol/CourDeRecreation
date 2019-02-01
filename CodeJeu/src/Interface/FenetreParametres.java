@@ -102,13 +102,8 @@ public class FenetreParametres extends JFrame {
 				Font f = new Font("Courier", Font.BOLD, 20);
 				g2.setFont(f);
 				g2.drawString("ERREUR", 10, 30);
-				String fichier = Constant.getPathErrorGif();
-				try {
-					BufferedImage im = ImageIO.read(getClass().getResource(fichier));
-					g2.drawImage(im, 120, 40, 180, 200, null);
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
+				
+				
 			}
 		}
 	}

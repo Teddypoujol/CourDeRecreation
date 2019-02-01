@@ -39,6 +39,10 @@ public class Eleve extends ElementdeJeu
 	}
 	
 	/**
+	* Action actuelle de l'eleve
+	*/
+	protected int actionEnCours;
+	/**
 
      * nb voulue entre par l'utilisateur
 
@@ -66,6 +70,8 @@ public class Eleve extends ElementdeJeu
      */
 	protected int punition;
 	
+	
+	protected boolean sex = true;
 	/**
 
      * portee Correspondant a la portee de l'elève
@@ -116,9 +122,10 @@ public class Eleve extends ElementdeJeu
 	 * @param y Place sur l'axe des ordonnees de la grille
 	 */
 
-	public Eleve(String nom,int port, int x, int y)
+	public Eleve(boolean sex,String nom,int port, int x, int y)
 	{
 		super(x,y);
+		this.sex = sex;
 		this.punition = 0;
 		this.portee = port;
 		this.nom=nom;
@@ -140,7 +147,7 @@ public class Eleve extends ElementdeJeu
 	public boolean verifPunition()
 	{
 		boolean virer;
-		if(this.punition == 3)
+		if(this.punition == 2)
 		{
 			virer = true;
 		}
@@ -159,7 +166,7 @@ public class Eleve extends ElementdeJeu
 	public int choisirAction()
 	{
 		//bagarre = 0, bisous = 1, jouer = 2
-		int action = new Random().nextInt(2);
+		int action = new Random().nextInt(3);
 		switch (action){
 			case 0 :System.out.println("declenche bagarre");
 					break;
@@ -168,6 +175,7 @@ public class Eleve extends ElementdeJeu
 			case 2 :System.out.println("joue");
 					break;
 		}
+		this.actionEnCours = action;
 		return action;
 	}
 	
@@ -327,6 +335,11 @@ public class Eleve extends ElementdeJeu
 	public int getVisibilite() {
 		return visibilite;
 	}
+	
+	public boolean getSex()
+	{
+		return sex;
+	}
 
 	/**
 	 * Methode qui recupère le nom d'un elève
@@ -336,7 +349,10 @@ public class Eleve extends ElementdeJeu
 	public String getNom() {
 		return nom;
 	}
-
+	
+	public void initAction() {
+		actionEnCours = -1;
+	}
 
 	/**
 	 * Methode qui permet de savoir si l'elève est en cours de deplacement
@@ -359,22 +375,59 @@ public class Eleve extends ElementdeJeu
 	
 	@Override
 	public void draw(Graphics g, int x, int y) throws IOException {
-		if(!sedeplace()) {
-			CharsetCR.getInstance().getFilleDebout().drawTile(g, x, y);
+		
+		if(sex==true) {
+			if(actionEnCours!=-1) {
+				switch(actionEnCours) {
+					case 0 : CharsetCR.getInstance().getGarconBagarre().drawTile(g, x, y,this); break;
+					case 1 : CharsetCR.getInstance().getGarconBisous().drawTile(g, x, y,this); break;
+					case 2 : CharsetCR.getInstance().getGarconJouer().drawTile(g, x, y,this); break;
+				}
+			}
+			else {
+				if(!sedeplace()) {
+					CharsetCR.getInstance().getGarconDebout().drawTile(g, x, y,this);
+				}
+				else {
+						if(this.vers == Direction.DOWN) {
+							CharsetCR.getInstance().getGarconBas().drawTile(g, x, y,this);
+						} else if(this.vers == Direction.UP) {
+							CharsetCR.getInstance().getGarconHaut().drawTile(g, x, y,this);
+						} else if(this.vers == Direction.LEFT) {
+							CharsetCR.getInstance().getGarconGauche().drawTile(g, x, y,this);
+						} else {
+							CharsetCR.getInstance().getGarconDroite().drawTile(g, x, y,this);
+						}
+					}	
+			}
 		}
 		else {
-				if(this.vers == Direction.DOWN) {
-					CharsetCR.getInstance().getFilleBas().drawTile(g, x, y);
-				} else if(this.vers == Direction.UP) {
-					CharsetCR.getInstance().getFilleHaut().drawTile(g, x, y);
-				} else if(this.vers == Direction.LEFT) {
-					CharsetCR.getInstance().getFilleGauche().drawTile(g, x, y);
-				} else {
-					CharsetCR.getInstance().getFilleDroite().drawTile(g, x, y);
+			if(actionEnCours!=-1) {
+				switch(actionEnCours) {
+				case 0 : CharsetCR.getInstance().getFilleBagarre().drawTile(g, x, y,this); break;
+				case 1 : CharsetCR.getInstance().getFilleBisous().drawTile(g, x, y,this); break;
+				case 2 : CharsetCR.getInstance().getFilleJouer().drawTile(g, x, y,this); break;
 				}
-			} 
-		
-			
-		}
+			}
+			else {
+				if(!sedeplace()) {
+					CharsetCR.getInstance().getFilleDebout().drawTile(g, x, y,this);
+				}
+				else {
+						if(this.vers == Direction.DOWN) {
+							CharsetCR.getInstance().getFilleBas().drawTile(g, x, y,this);
+						} else if(this.vers == Direction.UP) {
+							CharsetCR.getInstance().getFilleHaut().drawTile(g, x, y,this);
+						} else if(this.vers == Direction.LEFT) {
+							CharsetCR.getInstance().getFilleGauche().drawTile(g, x, y,this);
+						} else {
+							CharsetCR.getInstance().getFilleDroite().drawTile(g, x, y,this);
+						}
+					}	
+			}	
+		}	
+		//String punition = Integer.toString(getPunition());
+		//g.drawString(punition,getPosX(),getPosY());
 	}
+}
 

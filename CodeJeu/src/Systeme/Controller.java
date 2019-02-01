@@ -2,13 +2,17 @@ package Systeme;
 
 import java.util.List;
 import java.awt.BorderLayout;
+import java.awt.Graphics;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
+
+import javax.imageio.ImageIO;
 
 import Acteur.*;
 import Interface.*;
@@ -82,6 +86,9 @@ public class Controller
 	 * nombre maximum de professeurs dans le jeu
 	 */ 
 	private static int nbMaxProf = 10;
+	
+	
+	private static int nbMaxEleveT = 30;
 	/**
 	 * Ces variabes booleennes permettent de connaitre l'etat du jeu. 
 	 */
@@ -304,21 +311,21 @@ public class Controller
 	 * Listes des noms des elèves
 	 */
 	
-	public ArrayList<String> listeNomEleve = new ArrayList<String>(Arrays.asList(
-			"Teddy","Clara", "Loic","Jerome","GoGo","Imane","Mayol","Mathilde","Remi","Manon","Thomas","Mathieu",
-			"Romain","Alexis","Pantoufle","Micka","Jule","Popito","Bernard","Julie","Juan","Pankake","Arthur","Marius",
-			"Aurelien"));
+	public ArrayList<String> listeNomGarcon = new ArrayList<String>(Arrays.asList(
+			"Teddy", "Loic","Jerome","Mayol","Remi","Thomas","Mathieu",
+			"Romain","Alexis","Pantoufle","Micka","Jule","Popito","Bernard","Juan","Pankake","Arthur","Marius",
+			"Aurelien","Batman"));
+	
+	public ArrayList<String> listeNomFille = new ArrayList<String>(Arrays.asList(
+			"Clara","GoGo","Imane","Mathilde","Manon","Juliette","Julie","Anais","Morgane","Margaux","Fleur",
+			"Aurianne","Aurore","Adbel","Carla","Claudette","Bernadette","Josiane","Morue","Stephanie","Sylvie",
+			"Careennenenne","Panprenelle","Louise","Camille","Ines","Emma","Sarah","Alice",""));
 	/**
 	 * Listes des noms des professeurs
 	 */
 	public ArrayList<String> listeNomProf = new ArrayList<String>(Arrays.asList(
 			"Mr Quafafou","Mr Prosperi", "Mr Mavromatis","Mme Papini","Mme Bac","Mr Samuel","Mr Bonnecaze","Mr Banton","Mr Gengler","Mr Mugmug"));
 	
-	/**
-	 * Listes des noms des elèves turbulents
-	 */
-	public ArrayList<String> listeNomEleveT = new ArrayList<String>(Arrays.asList(
-			"TURBULENT","Maxime", "turbu3","turbu4","turbu5","turbu6"));
 	
 	/**
 	 * Faire apparaitre un eleve sur la grille
@@ -332,9 +339,24 @@ public class Controller
 		if(0 <= li && li < Constant.getMapHeight() && 0 <= co && co < Constant.getMapWidth()) 
 		{
 			int porteerand = new Random().nextInt(2) + 1;
+			boolean sexRand = new Random().nextBoolean();
 			Eleve eleve;
-			eleve = new Eleve(listeNomEleve.get(0),porteerand, li, co);
-			listeNomEleve.remove(0);
+			String SonNom;
+			
+			if(sexRand)
+			{
+				SonNom = listeNomGarcon.get(0);
+				listeNomGarcon.remove(0);
+			}
+			else
+			{
+				SonNom = listeNomFille.get(0);
+				listeNomFille.remove(0);
+			}
+			eleve = new Eleve(sexRand,SonNom,porteerand, li, co);
+			
+			
+			
 			this.eleves.add((Eleve)eleve);
 			this.grille.getCells()[li][co].setContent(eleve);
 			
@@ -380,11 +402,22 @@ public class Controller
 		{
 			Random bagarreur = new Random();
 		    
-		    
 			int porteerand = new Random().nextInt(2) + 1;
+			boolean sexRand = new Random().nextBoolean();
 			EleveTurbulent eleve;
-			eleve = new EleveTurbulent(listeNomEleveT.get(0),porteerand, li, co,bagarreur.nextBoolean());
-			listeNomEleveT.remove(0);
+			String sonNom;
+			
+			if(sexRand)
+			{
+				sonNom = listeNomGarcon.get(0);
+				listeNomGarcon.remove(0);
+			}
+			else
+			{
+				sonNom = listeNomFille.get(0);
+			}
+			eleve = new EleveTurbulent(sexRand,sonNom,porteerand, li, co,bagarreur.nextBoolean());
+	
 			this.elevesT.add((EleveTurbulent)eleve);
 			this.grille.getCells()[li][co].setContent(eleve);
 				
@@ -421,6 +454,7 @@ public class Controller
 		this.profenburnout.add(prof);
 		int li = prof.getPosX();
 		int co = prof.getPosY();
+		
 		this.grille.getCells()[li][co].setContent(new Terrain(li, co));
 		professeurs.remove(prof);
 	}
@@ -557,11 +591,11 @@ public class Controller
 			
 			do 
 			{
-				if(((nb = this.inputNumber("elevesT")) > 10)) 
+				if(((nb = this.inputNumber("elevesT")) > nbMaxEleveT)) 
 				{
 					System.out.println("Le nombre max d'elèves turbulent est limite a 10 dans la cour");
 				}
-			} while(nb > 10);
+			} while(nb > nbMaxEleveT);
 			
 			
 			for(int i = 0; i < nb; i++) 
@@ -628,7 +662,7 @@ public class Controller
 			}
 
 			
-			int w = 60*20;
+			int w = 60*20+400;
 			int h = 60*10+28;
 			this.fenetre = new Fenetre(w,h);
 			//this.fenetre2 = new Fenetre(200,200);
@@ -643,7 +677,9 @@ public class Controller
 			*/
 			
 			this.fenetre.add(this.map,BorderLayout.CENTER);
+			//this.fenetre.add(new ConsolePanneau(),BorderLayout.EAST);
 			
+			//this.fenetre.add(this.map,BorderLayout.EAST);
 			
 			
 		}
@@ -751,7 +787,6 @@ public class Controller
 	
 	public void tourSuivant() throws InterruptedException 
 	{
-		
 		ArrayList<Eleve> elevestmp = new ArrayList<>();
 		
 		elevestmp.addAll(this.eleves);
@@ -764,9 +799,10 @@ public class Controller
 				indiceListeEleves = (indiceListeEleves + 1)%elevestmp.size();
 				int x = tmp.getPosX();
 				int y = tmp.getPosY();
-				this.grille.getCells()[x][y].setContent(new Terrain(x, y));
 				Cell direction = tmp.deplacement();
-				
+				this.grille.getCells()[x][y].setContent(new Terrain(x, y));
+				x= tmp.getPosX();
+				y= tmp.getPosY();
 				
 				if(!tmp.verifPunition()) 
 				{
@@ -795,12 +831,12 @@ public class Controller
 					if(!elevesA.isEmpty()) 
 					{
 						int action =tmp.choisirAction();
-						traitementAction(tmp,action);
-						
+						traitementAction(tmp,action);	
 					}
 					else
 					{
 						traitementAction(tmp,4);
+						tmp.initAction();
 					}
 					
 				}
@@ -814,7 +850,10 @@ public class Controller
 			}
 			if(this.inter) {
 				this.map.repaint();
-				Thread.sleep(100);
+				Thread.sleep(1000);
+				for(@SuppressWarnings("unused") Eleve e : elevestmp) {
+					e.initAction();
+				}
 				
 			} 
 		}

@@ -1,6 +1,7 @@
 package Interface;
 
 import java.awt.BorderLayout;
+import java.util.List;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GradientPaint;
@@ -12,6 +13,7 @@ import java.awt.geom.Rectangle2D;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
+import java.util.ArrayList;
 
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
@@ -67,7 +69,7 @@ public class Map extends JPanel {
 		try {
 			for(int i = 0; i < this.ctrl.getGrille().getLi(); i++) {
 				for(int j = 0; j < this.ctrl.getGrille().getCo(); j++) {
-					TilesetCR.getInstance().getCour().drawTile(g2d, i, j);
+					TilesetCR.getInstance().getCour().drawTile(g2d, i, j,this);
 					//System.out.println(i + "  " + j +"  "+ this.ctrl.getGrille().getCells()[i][j].isEmpty());
 				}
 			}
@@ -111,7 +113,18 @@ public class Map extends JPanel {
 			g2d.setColor(Color.black);
 			Font f = new Font("Courier", Font.BOLD, 50);
 			g2d.setFont(f);
-			g2d.drawString("GAME OVER", 500, 300);
+			
+			List<Professeur> profs;
+			profs = ctrl.getProfesseurs();
+			
+			if(profs.isEmpty())
+			{
+				g2d.drawString("Les professeurs ont perdu °_°", 500, 300);
+			}
+			else
+			{
+				g2d.drawString("Les professeurs maîtrisent la cour o_o", 500, 300);
+			}
 			g2d.setColor(Color.blue);
 			Font f2 = new Font("Courier", Font.BOLD, 20);
 			g2d.setFont(f2);

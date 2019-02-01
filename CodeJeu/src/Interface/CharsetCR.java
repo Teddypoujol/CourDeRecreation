@@ -39,7 +39,7 @@ public class CharsetCR implements Tileset {
 	*@see CharsetCR#getInstance()
 
      */
-	private static int li = 3; // nombre de lignes de tiles
+	private static int li = 6; // nombre de lignes de tiles
 	
 	/**
 
@@ -47,7 +47,7 @@ public class CharsetCR implements Tileset {
 			*@see CharsetCR#getInstance()
 
      */
-	private static int co = 3; // nombre de colonnes de tiles
+	private static int co = 9; // nombre de colonnes de tiles
 	/**
 
      *Largeur du tile
@@ -86,7 +86,7 @@ public class CharsetCR implements Tileset {
 	public static CharsetCR getInstance() throws IOException {
 		if(INSTANCE == null) {
 			INSTANCE = new CharsetCR();
-			tilesetImg = ImageIO.read(INSTANCE.getClass().getResource(Constant.getPathFille1()));
+			tilesetImg = ImageIO.read(INSTANCE.getClass().getResource(Constant.getPathEnfants()));
 
 			tileset = new Tile[li][co];
 			for(int i = 0; i < li; i++) {
@@ -102,32 +102,187 @@ public class CharsetCR implements Tileset {
 	 * Permet de recuperer l'image a l'endroit donne dans le tile
 	 * @return tileset
 	*/
-	public Tile getFilleDebout() {
+	
+	//fille bagarreuse
+	public Tile getFilleBagarDebout() {
 		return tileset[0][0];
 	}
 
-	public Tile getFilleBagarre() {
+	public Tile getFilleBagarBagarre() {
 		return tileset[0][1];
 	}
 
-	public Tile getFilleDroite() {
+	public Tile getFilleBagarDroite() {
 		return tileset[0][2];
 	}
 
-	public Tile getFilleHaut() {
+	public Tile getFilleBagarHaut() {
 		return tileset[1][0];
 	}
 
-	public Tile getFilleBas() {
+	public Tile getFilleBagarBas() {
 		return tileset[1][1];
 	}
 
-	
-
-	public Tile getFilleGauche() {
+	public Tile getFilleBagarGauche() {
 		return tileset[2][1];
 	}
+	
+	//fille romantique
+	public Tile getFilleRomDebout() {
+		return tileset[0][3];
+	}
 
+	public Tile getFilleRomBisous() {
+		return tileset[1][5];
+	}
+
+	public Tile getFilleRomDroite() {
+		return tileset[0][5];
+	}
+
+	public Tile getFilleRomHaut() {
+		return tileset[1][3];
+	}
+
+	public Tile getFilleRomBas() {
+		return tileset[1][4];
+	}
+
+	public Tile getFilleRomGauche() {
+		return tileset[2][4];
+	}
+
+	//fille Normale
+	public Tile getFilleDebout() {
+		return tileset[0][6];
+	}
+
+	public Tile getFilleBisous() {
+		return tileset[1][8];
+	}
+	
+	public Tile getFilleBagarre() {
+		return tileset[0][7];
+	}
+	
+	public Tile getFilleJouer() {
+		return tileset[2][6];
+	}
+
+	public Tile getFilleDroite() {
+		return tileset[0][8];
+	}
+
+	public Tile getFilleHaut() {
+		return tileset[1][6];
+	}
+
+	public Tile getFilleBas() {
+		return tileset[1][7];
+	}
+
+	public Tile getFilleGauche() {
+		return tileset[2][7];
+	}
+	
+	
+	
+	
+	
+	
+	//Garcon bagarreuse
+		public Tile getGarconBagarDebout() {
+			return tileset[3][0];
+		}
+
+		public Tile getGarconBagarBagarre() {
+			return tileset[3][1];
+		}
+
+		public Tile getGarconBagarDroite() {
+			return tileset[3][2];
+		}
+
+		public Tile getGarconBagarHaut() {
+			return tileset[4][0];
+		}
+
+		public Tile getGarconBagarBas() {
+			return tileset[4][1];
+		}
+
+		public Tile getGarconBagarGauche() {
+			return tileset[5][1];
+		}
+		
+		//Garcon romantique
+		public Tile getGarconRomDebout() {
+			return tileset[3][3];
+		}
+
+		public Tile getGarconRomBisous() {
+			return tileset[4][5];
+		}
+
+		public Tile getGarconRomDroite() {
+			return tileset[3][5];
+		}
+
+		public Tile getGarconRomHaut() {
+			return tileset[4][3];
+		}
+
+		public Tile getGarconRomBas() {
+			return tileset[4][4];
+		}
+
+		public Tile getGarconRomGauche() {
+			return tileset[5][4];
+		}
+
+		//Garcon Normale
+		public Tile getGarconDebout() {
+			return tileset[3][6];
+		}
+
+		public Tile getGarconBisous() {
+			return tileset[4][8];
+		}
+		
+		public Tile getGarconBagarre() {
+			return tileset[3][7];
+		}
+		
+		public Tile getGarconJouer() {
+			return tileset[5][6];
+		}
+
+		public Tile getGarconDroite() {
+			return tileset[3][8];
+		}
+
+		public Tile getGarconHaut() {
+			return tileset[4][6];
+		}
+
+		public Tile getGarconBas() {
+			return tileset[4][7];
+		}
+
+		public Tile getGarconGauche() {
+			return tileset[5][7];
+		}
+		
+		// nuage
+		
+		public Tile getNuage(){
+			return tileset[5][8];
+		}
+		
+
+		
+		
 	/**
 	 * Permet de recuperer l'image 
 	 * @return tilesetImg
