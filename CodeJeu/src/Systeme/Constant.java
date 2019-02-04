@@ -15,7 +15,7 @@ import Interface.Tileset;
  */
 public class Constant 
 {
-	private static int mapWidth = 20;
+	private static int mapWidth = 15;
 	private static int mapHeight = 10;
 	
 	
@@ -34,6 +34,13 @@ public class Constant
 	private static String pathEnfants = "/ressources/enfants.png";
 	private static String pathCour= "/ressources/cour.png";	
 	private static String pathProf= "/ressources/prof.png";	
+	private static String pathCoeur= "/ressources/coeur2.png";	
+	
+	
+	public static String getPathCoeur() {
+		return pathCoeur;
+	}
+	
 	
 	public static String getPathEnfants() {
 		return pathEnfants;

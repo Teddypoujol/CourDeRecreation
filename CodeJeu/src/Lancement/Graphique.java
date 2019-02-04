@@ -18,7 +18,7 @@ public class Graphique extends Launcher {
 
 		while(!Controller.getInstance().gameOver()) {
 			Controller.getInstance().tourSuivant();
-			Thread.sleep(1000);
+			Thread.sleep(100);
 		}
 	}
 

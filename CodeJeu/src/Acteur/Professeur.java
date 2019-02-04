@@ -1,8 +1,11 @@
 package Acteur;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.geom.Rectangle2D;
 import java.io.File;
 import java.io.IOException;
 
@@ -35,6 +38,11 @@ public class Professeur extends ElementdeJeu {
 	public int getPatience()
 	{
 		return patience;
+	}
+	
+	public String getNom()
+	{
+		return nom;
 	}
 	
 	/**
@@ -127,14 +135,58 @@ public class Professeur extends ElementdeJeu {
 	 * @param y L'ordonnee du dessin
 	 */
 
+
 	@Override
 	public void draw(Graphics g, int x, int y) throws IOException 
 	{
 		Image profimg = ImageIO.read(getClass().getResource(Constant.getPathProf()));
 		g.drawImage(profimg,y*60,x*60,(y+1)*60,(x+1)*60,0,0,60,60,Controller.getInstance().getMap());
-		g.setColor(Color.GREEN);
-		String punition = Integer.toString(getPatience());
-		g.drawString(punition,y * 60 +25,x * 60);
 		
+		Graphics2D g2 = (Graphics2D) g;
+		if(getPatience() < 60 && getPatience() > 30 )
+		{
+			g2.setPaint(Color.ORANGE);
+			g.setColor(Color.ORANGE);
+		}
+		else if(getPatience() < 30)
+		{
+			g2.setPaint(Color.RED);
+			g.setColor(Color.RED);
+		}
+		else
+		{
+			g2.setPaint(Color.GREEN);
+			g.setColor(Color.GREEN);
+		}
+		BasicStroke dashed =new BasicStroke(1.0f );
+		g2.setStroke(dashed);
+		Rectangle2D.Double rect = new Rectangle2D.Double(y * 60+5 ,x * 60, 50, 5);
+		g2.draw(rect);
+		
+		Rectangle2D.Double rect2 = new Rectangle2D.Double(y * 60+5 ,x * 60, (50*getPatience())/100, 5);
+		
+		if(getPatience() < 60 && getPatience() > 30 )
+		{
+			g2.setPaint(Color.ORANGE);
+			g.setColor(Color.ORANGE);
+		}
+		else if(getPatience() < 30)
+		{
+			g2.setPaint(Color.RED);
+			g.setColor(Color.RED);
+		}
+		else
+		{
+			g2.setPaint(Color.GREEN);
+			g.setColor(Color.GREEN);
+		}
+		
+		g2.fill(rect2);
+		g2.draw(rect2);
+		profimg.flush();
+		profimg=null;
+		
+		
+		g.drawString(this.getNom(),y * 60 ,x * 60+60);
 	}
 }

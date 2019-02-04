@@ -2,6 +2,7 @@ package Systeme;
 
 import java.util.List;
 import java.awt.BorderLayout;
+import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Image;
@@ -33,7 +34,7 @@ public class Controller
 	/**
 	 * Les listes de elements du jeu et des elements a supprimer
 	 */
-	
+	private int v = 1000;
 	private static Controller INSTANCE;
 	/**
 	 * Liste des elèves
@@ -258,6 +259,18 @@ public class Controller
 	
 	public boolean gameIsInit() {
 		return gameInited;
+	}
+	
+	
+	public int getVitesse()
+	{
+		return v;
+	}
+	
+
+	public void setVitesse(int newV)
+	{
+		this.v = newV;
 	}
 	
 	/**
@@ -662,24 +675,23 @@ public class Controller
 			}
 
 			
-			int w = 60*20+400;
-			int h = 60*10+28;
+			int w = 60*15;
+			int h = 60*10+78;
 			this.fenetre = new Fenetre(w,h);
 			//this.fenetre2 = new Fenetre(200,200);
 			this.fenetre.setLayout(new BorderLayout());
 			this.map = new Map();
 			//this.con = new ConsolePanneau();
-			/*
-			GridLayout gl = new GridLayout(4,1);
-			this.setLayout(gl);
-			gl.setHgap(40);
-			gl.setVgap(50);
-			*/
+			
+			BorderLayout gl = new BorderLayout();
+			fenetre.setLayout(gl);
+			//gl.setHgap(40);
+			//gl.setVgap(50);
+			
 			
 			this.fenetre.add(this.map,BorderLayout.CENTER);
-			//this.fenetre.add(new ConsolePanneau(),BorderLayout.EAST);
+			this.fenetre.add(new ConsolePanneau(),BorderLayout.SOUTH);
 			
-			//this.fenetre.add(this.map,BorderLayout.EAST);
 			
 			
 		}
@@ -850,7 +862,7 @@ public class Controller
 			}
 			if(this.inter) {
 				this.map.repaint();
-				Thread.sleep(1000);
+				Thread.sleep(v);
 				for(@SuppressWarnings("unused") Eleve e : elevestmp) {
 					e.initAction();
 				}

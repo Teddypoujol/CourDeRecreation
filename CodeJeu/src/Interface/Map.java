@@ -97,7 +97,7 @@ public class Map extends JPanel {
 			g2d.setColor(Color.white);
 			Font f = new Font("Courier", Font.BOLD, 50);
 			g2d.setFont(f);
-			g2d.drawString("Appuyer sur entrer", 300, 300);
+			g2d.drawString("Appuyer sur entrer",50, 300);
 			g2d.drawRect(10, 250, 1150, 60);
 			GradientPaint pausedGrad = new GradientPaint(0, 0, new Color(0, 0, 224, 50), 
 					this.getHeight(),this.getWidth() , new Color(0, 0, 224, 50));
@@ -119,11 +119,11 @@ public class Map extends JPanel {
 			
 			if(profs.isEmpty())
 			{
-				g2d.drawString("Les professeurs ont perdu °_°", 500, 300);
+				g2d.drawString("Les professeurs ont perdu !!", 50, 300);
 			}
 			else
 			{
-				g2d.drawString("Les professeurs maîtrisent la cour o_o", 500, 300);
+				g2d.drawString("Les professeurs maîtrisent la cour !!", 0, 300);
 			}
 			g2d.setColor(Color.blue);
 			Font f2 = new Font("Courier", Font.BOLD, 20);

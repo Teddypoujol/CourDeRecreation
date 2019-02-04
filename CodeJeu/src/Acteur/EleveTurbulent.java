@@ -2,6 +2,7 @@ package Acteur;
 
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.List;
 
@@ -326,6 +327,14 @@ public class EleveTurbulent extends Eleve {
 						}	
 				}
 			}	
-		}	
+		}
+		int dy=0;
+		for(int i =0;i<getNbvie() - this.getPunition();i++)
+		{
+			BufferedImage vieEleve = ImageIO.read(getClass().getResource(Constant.getPathCoeur()));
+			g.drawImage(vieEleve,y*60+10+dy,x*60+50,Controller.getInstance().getMap());
+			dy=dy+12;
+			
+		}
 	}
 }

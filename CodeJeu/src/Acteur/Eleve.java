@@ -1,8 +1,12 @@
 package Acteur;
 
 import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Random;
+
+import javax.imageio.ImageIO;
 
 import Interface.CharsetCR;
 import Systeme.*;
@@ -38,6 +42,12 @@ public class Eleve extends ElementdeJeu
 		RIGHT
 	}
 	
+	
+	public int getNbvie()
+	{
+		return nbvie;
+	}
+	
 	/**
 	* Action actuelle de l'eleve
 	*/
@@ -70,6 +80,7 @@ public class Eleve extends ElementdeJeu
      */
 	protected int punition;
 	
+	protected int nbvie = 3;
 	
 	protected boolean sex = true;
 	/**
@@ -147,7 +158,7 @@ public class Eleve extends ElementdeJeu
 	public boolean verifPunition()
 	{
 		boolean virer;
-		if(this.punition == 2)
+		if(this.punition >= 3)
 		{
 			virer = true;
 		}
@@ -376,6 +387,8 @@ public class Eleve extends ElementdeJeu
 	@Override
 	public void draw(Graphics g, int x, int y) throws IOException {
 		
+		
+		
 		if(sex==true) {
 			if(actionEnCours!=-1) {
 				switch(actionEnCours) {
@@ -426,6 +439,15 @@ public class Eleve extends ElementdeJeu
 					}	
 			}	
 		}	
+		
+		int dy=0;
+		for(int i =0;i<getNbvie() - this.getPunition();i++)
+		{
+			BufferedImage vieEleve = ImageIO.read(getClass().getResource(Constant.getPathCoeur()));
+			g.drawImage(vieEleve,y*60+10+dy,x*60+50,Controller.getInstance().getMap());
+			dy=dy+12;
+			
+		}
 		//String punition = Integer.toString(getPunition());
 		//g.drawString(punition,getPosX(),getPosY());
 	}

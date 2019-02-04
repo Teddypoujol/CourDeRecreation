@@ -4,10 +4,16 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.geom.Rectangle2D;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 import Acteur.Eleve;
 import Acteur.Eleve.Direction;
 import Acteur.Professeur;
+import Systeme.Constant;
 import Systeme.Controller;
 /**
  * Tile est une partie d'une image (tileset ou charset)
@@ -50,7 +56,7 @@ public class Tile {
 	}
 
 	
-	public void drawTile(Graphics g, int x, int y, Object o) {
+	public void drawTile(Graphics g, int x, int y, Object o) throws IOException {
 		int tx = this.numPosX * this.height;
 		int ty = this.numPosY * this.width;
 		g.drawImage(this.ts.getImage(), 
@@ -65,8 +71,8 @@ public class Tile {
 		if(o instanceof Eleve) {
 			Eleve e = (Eleve)o;
 			
-			String punition = Integer.toString(e.getPunition());
-			g2.drawString(punition,y * this.ts.getTileW()+50,x * this.ts.getTileH()+50);
+			//String punition = Integer.toString(e.getPunition());
+			//g2.drawString(punition,y * this.ts.getTileW()+50,x * this.ts.getTileH()+50);
 			g2.setColor(Color.MAGENTA);
 			if(e.getSex())
 			{
@@ -74,37 +80,12 @@ public class Tile {
 			}
 			
 			g2.drawString(e.getNom(),y * this.ts.getTileW(),x * this.ts.getTileH());
+			
+	
+			
 		}
 	
 	}
-/*	public void drawTile(Graphics g, int x, int y, Direction direction) {
-		int tx = this.numPosX * this.height;
-		int ty = this.numPosY * this.width;
-		int offsetX;
-		int offsetY;
-		
-		if(direction.equals(Direction.UP)) {
-			offsetX = -this.ts.getTileH()/2;
-			offsetY = 0;
-		} else if(direction.equals(Direction.DOWN)) {
-			offsetX = this.ts.getTileH()/2;
-			offsetY = 0;
-		} else if(direction.equals(Direction.LEFT)) {
-			offsetX = 0;
-			offsetY = -this.ts.getTileW()/2;
-		} else {
-			
-			offsetX = 0;
-			offsetY = this.ts.getTileW()/2;
-		}
 
-		g.drawImage(this.ts.getImage(), 
-		x * this.ts.getTileH() + offsetX, 
-		y * this.ts.getTileW() + offsetY, 
-		(x + 1) * this.ts.getTileH() + offsetX, 
-		(y + 1) * this.ts.getTileW() + offsetY, 
-		tx , ty, tx + this.ts.getTileH(), ty + this.ts.getTileW(), 
-		Controller.getInstance().getMap());
-}*/
 
 }
