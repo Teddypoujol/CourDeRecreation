@@ -3,6 +3,7 @@ package Interface;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
@@ -41,20 +42,18 @@ public class FenetreParametres extends JFrame {
 
 	public FenetreParametres() {
 		Controller.getInstance().setGameInited(false);
-		setBounds(100,100, 750, 500);
+		setBounds(100,100, 750,200);
 		setTitle("La cour de recreation");
 		Panel panneau= new Panel();
-		panneau.setBackground(Color.GRAY);
-		panneau.setPreferredSize(new Dimension(750, 80));
+		panneau.setBackground(Color.ORANGE);
+		panneau.setPreferredSize(new Dimension(500, 80));
 		add(panneau, BorderLayout.NORTH);
-
 		Panel_Parameters pann_param = new Panel_Parameters();
-		pann_param.setBackground(Color.GRAY);
-		//pann_param.setBorder(BorderFactory.createLineBorder(Color.RED));
-		pann_param.setPreferredSize(new Dimension(100,100));
+		pann_param.setBackground(Color.WHITE);;
+		pann_param.setPreferredSize(new Dimension(50,100));
 		add(pann_param, BorderLayout.CENTER);
-
 		
+		this.setResizable(false);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setVisible(true);
 
@@ -66,12 +65,12 @@ public class FenetreParametres extends JFrame {
 			super.paintComponent(g);
 			Graphics2D g2 = (Graphics2D)g;
 			g2.setColor(Color.BLACK);
-			Font f = new Font("Courier", Font.BOLD, 14);
+			Font f = new Font("Calibri", Font.BOLD, 14);
 			g2.setFont(f);
 	
 			FontMetrics fm = g.getFontMetrics();
 			int hauteur = fm.getHeight();
-			g2.drawString("Entrez le nombre d'elèves (max 40) et d'elèves turbulents et de professeurs", 20, 20+hauteur);
+			g2.drawString("Entrez le nombre d'elèves (max 40) d'elèves turbulents (max 10) et de professeurs (max 10)", 10, 20+hauteur);
 			g2.setColor(Color.red);
 			f = new Font("Courier", Font.BOLD, 15);
 			g2.setFont(f);
@@ -81,32 +80,6 @@ public class FenetreParametres extends JFrame {
 
 	
 
-	private class Window_popup extends JFrame {
-		private static final long serialVersionUID = 1L;
-		public Window_popup() {
-			this.setTitle("ERREUR");
-			this.setBounds(500, 250, 500, 280);
-			Panel_popup pan_pop = new Panel_popup();
-			pan_pop.setBackground(new Color(255,0,0,200));
-			this.add(pan_pop);
-			this.toFront();
-			this.setVisible(true);
-		}
-
-		private class Panel_popup extends JPanel {
-			private static final long serialVersionUID = 1L;
-			public void paintComponent(Graphics g) {
-				super.paintComponent(g);
-				Graphics2D g2 = (Graphics2D)g;
-				g2.setColor(Color.yellow);
-				Font f = new Font("Courier", Font.BOLD, 20);
-				g2.setFont(f);
-				g2.drawString("ERREUR", 10, 30);
-				
-				
-			}
-		}
-	}
 
 	private class Panel_Parameters extends JPanel {
 		private static final long serialVersionUID = 1L;
@@ -122,10 +95,11 @@ public class FenetreParametres extends JFrame {
 		private JButton lancer;
 
 		public Panel_Parameters() {
-			GridLayout gl = new GridLayout(4,1);
+			//GridLayout gl = new GridLayout(4,2);
+			FlowLayout gl = new FlowLayout();
 			this.setLayout(gl);
-			gl.setHgap(40);
-			gl.setVgap(50);
+			//gl.setHgap(100);
+			//gl.setVgap(100);
 
 			eleve_label = new JLabel("Nombre d'elèves :");
 			prof_label = new JLabel("Nombre de professeurs :");
@@ -144,7 +118,7 @@ public class FenetreParametres extends JFrame {
 
 			lancer = new JButton("Lancer la partie");
 
-			add(lancer, BorderLayout.SOUTH);
+			add(lancer, BorderLayout.CENTER);
 			StartAction startAct = new StartAction();
 			lancer.addActionListener(startAct);
 		}
