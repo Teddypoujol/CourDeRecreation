@@ -36,11 +36,21 @@ public class Constant
 	private static String pathProf= "/ressources/prof.png";	
 	private static String pathCoeur= "/ressources/coeur2.png";	
 	
+	private static String pathProf2= "/ressources/college-professor.jpg";
+	private static String pathEnfantParam = "/ressources/fille.png";
+	private static String pathEnfantParam2 = "/ressources/garcon.png";
 	
 	public static String getPathCoeur() {
 		return pathCoeur;
 	}
 	
+	public static String getPathEnfantParam() {
+		return pathEnfantParam;
+	}
+	
+	public static String getPathEnfantParam2() {
+		return pathEnfantParam2;
+	}
 	
 	public static String getPathEnfants() {
 		return pathEnfants;
@@ -56,6 +66,9 @@ public class Constant
 		return pathProf;
 	}
 
+	public static String getPathProf2() {
+		return pathProf2;
+	}
 	
 	private Constant() 
 	{

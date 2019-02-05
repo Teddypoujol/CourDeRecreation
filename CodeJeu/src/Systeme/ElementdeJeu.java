@@ -67,5 +67,6 @@ public abstract class ElementdeJeu implements Drawable{
 	 */
 	public void setPosY(int posY) {
 		this.pos_y = posY;
-}
+	}
+
 }

@@ -30,6 +30,7 @@ public class ConsolePanneau extends JPanel implements ActionListener
 {
 	JButton accelerer = new JButton("Accelerer");
 	JButton ralentir = new JButton("Ralentir");
+	JButton pause = new JButton("Pause");
 	
 	JTextArea textArea = new JTextArea(0, 0);
 	public ConsolePanneau() {
@@ -52,8 +53,11 @@ public class ConsolePanneau extends JPanel implements ActionListener
 		
 		accelerer.setBounds(100,100,10,20);
 		ralentir.setBounds(200,200,10,20);
+		
 		accelerer.addActionListener(this);
 		add(accelerer);
+		pause.addActionListener(this);
+		add(pause);
 		ralentir.addActionListener(this);
 		add(ralentir);
 	  }
@@ -86,6 +90,12 @@ public class ConsolePanneau extends JPanel implements ActionListener
 				Controller.getInstance().setVitesse(x+100);
 			}
 		}
+		else if(source == pause)
+		{
+			Controller.getInstance().setPause();
+			
+		}
+		
 		
 		
 	}

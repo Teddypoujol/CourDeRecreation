@@ -120,6 +120,7 @@ public class Eleve extends ElementdeJeu
 	protected int visibilite;
 	protected Direction vers;
 	
+	
 	protected boolean mouvement = false;
 	// Constructeurs de Eleve
 	
@@ -143,7 +144,7 @@ public class Eleve extends ElementdeJeu
 		this.visibilite=3;
 		this.vers = Direction.DOWN;
 	}
-	
+
 	
 	// Methodes d'un eleve
 	

@@ -9,6 +9,7 @@ import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
@@ -45,7 +46,7 @@ public class FenetreParametres extends JFrame {
 		setBounds(100,100, 750,200);
 		setTitle("La cour de recreation");
 		Panel panneau= new Panel();
-		panneau.setBackground(Color.ORANGE);
+		panneau.setBackground(Color.WHITE);
 		panneau.setPreferredSize(new Dimension(500, 80));
 		add(panneau, BorderLayout.NORTH);
 		Panel_Parameters pann_param = new Panel_Parameters();
@@ -69,11 +70,29 @@ public class FenetreParametres extends JFrame {
 			g2.setFont(f);
 	
 			FontMetrics fm = g.getFontMetrics();
-			int hauteur = fm.getHeight();
+			int hauteur = fm.getHeight()-20;
 			g2.drawString("Entrez le nombre d'elèves (max 40) d'elèves turbulents (max 10) et de professeurs (max 10)", 10, 20+hauteur);
 			g2.setColor(Color.red);
 			f = new Font("Courier", Font.BOLD, 15);
 			g2.setFont(f);
+			
+			Image profimg;
+			Image enfantimg;
+			Image enfantimg2;
+			
+			try {
+				profimg = ImageIO.read(getClass().getResource(Constant.getPathProf()));
+				enfantimg = ImageIO.read(getClass().getResource(Constant.getPathEnfantParam()));
+				enfantimg2 = ImageIO.read(getClass().getResource(Constant.getPathEnfantParam()));
+				
+				g2.drawImage(profimg,300,20,Controller.getInstance().getMap());
+				g2.drawImage(enfantimg,100,20,Controller.getInstance().getMap());
+				g2.drawImage(enfantimg2,530,20,Controller.getInstance().getMap());
+				
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			
 		}
 	}
@@ -115,6 +134,8 @@ public class FenetreParametres extends JFrame {
 			add(nb_profs);
 			add(eleveturbu_label);
 			add(nb_elevesturbu);
+			
+			
 
 			lancer = new JButton("Lancer la partie");
 

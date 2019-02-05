@@ -3,6 +3,7 @@ package Acteur;
 import java.awt.Graphics;
 import java.io.IOException;
 
+import Systeme.Cell;
 import Systeme.ElementdeJeu;
 
 /**

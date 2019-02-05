@@ -13,6 +13,7 @@ import javax.imageio.ImageIO;
 
 import Interface.CharsetCR;
 import Interface.TilesetCR;
+import Systeme.Cell;
 import Systeme.Constant;
 import Systeme.Controller;
 import Systeme.ElementdeJeu;
@@ -109,6 +110,8 @@ public class Professeur extends ElementdeJeu {
 	        case 3:  patience = patience - 10; //embete professeur
 	                 break;
 	        case 4:  patience = patience - 1; //pleure
+	        		 break;
+	        case 5:  patience = patience - 2; //bisous langoureux
 	   
 	                 break;
 	        default:
@@ -189,4 +192,5 @@ public class Professeur extends ElementdeJeu {
 		
 		g.drawString(this.getNom(),y * 60 ,x * 60+60);
 	}
+
 }

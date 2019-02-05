@@ -35,6 +35,7 @@ public class Controller
 	 * Les listes de elements du jeu et des elements a supprimer
 	 */
 	private int v = 1000;
+	private boolean pause = false;
 	private static Controller INSTANCE;
 	/**
 	 * Liste des elèves
@@ -267,6 +268,17 @@ public class Controller
 		return v;
 	}
 	
+	public void setPause()
+	{
+		if(this.pause)
+		{
+			this.pause = false;
+		}
+		else {
+			this.pause = true;
+		}
+	}
+	
 
 	public void setVitesse(int newV)
 	{
@@ -428,10 +440,11 @@ public class Controller
 			else
 			{
 				sonNom = listeNomFille.get(0);
+				listeNomFille.remove(0);
 			}
 			eleve = new EleveTurbulent(sexRand,sonNom,porteerand, li, co,bagarreur.nextBoolean());
 	
-			this.elevesT.add((EleveTurbulent)eleve);
+			this.elevesT.add(eleve);
 			this.grille.getCells()[li][co].setContent(eleve);
 				
 		}
@@ -444,15 +457,17 @@ public class Controller
 	 * Exclus l'elève de l'ecole. Necessite une MAJ des listes d'elèves en fonction 
 	 * des eleves exlus.
 	 * 
-	 * @param eleve l'eleve a exclure.
+	 * @param tmp l'eleve a exclure.
 	 */
-	public void exclure(Eleve eleve)
+	public void exclure(Eleve tmp)
 	{
-		this.elevesexclus.add(eleve);
-		int li = eleve.getPosX();
-		int co = eleve.getPosY();
+		//this.elevesexclus.add(tmp);;
+		int li = tmp.getPosX();
+		int co = tmp.getPosY();
 		this.grille.getCells()[li][co].setContent(new Terrain(li, co));
-		eleves.remove(eleve);
+		if(tmp.getClass().getName().equals("Acteur.Eleve")) eleves.remove(tmp);
+		else if(tmp.getClass().getName().equals("Acteur.EleveTurbulent"))elevesT.remove(tmp);
+
 	}
 	
 
@@ -701,16 +716,16 @@ public class Controller
 	 * Recherche d'un Professeur autour d'un elève
 	 * si il y a un professeur proche de l'elève qui effectue l'action les consequences ne seront pas les mêmes pour 
 	 * le professeurs et pour l'elève en question.
-	 * @param e un elève 
+	 * @param tmp un elève 
 	 * @return liste de professeurs
 	 */
 	
 	
-	public ArrayList<Professeur> rechercheProf(Eleve e)
+	public ArrayList<Professeur> rechercheProf(Eleve tmp)
 	{
 		ArrayList<Professeur> prof = new ArrayList<>();
-		int x = e.getPosX();
-		int y = e.getPosY();
+		int x = tmp.getPosX();
+		int y = tmp.getPosY();
 		int xtmp = x;
 		int ytmp = y;
 		Cell c = Controller.getInstance().getGrille().getCells()[x][y];	
@@ -770,16 +785,16 @@ public class Controller
 	 * Traitement de l'action choisie
 	 * On utilise rechercheProf() qui nous permet de recuperer la liste des professeurs proche le l'elève
 	 * et si il y a une bagarre, l'elève est punis et on met a jour la patience du professeur.
-	 * @param e Eleve vise 
+	 * @param tmp Eleve vise 
 	 * @param action l'action de l'elève
 	 */
 	
-	public void traitementAction(Eleve e,int action) {
-		ArrayList<Professeur> prof = rechercheProf(e);
+	public void traitementAction(Eleve tmp,int action) {
+		ArrayList<Professeur> prof = rechercheProf(tmp);
 			
 		if(!prof.isEmpty())
 		{
-			if(action == 0) e.majPunition();
+			if(action == 0 || action == 5) tmp.majPunition();
 			for(Professeur p : prof) 
 			{
 				p.majPatience(action);
@@ -806,9 +821,11 @@ public class Controller
 		
 		if(!elevestmp.isEmpty() && !professeurs.isEmpty()) 
 		{
-			for(@SuppressWarnings("unused") Eleve e : elevestmp) {
+			for(@SuppressWarnings("unused") ElementdeJeu e : elevestmp) {
+
 				Eleve tmp = elevestmp.get(indiceListeEleves);
 				indiceListeEleves = (indiceListeEleves + 1)%elevestmp.size();
+
 				int x = tmp.getPosX();
 				int y = tmp.getPosY();
 				Cell direction = tmp.deplacement();
@@ -818,32 +835,31 @@ public class Controller
 				
 				if(!tmp.verifPunition()) 
 				{
-					//ElementdeJeu content = direction.getContent();
 					direction.setContent(tmp);
 					ArrayList<ElementdeJeu> elevesA = new ArrayList<>();
-					
+					System.out.println("pas puni");
 					//haut
 					
-					if(x>0 && this.grille.getCells()[x-1][y].getContent().getClass().getName().equals("Acteur.Eleve")) {
+					if(x>0 && this.grille.getCells()[x-1][y].getContent() instanceof Eleve) {
 						elevesA.add(this.grille.getCells()[x-1][y].getContent());				
 					}
 					//bas
-					if(x<Constant.getMapHeight()-1 && this.grille.getCells()[x+1][y].getContent().getClass().getName().equals("Acteur.Eleve")) {
+					if(x<Constant.getMapHeight()-1 && this.grille.getCells()[x+1][y].getContent()instanceof Eleve) {
 						elevesA.add(this.grille.getCells()[x+1][y].getContent());					
 					}
 					//gauche
-					if(y>0 && this.grille.getCells()[x][y-1].getContent().getClass().getName().equals("Acteur.Eleve")) {
+					if(y>0 && this.grille.getCells()[x][y-1].getContent()instanceof Eleve) {
 						elevesA.add(this.grille.getCells()[x][y-1].getContent());
 					}
 					//droite
-					if(y<Constant.getMapWidth()-1 && this.grille.getCells()[x][y+1].getContent().getClass().getName().equals("Acteur.Eleve")) {
+					if(y<Constant.getMapWidth()-1 && this.grille.getCells()[x][y+1].getContent()instanceof Eleve) {
 						elevesA.add(this.grille.getCells()[x][y+1].getContent());					
 					}
 					
 					if(!elevesA.isEmpty()) 
 					{
 						int action =tmp.choisirAction();
-						traitementAction(tmp,action);	
+						traitementAction(tmp,action);
 					}
 					else
 					{
@@ -862,6 +878,7 @@ public class Controller
 			}
 			if(this.inter) {
 				this.map.repaint();
+				
 				Thread.sleep(v);
 				for(@SuppressWarnings("unused") Eleve e : elevestmp) {
 					e.initAction();

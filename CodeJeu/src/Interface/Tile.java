@@ -63,26 +63,14 @@ public class Tile {
 				y * this.ts.getTileW(),x * this.ts.getTileH() ,(y + 1) * this.ts.getTileW() , (x + 1) * this.ts.getTileH(), 
 		tx , ty, tx + this.ts.getTileH(), ty + this.ts.getTileW(), 
 		Controller.getInstance().getMap());
-		
-		BasicStroke b = new BasicStroke(3);
-		Graphics2D g2 = (Graphics2D)g;
-		g2.setStroke(b);
+		Graphics2D g2 = (Graphics2D)g;	
 		g2.setColor(Color.RED);
 		if(o instanceof Eleve) {
-			Eleve e = (Eleve)o;
-			
+			Eleve e = (Eleve)o;		
 			//String punition = Integer.toString(e.getPunition());
 			//g2.drawString(punition,y * this.ts.getTileW()+50,x * this.ts.getTileH()+50);
-			g2.setColor(Color.MAGENTA);
-			if(e.getSex())
-			{
-				g2.setColor(Color.CYAN);
-			}
-			
-			g2.drawString(e.getNom(),y * this.ts.getTileW(),x * this.ts.getTileH());
-			
-	
-			
+			g2.setColor(Color.CYAN);			
+			g2.drawString(e.getNom(),y * this.ts.getTileW(),x * this.ts.getTileH());	
 		}
 	
 	}

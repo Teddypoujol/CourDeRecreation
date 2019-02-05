@@ -7,6 +7,7 @@ import java.awt.Font;
 import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.geom.Rectangle2D;
@@ -15,6 +16,7 @@ import java.io.OutputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
 
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
@@ -120,6 +122,15 @@ public class Map extends JPanel {
 			if(profs.isEmpty())
 			{
 				g2d.drawString("Les professeurs ont perdu !!", 50, 300);
+				Image profimg;
+				try {
+					profimg = ImageIO.read(getClass().getResource(Constant.getPathProf2()));
+					g2d.drawImage(profimg,0,0,Controller.getInstance().getMap());
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
 			}
 			else
 			{

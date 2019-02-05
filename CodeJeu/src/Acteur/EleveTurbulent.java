@@ -74,14 +74,28 @@ public class EleveTurbulent extends Eleve {
 	public int choisirAction() {
 		//bagarre = 0, bisous = 1, jouer = 2
 		int action;
+		int tab[] = {1,5};
+		int val = tab[(int)(Math.random()*tab.length)];
 		if(!estBagarreur) {
-			action = 1;
-			System.out.println("declenche une bagarre");
+			action = val;
 		}else action = 0;
-		
+		this.actionEnCours = action;
 		return action;
 	}
 	
+	public boolean verifPunition()
+	{
+		boolean virer;
+		if(this.punition >= 3)
+		{
+			virer = true;
+		}
+		else
+		{
+			virer = false;
+		}
+		return virer;
+	}
 	
 	/**
 	 * Methode permettant de deplacer un elève turbulent au prochain tour de jeu 
