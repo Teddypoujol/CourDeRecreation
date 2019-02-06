@@ -14,6 +14,7 @@ import java.io.PrintStream;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
+import Lancement.Graphique;
 
 //import Merde.Panneau2.settatie;
 
@@ -28,11 +29,15 @@ import javax.swing.JButton;
 
 public class ConsolePanneau extends JPanel implements ActionListener
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	JButton accelerer = new JButton("Accelerer");
 	JButton ralentir = new JButton("Ralentir");
-	JButton pause = new JButton("Pause");
+
 	
-	JTextArea textArea = new JTextArea(0, 0);
+	//JTextArea textArea = new JTextArea(0, 0);
 	public ConsolePanneau() {
 	    /*
 		//JTextArea textArea = new JTextArea(24, 80);
@@ -51,13 +56,12 @@ public class ConsolePanneau extends JPanel implements ActionListener
 	    add(textArea);
 	  */
 		
-		accelerer.setBounds(100,100,10,20);
+		 accelerer.setBounds(100,100,10,20);
 		ralentir.setBounds(200,200,10,20);
 		
 		accelerer.addActionListener(this);
 		add(accelerer);
-		pause.addActionListener(this);
-		add(pause);
+		
 		ralentir.addActionListener(this);
 		add(ralentir);
 	  }
@@ -75,26 +79,22 @@ public class ConsolePanneau extends JPanel implements ActionListener
 			}
 			else
 			{
-				Controller.getInstance().setVitesse(x-100);
+				Controller.getInstance().setVitesse(x-200);
 			}
 		}
 		else if(source == ralentir)
 		{
 			
-			if(x>=3000)
+			if(x>=6000)
 			{
-				Controller.getInstance().setVitesse(3000);
+				Controller.getInstance().setVitesse(6000);
 			}
 			else
 			{
-				Controller.getInstance().setVitesse(x+100);
+				Controller.getInstance().setVitesse(x+200);
 			}
 		}
-		else if(source == pause)
-		{
-			Controller.getInstance().setPause();
-			
-		}
+	
 		
 		
 		

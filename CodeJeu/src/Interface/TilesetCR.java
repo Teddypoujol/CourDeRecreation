@@ -26,8 +26,8 @@ public class TilesetCR implements Tileset {
      */
 	private static Image tilesetImg = null;
 
-	private static int li = 3; // nombre de lignes de tiles
-	private static int co = 3; // nombre de colonnes de tiles
+	private static int li = 2; // nombre de lignes de tiles
+	private static int co = 4; // nombre de colonnes de tiles
 	private int tileW = 60; // tile width
 	private int tileH = 60; // tile height
 	private static Tile[][] tileset;
@@ -43,7 +43,7 @@ public class TilesetCR implements Tileset {
 	public static TilesetCR getInstance() throws IOException {
 		if(INSTANCE == null) {
 			INSTANCE = new TilesetCR();
-			tilesetImg = ImageIO.read(INSTANCE.getClass().getResource(Constant.getPathCour()));
+			tilesetImg = ImageIO.read(INSTANCE.getClass().getResource(Constant.getPathJeuxTerrain()));
 			tileset = new Tile[li][co];
 			for(int i = 0; i < li; i++) {
 				for(int j = 0; j < co; j++) {
@@ -58,10 +58,31 @@ public class TilesetCR implements Tileset {
 	
 	
 
-	public Tile getCour() {
+	public Tile getArbreHaut() {
 		return tileset[0][0];
 	}
+	public Tile getArbreBas() {
+		return tileset[1][0];
+	}
 	
+	public Tile getBalancoire1() {
+		return tileset[0][1];
+	}
+	
+	public Tile getBalancoire2() {
+		return tileset[0][2];
+	}
+	
+	public Tile getToboggan() {
+		return tileset[0][3];
+	}
+	
+	public Tile getBasculeG() {
+		return tileset[1][1];
+	}
+	public Tile getBasculeD() {
+		return tileset[1][2];
+	}
 	
 
 	@Override

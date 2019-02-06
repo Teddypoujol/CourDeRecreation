@@ -2,8 +2,11 @@ package Systeme;
 
 import java.util.List;
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.io.BufferedReader;
@@ -14,6 +17,7 @@ import java.util.Arrays;
 import java.util.Random;
 
 import javax.imageio.ImageIO;
+import javax.swing.JOptionPane;
 
 import Acteur.*;
 import Interface.*;
@@ -31,12 +35,17 @@ import Interface.*;
 
 public class Controller 
 {
+	private static int nbTourMax = 500;
+	private boolean tourlimite = false;
+	private int nbTour = 0;
 	/**
 	 * Les listes de elements du jeu et des elements a supprimer
 	 */
 	private int v = 1000;
-	private boolean pause = false;
+	
+	
 	private static Controller INSTANCE;
+	
 	/**
 	 * Liste des elèves
 	 */
@@ -47,7 +56,7 @@ public class Controller
 	 * Liste des professeurs
 	 */
 	private List<Professeur> professeurs;
-	
+	private List<JeuxTerrain> listeJeuxTerrain;
 	/**
 	 * Liste des professeurs et des elèves qui ne doivent plus être en jeu
 	 */
@@ -55,10 +64,10 @@ public class Controller
 	private List<Professeur> profenburnout;
 	
 	private Fenetre fenetre;
-	private Fenetre fenetre2;
+	
 
 	private Map map;
-	private ConsolePanneau con;
+	private PanneauEcole ecole;
 	
 	
 	private Random random = new Random();
@@ -83,14 +92,13 @@ public class Controller
 	/**
 	 * nombre maximum d'elèves  dans le jeu
 	 */ 
-	private static int nbMaxEleve = 40;
+	private static int nbMaxEleve = 60;
 	/**
 	 * nombre maximum de professeurs dans le jeu
 	 */ 
-	private static int nbMaxProf = 10;
+	private static int nbMaxProf = 20;
 	
-	
-	private static int nbMaxEleveT = 30;
+
 	/**
 	 * Ces variabes booleennes permettent de connaitre l'etat du jeu. 
 	 */
@@ -132,6 +140,11 @@ public class Controller
 		return this.eleves;
 	}
 	
+	
+	public List<JeuxTerrain> getJeuxTerrain() 
+	{
+		return this.listeJeuxTerrain;
+	}
 	/**
 	 * Getteurs de la liste des professeurs
 	 *  @return professeurs
@@ -224,7 +237,14 @@ public class Controller
 	/*
 	 * Setteurs qui permettent de choisir le nombre de professeurs et d'elèves en jeu
 	 */
-	
+	public int getNbEleves()
+	{
+		return nb_Eleves;
+	}
+	public int getNbElevesT()
+	{
+		return nb_ElevesTurbulents;
+	}
 	/**
 	 * Modifie le nombre de professeurs
 	 * @param nombredeprof modifie nb profs
@@ -268,16 +288,7 @@ public class Controller
 		return v;
 	}
 	
-	public void setPause()
-	{
-		if(this.pause)
-		{
-			this.pause = false;
-		}
-		else {
-			this.pause = true;
-		}
-	}
+	
 	
 
 	public void setVitesse(int newV)
@@ -330,7 +341,15 @@ public class Controller
 		this.gameover = gameover;
 	}
 	
-	
+	public boolean verifTour()
+	{
+		if(this.nbTour >=nbTourMax)
+		{
+			tourlimite = true;
+		}
+		return tourlimite;
+		
+	}
 	
 	/**
 	 * Listes des noms des elèves
@@ -339,17 +358,24 @@ public class Controller
 	public ArrayList<String> listeNomGarcon = new ArrayList<String>(Arrays.asList(
 			"Teddy", "Loic","Jerome","Mayol","Remi","Thomas","Mathieu",
 			"Romain","Alexis","Pantoufle","Micka","Jule","Popito","Bernard","Juan","Pankake","Arthur","Marius",
-			"Aurelien","Batman"));
+			"Aurelien","Batman","Bastien","Kirikou","Manja","Colin","Arnaud","Jonathan","Tristan","Alix","Victor"
+			,"Alain","Mohamed","Valentin","Nicolas","Adam","Noe","Leo","Leon","Sylvain","Quentin","Vincent","Jeremy","Sebastien","Tong Shu","Klauss"
+			,"Andy","Gustave","Alex","Hippolyte","Hector","Esteban","Florian","Tituan","Teddy", "Loic","Jerome","Mayol","Remi","Thomas","Mathieu",
+			"Romain","Alexis","Pantoufle","Micka","Jule","Popito","Bernard","Juan","Pankake","Arthur","Marius",
+			"Aurelien","Batman","Bastien","Kirikou","Manja","Colin","Arnaud","Jonathan","Tristan","Alix","Victor"));
 	
 	public ArrayList<String> listeNomFille = new ArrayList<String>(Arrays.asList(
 			"Clara","GoGo","Imane","Mathilde","Manon","Juliette","Julie","Anais","Morgane","Margaux","Fleur",
 			"Aurianne","Aurore","Adbel","Carla","Claudette","Bernadette","Josiane","Morue","Stephanie","Sylvie",
-			"Careennenenne","Panprenelle","Louise","Camille","Ines","Emma","Sarah","Alice",""));
+		"Careennenenne","Panprenelle","Louise","Camille","Ines","Emma","Sarah","Alice","Anna","Clemence","Florence","Pauline"
+		,"Lisa","Agathe","Noemie","Yasmine","Ambre","Iris","Fatoumata","Constance","Violette","Suzanne","Marianne","Maelis","Leonis","Marion","Clementine"
+		,"Paloma","Amandine","Louane" ,"Raphaelle","Clara","GoGo","Imane","Mathilde","Manon","Juliette","Julie","Anais","Morgane","Margaux","Fleur"));
 	/**
 	 * Listes des noms des professeurs
 	 */
 	public ArrayList<String> listeNomProf = new ArrayList<String>(Arrays.asList(
-			"Mr Quafafou","Mr Prosperi", "Mr Mavromatis","Mme Papini","Mme Bac","Mr Samuel","Mr Bonnecaze","Mr Banton","Mr Gengler","Mr Mugmug"));
+			"Mr Quafafou","Mr Prosperi", "Mr Mavromatis","Mme Papini","Mme Bac","Mr Samuel","Mr Bonnecaze","Mr Banton","Mr Gengler",
+			"Mr Mugwaneza","Mr Richard","Mr Bernard","Mr Dumas","Mme Madeleine","Mme Antoine","Mme Tessier","Mme Poujol","Mme Pichon","Mme Lepen","Mme Aubry","Mme Baron"));
 	
 	
 	/**
@@ -365,6 +391,7 @@ public class Controller
 		{
 			int porteerand = new Random().nextInt(2) + 1;
 			boolean sexRand = new Random().nextBoolean();
+			
 			Eleve eleve;
 			String SonNom;
 			
@@ -451,7 +478,34 @@ public class Controller
 		
 	}
 	
+	public void placerJeux(int type,int li, int co) 
+	{
+		if(0 <= li && li < Constant.getMapHeight()+1 && 0 <= co && co < Constant.getMapWidth()+1) 
+		{
+			JeuxTerrain jeux;
+			
+			jeux = new JeuxTerrain(type,li,co);
+			if(type == 4)
+			{
+				this.grille.getCells()[li][co].setContent(jeux);
+				this.grille.getCells()[li][co+1].setContent(jeux);
+			}
+			else if(type == 0)
+			{
+				this.grille.getCells()[li][co].setContent(jeux);
+				this.grille.getCells()[li+1][co].setContent(jeux);
+			}
+			else {
+				this.listeJeuxTerrain.add(jeux);
+				this.grille.getCells()[li][co].setContent(jeux);
+			}
+			
+			
+		}
+	}
 	
+	
+
 
 	/**
 	 * Exclus l'elève de l'ecole. Necessite une MAJ des listes d'elèves en fonction 
@@ -549,8 +603,9 @@ public class Controller
 	{
 		this.inter = ihm;
 		this.gameover = false;
-		this.grille = new Grille(Constant.getMapHeight(),Constant.getMapWidth() );
 		
+		this.grille = new Grille(Constant.getMapHeight(),Constant.getMapWidth() );
+		this.listeJeuxTerrain= new ArrayList<>();
 		this.eleves = new ArrayList<>();
 		this.elevesT = new ArrayList<>();
 		this.professeurs = new ArrayList<>();
@@ -560,93 +615,28 @@ public class Controller
 
 		int posRandomx;
 		int posRandomy;
-		int nb;
 		boolean placed;
+		int somme = nb_Eleves + nb_ElevesTurbulents;
 		
-		//placerEleve(0,1);
-		
-		if(!inter) 
-		{
-			do 
+		if(somme <= nbMaxEleve && nb_Professeurs <=nbMaxProf)
+		{	
+			/*
+			for(int i = 0; i < 1; i++) 
 			{
-				if(((nb = this.inputNumber("eleves")) > nbMaxEleve)) 
-				{
-					System.out.println("Le nombre max d'elèves est limite a 40 dans la cour");
-				}
-			} while(nb > nbMaxEleve);
-			
-	
-			
-			for(int i = 0; i < nb; i++) 
-			{
+				int type = new Random().nextInt(5);
+				System.err.println(type);
 				placed = false;
 				do {
 					posRandomx = this.random.nextInt(this.grille.getLi());
-					posRandomy = this.random.nextInt(this.grille.getCo());
-					if(this.grille.getCells()[posRandomx][posRandomy].isEmpty()) 
-					{
-						this.placerEleve(posRandomx, posRandomy);
-						placed = true;
-					}
+					posRandomy= this.random.nextInt(this.grille.getCo());
+					this.placerJeux(type,posRandomx,posRandomy);
+					placed = true;
+					
 				} while(!placed);
 			}
 
-			do 
-			{
-				if(((nb = this.inputNumber("professeurs")) > nbMaxProf)) 
-				{
-					System.out.println("Le nombre max de professeurs est de 10");
-				}
-			} while(nb > nbMaxEleve);
+			*/
 			
-		
-			
-			for(int i = 0; i < nb; i++) 
-			{
-				placed = false;
-				do {
-					posRandomx = this.random.nextInt(this.grille.getLi());
-					posRandomy = this.random.nextInt(this.grille.getCo());
-					if(this.grille.getCells()[posRandomx][posRandomy].isEmpty())
-					{
-						this.placerProfesseur(posRandomx, posRandomy);
-						placed = true;
-					}
-				} while(!placed);
-			}
-
-			
-			
-			do 
-			{
-				if(((nb = this.inputNumber("elevesT")) > nbMaxEleveT)) 
-				{
-					System.out.println("Le nombre max d'elèves turbulent est limite a 10 dans la cour");
-				}
-			} while(nb > nbMaxEleveT);
-			
-			
-			for(int i = 0; i < nb; i++) 
-			{
-				placed = false;
-				do {
-					posRandomx = this.random.nextInt(this.grille.getLi());
-					posRandomy = this.random.nextInt(this.grille.getCo());
-					if(this.grille.getCells()[posRandomx][posRandomy].isEmpty()) 
-					{
-						this.placerEleveTurbulent(posRandomx, posRandomy);
-						placed = true;
-					}
-				} while(!placed);
-			}
-			
-			
-			
-			
-		
-		} 
-		else 
-		{
 			for(int i = 0; i < nb_Eleves; i++) 
 			{
 				placed = false;
@@ -688,29 +678,34 @@ public class Controller
 					}
 				} while(!placed);
 			}
-
 			
 			int w = 60*15;
 			int h = 60*10+78;
+			
+			
 			this.fenetre = new Fenetre(w,h);
-			//this.fenetre2 = new Fenetre(200,200);
 			this.fenetre.setLayout(new BorderLayout());
 			this.map = new Map();
-			//this.con = new ConsolePanneau();
+			this.ecole = new PanneauEcole();
+			
 			
 			BorderLayout gl = new BorderLayout();
 			fenetre.setLayout(gl);
-			//gl.setHgap(40);
-			//gl.setVgap(50);
 			
-			
+	
+			gl.setHgap(10);
 			this.fenetre.add(this.map,BorderLayout.CENTER);
 			this.fenetre.add(new ConsolePanneau(),BorderLayout.SOUTH);
+			
+		}
+	
+		
+		
 			
 			
 			
 		}
-	}
+	//}
 	
 	/**
 	 * Recherche d'un Professeur autour d'un elève
@@ -819,8 +814,10 @@ public class Controller
 		elevestmp.addAll(this.eleves);
 		elevestmp.addAll(this.elevesT);
 		
-		if(!elevestmp.isEmpty() && !professeurs.isEmpty()) 
+		
+		if(!(elevestmp.size() == 1 || elevestmp.isEmpty()) && !professeurs.isEmpty() && !verifTour()) 
 		{
+			nbTour = nbTour+1;
 			for(@SuppressWarnings("unused") ElementdeJeu e : elevestmp) {
 
 				Eleve tmp = elevestmp.get(indiceListeEleves);
@@ -876,14 +873,13 @@ public class Controller
 				
 				
 			}
-			if(this.inter) {
-				this.map.repaint();
+			
+			this.map.repaint();
+			
 				
-				Thread.sleep(v);
-				for(@SuppressWarnings("unused") Eleve e : elevestmp) {
-					e.initAction();
-				}
-				
+			Thread.sleep(v);
+			for(@SuppressWarnings("unused") Eleve e : elevestmp) {
+				e.initAction();
 			} 
 		}
 	

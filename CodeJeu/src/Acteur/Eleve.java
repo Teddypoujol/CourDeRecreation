@@ -442,6 +442,7 @@ public class Eleve extends ElementdeJeu
 		}	
 		
 		int dy=0;
+		
 		for(int i =0;i<getNbvie() - this.getPunition();i++)
 		{
 			BufferedImage vieEleve = ImageIO.read(getClass().getResource(Constant.getPathCoeur()));

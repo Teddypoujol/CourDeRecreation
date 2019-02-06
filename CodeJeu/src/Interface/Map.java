@@ -71,8 +71,10 @@ public class Map extends JPanel {
 		try {
 			for(int i = 0; i < this.ctrl.getGrille().getLi(); i++) {
 				for(int j = 0; j < this.ctrl.getGrille().getCo(); j++) {
-					TilesetCR.getInstance().getCour().drawTile(g2d, i, j,this);
+					
 					//System.out.println(i + "  " + j +"  "+ this.ctrl.getGrille().getCells()[i][j].isEmpty());
+					Image courimg= ImageIO.read(getClass().getResource(Constant.getPathCour()));
+					g.drawImage(courimg,j*60,i*60,(j+1)*60,(i+1)*60,0,0,60,60,Controller.getInstance().getMap());
 				}
 			}
 
@@ -91,20 +93,26 @@ public class Map extends JPanel {
 				et.draw(g2d, et.getPosX(), et.getPosY());
 			}
 			
+			for(JeuxTerrain jt : this.ctrl.getJeuxTerrain()) 
+			{
+				jt.draw(g2d, jt.getPosX(), jt.getPosY());
+			}
+			
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
 		if(!ctrl.isGameStarted()) {
-			g2d.setColor(Color.white);
-			Font f = new Font("Courier", Font.BOLD, 50);
+			g2d.setColor(Color.GREEN);
+			Font f = new Font("Joker", Font.BOLD, 50);
 			g2d.setFont(f);
-			g2d.drawString("Appuyez sur entrer",100, 300);
-			g2d.drawRect(10, 250, 800, 60);
-			GradientPaint pausedGrad = new GradientPaint(0, 0, new Color(0, 0, 100, 50), 
+			g2d.drawString("Appuyez sur entrer",175, 300);
+			g2d.drawRect(10, 250,850, 60);
+			GradientPaint pausedGrad = new GradientPaint(0, 0, new Color(0, 200, 100, 50), 
 					this.getHeight(),this.getWidth() , new Color(0, 0, 228, 50));
 			g2d.setPaint(pausedGrad);
-			g2d.fill(new Rectangle2D.Double(0, 0, this.getWidth(), this.getHeight()));
+			g2d.fill(new Rectangle2D.Double(0, 0, this.getWidth(), this.getHeight()-15));
 		}
 
 		if(ctrl.gameOver()) {
@@ -113,31 +121,37 @@ public class Map extends JPanel {
 			g2d.fill(rect);
 			g2d.draw(rect);
 			g2d.setColor(Color.black);
-			Font f = new Font("Courier", Font.BOLD, 50);
+			Font f = new Font("Corbel", Font.BOLD, 50);
 			g2d.setFont(f);
 			
 			List<Professeur> profs;
 			profs = ctrl.getProfesseurs();
 			
+			List<Eleve> eleves;
+			eleves = ctrl.getEleves();
+			
+			
+			List<EleveTurbulent> elevest;
+			elevest = ctrl.getElevesT();
+			
+			int sum = ctrl.getNbEleves() + ctrl.getNbElevesT();
 			if(profs.isEmpty())
 			{
 				g2d.drawString("Les professeurs ont perdu !!", 50, 300);
-				Image profimg;
-				try {
-					profimg = ImageIO.read(getClass().getResource(Constant.getPathProf2()));
-					g2d.drawImage(profimg,0,0,Controller.getInstance().getMap());
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
 				
+				
+			}
+			else if(sum <= 1)
+			{
+				g2d.drawString("Les élèves sont tous punis !!", 0, 300);
 			}
 			else
 			{
-				g2d.drawString("Les professeurs maîtrisent la cour !!", 0, 300);
+				g2d.drawString("La récréation est fini !", 100, 300);
+				
 			}
 			g2d.setColor(Color.blue);
-			Font f2 = new Font("Courier", Font.BOLD, 20);
+			Font f2 = new Font("Corbel", Font.BOLD, 20);
 			g2d.setFont(f2);
 			
 			ctrl.setGameInited(false);

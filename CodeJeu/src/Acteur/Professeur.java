@@ -109,9 +109,9 @@ public class Professeur extends ElementdeJeu {
 	                 break;
 	        case 3:  patience = patience - 10; //embete professeur
 	                 break;
-	        case 4:  patience = patience - 1; //pleure
+	        case 4:  patience = patience; //pleure
 	        		 break;
-	        case 5:  patience = patience - 2; //bisous langoureux
+	        case 5:  patience = patience - 5; //bisous langoureux
 	   
 	                 break;
 	        default:

@@ -128,7 +128,7 @@ public class EleveTurbulent extends Eleve {
 			c = Controller.getInstance().getGrille().getCells()[x][y];
 			xtmp = x;
 			ytmp = y;
-			while(!c.getContent().getClass().getName().equals("Acteur.Eleve") && (xtmp>x-visibilite && xtmp>0)) {
+			while(!(c.getContent() instanceof Eleve) && (xtmp>x-visibilite && xtmp>0)) {
 				xtmp--; 
 				c = Controller.getInstance().getGrille().getCells()[xtmp][y];
 			}	
@@ -144,11 +144,11 @@ public class EleveTurbulent extends Eleve {
 			c = Controller.getInstance().getGrille().getCells()[x][y];
 			xtmp = x;
 			ytmp = y;
-			while(!c.getContent().getClass().getName().equals("Acteur.Eleve") && (xtmp<x+visibilite && xtmp < Constant.getMapHeight() - 1)) {
+			while(!(c.getContent()instanceof Eleve) && (xtmp<x+visibilite && xtmp < Constant.getMapHeight() - 1)) {
 				xtmp++; 
 				c = Controller.getInstance().getGrille().getCells()[xtmp][y];
 			}
-			if(c.getContent().getClass().getName().equals("Acteur.Eleve")) {
+			if(c.getContent() instanceof Eleve) {
 				dir = Direction.DOWN;
 				System.out.println("elève trouve" + dir);
 				System.out.println(xtmp + "  " + ytmp);
@@ -159,11 +159,11 @@ public class EleveTurbulent extends Eleve {
 			c = Controller.getInstance().getGrille().getCells()[x][y];
 			xtmp = x;
 			ytmp = y;
-			while(!c.getContent().getClass().getName().equals("Acteur.Eleve") && (ytmp>y-visibilite && ytmp>0)) {
+			while(!(c.getContent() instanceof Eleve) && (ytmp>y-visibilite && ytmp>0)) {
 				ytmp--; 
 				c = Controller.getInstance().getGrille().getCells()[x][ytmp];
 			}
-			if(c.getContent().getClass().getName().equals("Acteur.Eleve")) {
+			if(c.getContent() instanceof Eleve) {
 				dir = Direction.LEFT;
 				System.out.println("elève trouve" + dir);
 				System.out.println(xtmp + "  " + ytmp);
@@ -174,11 +174,11 @@ public class EleveTurbulent extends Eleve {
 			c = Controller.getInstance().getGrille().getCells()[x][y];
 			xtmp = x;
 			ytmp = y;
-			while(!c.getContent().getClass().getName().equals("Acteur.Eleve") && (ytmp<y+visibilite && ytmp < Constant.getMapWidth()-1)) {
+			while(!(c.getContent() instanceof Eleve) && (ytmp<y+visibilite && ytmp < Constant.getMapWidth()-1)) {
 				ytmp++; 
 				c = Controller.getInstance().getGrille().getCells()[x][ytmp];
 			}
-			if(c.getContent().getClass().getName().equals("Acteur.Eleve")) {
+			if(c.getContent() instanceof Eleve) {
 				dir = Direction.RIGHT;
 				System.out.println("elève trouve" + dir);
 				ok = true;

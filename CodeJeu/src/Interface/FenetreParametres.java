@@ -37,16 +37,26 @@ import Systeme.*;
 public class FenetreParametres extends JFrame {
 	private static final long serialVersionUID = 1L;
 	
+	private static FenetreParametres INSTANCE;
+	public static FenetreParametres getInstance() 
+	{
+		if(INSTANCE == null) 
+		{
+			INSTANCE = new FenetreParametres();
+			
+		}
+		return INSTANCE;
+	}
 	/**
 	 * Constructeur de fenetre ihm permettant de lancer l'ihm
 	 */
 
 	public FenetreParametres() {
 		Controller.getInstance().setGameInited(false);
-		setBounds(100,100, 750,200);
+		setBounds(100,100, 800,480);
 		setTitle("La cour de recreation");
 		Panel panneau= new Panel();
-		panneau.setBackground(Color.WHITE);
+		panneau.setBackground(Color.ORANGE);
 		panneau.setPreferredSize(new Dimension(500, 80));
 		add(panneau, BorderLayout.NORTH);
 		Panel_Parameters pann_param = new Panel_Parameters();
@@ -68,25 +78,25 @@ public class FenetreParametres extends JFrame {
 			g2.setColor(Color.BLACK);
 			Font f = new Font("Calibri", Font.BOLD, 14);
 			g2.setFont(f);
-	
 			FontMetrics fm = g.getFontMetrics();
 			int hauteur = fm.getHeight()-20;
-			g2.drawString("Entrez le nombre d'elèves (max 40) d'elèves turbulents (max 10) et de professeurs (max 10)", 10, 20+hauteur);
-			g2.setColor(Color.red);
-			f = new Font("Courier", Font.BOLD, 15);
-			g2.setFont(f);
+			g2.drawString("Attention ! nombre d'élèves maximum est de 60 et le nombre de professeurs maximum est de 20", 10, 20+hauteur);
 			
 			Image profimg;
-			Image enfantimg;
+			Image enfantimg1;
 			Image enfantimg2;
+		
 			
 			try {
+				
+				enfantimg1 = ImageIO.read(getClass().getResource(Constant.getPathEnfantParam1()));
+				enfantimg2 = ImageIO.read(getClass().getResource(Constant.getPathEnfantParam2()));
 				profimg = ImageIO.read(getClass().getResource(Constant.getPathProf()));
-				enfantimg = ImageIO.read(getClass().getResource(Constant.getPathEnfantParam()));
-				enfantimg2 = ImageIO.read(getClass().getResource(Constant.getPathEnfantParam()));
+				
+				
 				
 				g2.drawImage(profimg,300,20,Controller.getInstance().getMap());
-				g2.drawImage(enfantimg,100,20,Controller.getInstance().getMap());
+				g2.drawImage(enfantimg1,100,20,Controller.getInstance().getMap());
 				g2.drawImage(enfantimg2,530,20,Controller.getInstance().getMap());
 				
 			} catch (IOException e) {
@@ -111,23 +121,29 @@ public class FenetreParametres extends JFrame {
 		private JLabel prof_label;
 		private JLabel eleveturbu_label;
 
+	
 		private JButton lancer;
 
+	
+		
 		public Panel_Parameters() {
-			//GridLayout gl = new GridLayout(4,2);
+			
 			FlowLayout gl = new FlowLayout();
 			this.setLayout(gl);
-			//gl.setHgap(100);
-			//gl.setVgap(100);
+		
 
 			eleve_label = new JLabel("Nombre d'elèves :");
 			prof_label = new JLabel("Nombre de professeurs :");
 			eleveturbu_label = new JLabel("Nombre d'elèves turbulents : ");
+			
+			
+			
 
 			nb_eleves = new JTextField(3);
 			nb_profs= new JTextField(3);
 			nb_elevesturbu = new JTextField(3);
-
+		
+			
 			add(eleve_label);
 			add(nb_eleves);
 			add(prof_label);
@@ -138,10 +154,38 @@ public class FenetreParametres extends JFrame {
 			
 
 			lancer = new JButton("Lancer la partie");
-
+			 lancer.setBackground(Color.cyan);
+			 lancer.setForeground(Color.black);
+			 lancer.setFocusPainted(true);
+			 lancer.setFont(new Font("Tahoma", Font.BOLD, 12));
+			 
 			add(lancer, BorderLayout.CENTER);
 			StartAction startAct = new StartAction();
 			lancer.addActionListener(startAct);
+			
+			
+			
+		}
+		
+		public void paintComponent(Graphics g) {
+			super.paintComponent(g);
+			Graphics2D g2 = (Graphics2D)g;
+		
+		
+			Image ecole;
+			
+			try {
+				ecole = ImageIO.read(getClass().getResource(Constant.getPathBus()));
+				
+				
+				g2.drawImage(ecole,100,60,Controller.getInstance().getMap());
+			
+				
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 		}
 
 		private class StartAction implements ActionListener {
@@ -156,25 +200,32 @@ public class FenetreParametres extends JFrame {
 				Integer elevest_param = Controller.getInstance().unsigned(elevet_param_str );
 
 				Integer sumActors = eleves_param + profs_param  + elevest_param ;
-
+				Integer sumEleves= eleves_param + elevest_param ;
 				Controller.getInstance().setIhm(true);
 				if(eleves_param != -1 && 
 						profs_param!= -1 && 
 						elevest_param  != -1 && 
+						sumEleves <= 60 &&
+						profs_param <= 20 
+						&&
 						sumActors <= Constant.getMapWidth() * Constant.getMapHeight()) {
 					try {
-						Controller.getInstance().setNbProf(profs_param);
-						Controller.getInstance().setNbEleves(eleves_param);
-						Controller.getInstance().setNbElevesT(elevest_param);
-						Controller.getInstance().init(true);
-						Controller.getInstance().setGameInited(true);
-						Controller.getInstance().setGameStarted(false);
+						
+							Controller.getInstance().setNbProf(profs_param);
+							Controller.getInstance().setNbEleves(eleves_param);
+							Controller.getInstance().setNbElevesT(elevest_param);
+							Controller.getInstance().init(true);
+							Controller.getInstance().setGameInited(true);
+							Controller.getInstance().setGameStarted(false);
+						
+						
+						
 						
 					} catch (IOException e) {
 						e.printStackTrace();
 					}		
 				} else {
-					new Fenetre(20,20);
+					new FenetrePopup();
 				}
 			}	
 		}

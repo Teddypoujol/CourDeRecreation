@@ -35,17 +35,32 @@ public class Constant
 	private static String pathCour= "/ressources/cour.png";	
 	private static String pathProf= "/ressources/prof.png";	
 	private static String pathCoeur= "/ressources/coeur2.png";	
-	
+	private static String pathJeuxTerrain = "/ressources/JeuxTerrain.png";
 	private static String pathProf2= "/ressources/college-professor.jpg";
-	private static String pathEnfantParam = "/ressources/fille.png";
-	private static String pathEnfantParam2 = "/ressources/garcon.png";
+	private static String pathEnfantParam1 = "/ressources/filleparam.png";
+	private static String pathEnfantParam2 = "/ressources/garsparam.png";
+	private static String pathEcole = "/ressources/ecole.png";
+	private static String pathBus = "/ressources/bus.png";
+	private static String pathErreur = "/ressources/erreur.png";
 	
 	public static String getPathCoeur() {
 		return pathCoeur;
 	}
 	
-	public static String getPathEnfantParam() {
-		return pathEnfantParam;
+	public static String getPathErreur() {
+		return pathErreur;
+	}
+	
+	
+	public static String getPathBus() {
+		return pathBus;
+	}
+	
+	public static String getPathEcole() {
+		return pathEcole;
+	}
+	public static String getPathEnfantParam1() {
+		return pathEnfantParam1;
 	}
 	
 	public static String getPathEnfantParam2() {
@@ -56,7 +71,10 @@ public class Constant
 		return pathEnfants;
 	}
 	
-
+	public static String getPathJeuxTerrain()
+	{
+		return pathJeuxTerrain;
+	}
 	
 	public static String getPathCour() {
 		return pathCour;
